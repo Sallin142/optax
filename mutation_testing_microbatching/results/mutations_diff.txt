@@ -1,0 +1,1348 @@
+# Mutation Testing Diff File
+# Target: optax/experimental/microbatching.py
+# Generated: 2026-01-26 20:46:02
+# Total Mutations: 122
+================================================================================
+
+Mutation #0 - SDL: Statement Deletion: removed raise statement
+File: optax/experimental/microbatching.py
+Line: 74
+Status: killed
+
+--- original
++++ mutated
+@@ -74,1 +74,1 @@
+-      raise ValueError(
++      pass  # SDL: deleted raise statement
+
+Mutation #1 - UOI: Unary Operator Insertion: not wrapper
+File: optax/experimental/microbatching.py
+Line: 78
+Status: killed
+
+--- original
++++ mutated
+@@ -78,1 +78,1 @@
+-  return wrapper
++  return not wrapper
+
+Mutation #2 - UOI: Unary Operator Insertion: not value
+File: optax/experimental/microbatching.py
+Line: 82
+Status: killed
+
+--- original
++++ mutated
+@@ -82,1 +82,1 @@
+-  return value
++  return not value
+
+Mutation #3 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 85
+Status: survived
+
+--- original
++++ mutated
+@@ -85,1 +85,1 @@
+-def reshape_batch_axis(tree: Any, microbatch_size: int, axis: int = 0) -> Any:
++def reshape_batch_axis(tree: Any, microbatch_size: int, axis: int = 1) -> Any:
+
+Mutation #4 - AOR: Arithmetic Operator Replacement: + to -
+File: optax/experimental/microbatching.py
+Line: 103
+Status: killed
+
+--- original
++++ mutated
+@@ -103,1 +103,1 @@
+-    new_shape = x.shape[:axis] + (-1, microbatch_size) + x.shape[axis + 1:]
++    new_shape = x.shape[:axis] - (-1, microbatch_size) + x.shape[axis + 1:]
+
+Mutation #5 - AOR: Arithmetic Operator Replacement: + to -
+File: optax/experimental/microbatching.py
+Line: 103
+Status: killed
+
+--- original
++++ mutated
+@@ -103,1 +103,1 @@
+-    new_shape = x.shape[:axis] + (-1, microbatch_size) + x.shape[axis + 1:]
++    new_shape = x.shape[:axis] + (-1, microbatch_size) - x.shape[axis + 1:]
+
+Mutation #6 - AOR: Arithmetic Operator Replacement: + to -
+File: optax/experimental/microbatching.py
+Line: 103
+Status: killed
+
+--- original
++++ mutated
+@@ -103,1 +103,1 @@
+-    new_shape = x.shape[:axis] + (-1, microbatch_size) + x.shape[axis + 1:]
++    new_shape = x.shape[:axis] + (-1, microbatch_size) + x.shape[axis - 1:]
+
+Mutation #7 - CRP: Constant Replacement: 1 to 2
+File: optax/experimental/microbatching.py
+Line: 103
+Status: killed
+
+--- original
++++ mutated
+@@ -103,1 +103,1 @@
+-    new_shape = x.shape[:axis] + (-1, microbatch_size) + x.shape[axis + 1:]
++    new_shape = x.shape[:axis] + (-2, microbatch_size) + x.shape[axis + 1:]
+
+Mutation #8 - CRP: Constant Replacement: 1 to 2
+File: optax/experimental/microbatching.py
+Line: 103
+Status: killed
+
+--- original
++++ mutated
+@@ -103,1 +103,1 @@
+-    new_shape = x.shape[:axis] + (-1, microbatch_size) + x.shape[axis + 1:]
++    new_shape = x.shape[:axis] + (-1, microbatch_size) + x.shape[axis + 2:]
+
+Mutation #9 - ROR: Relational Operator Replacement: < to <=
+File: optax/experimental/microbatching.py
+Line: 104
+Status: survived
+
+--- original
++++ mutated
+@@ -104,1 +104,1 @@
+-    if jax.__version__ < '0.7.0':
++    if jax.__version__ <= '0.7.0':
+
+Mutation #10 - CRP: Constant Replacement: 0.7 to 0.7999999999999999
+File: optax/experimental/microbatching.py
+Line: 104
+Status: survived
+
+--- original
++++ mutated
+@@ -104,1 +104,1 @@
+-    if jax.__version__ < '0.7.0':
++    if jax.__version__ < '0.7999999999999999.0':
+
+Mutation #11 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 104
+Status: survived
+
+--- original
++++ mutated
+@@ -104,1 +104,1 @@
+-    if jax.__version__ < '0.7.0':
++    if jax.__version__ < '0.7.1':
+
+Mutation #12 - UOI: Unary Operator Insertion: not x
+File: optax/experimental/microbatching.py
+Line: 105
+Status: survived
+
+--- original
++++ mutated
+@@ -105,1 +105,1 @@
+-      return x.reshape(new_shape, order='F')
++      return not x.reshape(new_shape, order='F')
+
+Mutation #13 - UOI: Unary Operator Insertion: not x
+File: optax/experimental/microbatching.py
+Line: 109
+Status: killed
+
+--- original
++++ mutated
+@@ -109,1 +109,1 @@
+-      return x.reshape(new_shape, order='F')
++      return not x.reshape(new_shape, order='F')
+
+Mutation #14 - ROR: Relational Operator Replacement: >= to >
+File: optax/experimental/microbatching.py
+Line: 111
+Status: survived
+
+--- original
++++ mutated
+@@ -111,1 +111,1 @@
+-    assert jax.__version__ >= '0.8.1', (
++    assert jax.__version__ > '0.8.1', (
+
+Mutation #15 - CRP: Constant Replacement: 0.8 to 0.9
+File: optax/experimental/microbatching.py
+Line: 111
+Status: survived
+
+--- original
++++ mutated
+@@ -111,1 +111,1 @@
+-    assert jax.__version__ >= '0.8.1', (
++    assert jax.__version__ >= '0.9.1', (
+
+Mutation #16 - CRP: Constant Replacement: 1 to 2
+File: optax/experimental/microbatching.py
+Line: 111
+Status: survived
+
+--- original
++++ mutated
+@@ -111,1 +111,1 @@
+-    assert jax.__version__ >= '0.8.1', (
++    assert jax.__version__ >= '0.8.2', (
+
+Mutation #17 - ROR: Relational Operator Replacement: < to <=
+File: optax/experimental/microbatching.py
+Line: 115
+Status: survived
+
+--- original
++++ mutated
+@@ -115,1 +115,1 @@
+-    if len(spec) < axis:  # The batch axis is not sharded.
++    if len(spec) <= axis:  # The batch axis is not sharded.
+
+Mutation #18 - AOR: Arithmetic Operator Replacement: + to -
+File: optax/experimental/microbatching.py
+Line: 118
+Status: survived
+
+--- original
++++ mutated
+@@ -118,1 +118,1 @@
+-      new_spec = jax.P(*spec[:axis], None, spec[axis], *spec[axis + 1:])
++      new_spec = jax.P(*spec[:axis], None, spec[axis], *spec[axis - 1:])
+
+Mutation #19 - CRP: Constant Replacement: 1 to 2
+File: optax/experimental/microbatching.py
+Line: 118
+Status: survived
+
+--- original
++++ mutated
+@@ -118,1 +118,1 @@
+-      new_spec = jax.P(*spec[:axis], None, spec[axis], *spec[axis + 1:])
++      new_spec = jax.P(*spec[:axis], None, spec[axis], *spec[axis + 2:])
+
+Mutation #20 - ROR: Relational Operator Replacement: != to ==
+File: optax/experimental/microbatching.py
+Line: 123
+Status: survived
+
+--- original
++++ mutated
+@@ -123,1 +123,1 @@
+-    if microbatch_size % nshards != 0:
++    if microbatch_size % nshards == 0:
+
+Mutation #21 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 123
+Status: survived
+
+--- original
++++ mutated
+@@ -123,1 +123,1 @@
+-    if microbatch_size % nshards != 0:
++    if microbatch_size % nshards != 1:
+
+Mutation #22 - SDL: Statement Deletion: removed raise statement
+File: optax/experimental/microbatching.py
+Line: 124
+Status: survived
+
+--- original
++++ mutated
+@@ -124,1 +124,1 @@
+-      raise ValueError(f'{nshards=} must evenly divide {microbatch_size=}.')
++      pass  # SDL: deleted raise statement
+
+Mutation #23 - UOI: Unary Operator Insertion: not x
+File: optax/experimental/microbatching.py
+Line: 126
+Status: survived
+
+--- original
++++ mutated
+@@ -126,1 +126,1 @@
+-    return x.reshape(new_shape, order='F', out_sharding=out_sharding)
++    return not x.reshape(new_shape, order='F', out_sharding=out_sharding)
+
+Mutation #24 - UOI: Unary Operator Insertion: not jax
+File: optax/experimental/microbatching.py
+Line: 128
+Status: killed
+
+--- original
++++ mutated
+@@ -128,1 +128,1 @@
+-  return jax.tree.map(reshape_leaf, tree)
++  return not jax.tree.map(reshape_leaf, tree)
+
+Mutation #25 - ASR: Argument Swap: swapped c and v in update()
+File: optax/experimental/microbatching.py
+Line: 136
+Status: killed
+
+--- original
++++ mutated
+@@ -136,1 +136,1 @@
+-          lambda c, v: accumulator.update(c, v, i), carry, value
++          lambda c, v: accumulator.update(v, c, i), carry, value
+
+Mutation #26 - UOI: Unary Operator Insertion: not jax
+File: optax/experimental/microbatching.py
+Line: 147
+Status: killed
+
+--- original
++++ mutated
+@@ -147,1 +147,1 @@
+-    return jax.tree.map(
++    return not jax.tree.map(
+
+Mutation #27 - UOI: Unary Operator Insertion: not jax
+File: optax/experimental/microbatching.py
+Line: 154
+Status: killed
+
+--- original
++++ mutated
+@@ -154,1 +154,1 @@
+-    return jax.tree.map(
++    return not jax.tree.map(
+
+Mutation #28 - ASR: Argument Swap: swapped car and val in update()
+File: optax/experimental/microbatching.py
+Line: 155
+Status: killed
+
+--- original
++++ mutated
+@@ -155,1 +155,1 @@
+-        lambda acc, car, val: acc.update(car, val, index),
++        lambda acc, car, val: acc.update(val, car, index),
+
+Mutation #29 - UOI: Unary Operator Insertion: not jax
+File: optax/experimental/microbatching.py
+Line: 162
+Status: killed
+
+--- original
++++ mutated
+@@ -162,1 +162,1 @@
+-    return jax.tree.map(
++    return not jax.tree.map(
+
+Mutation #30 - UOI: Unary Operator Insertion: not jax
+File: optax/experimental/microbatching.py
+Line: 169
+Status: killed
+
+--- original
++++ mutated
+@@ -169,1 +169,1 @@
+-    return jax.tree.map(
++    return not jax.tree.map(
+
+Mutation #31 - ASR: Argument Swap: swapped init and update in Accumulator()
+File: optax/experimental/microbatching.py
+Line: 173
+Status: killed
+
+--- original
++++ mutated
+@@ -173,1 +173,1 @@
+-  return Accumulator(init, update, finalize, aggregate)
++  return Accumulator(update, init, finalize, aggregate)
+
+Mutation #32 - AOR: Arithmetic Operator Replacement: + to -
+File: optax/experimental/microbatching.py
+Line: 181
+Status: killed
+
+--- original
++++ mutated
+@@ -181,1 +181,1 @@
+-          update=lambda carry, value, _: carry + value,
++          update=lambda carry, value, _: carry - value,
+
+Mutation #33 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 183
+Status: killed
+
+--- original
++++ mutated
+@@ -183,1 +183,1 @@
+-          aggregate=functools.partial(jnp.sum, axis=0),
++          aggregate=functools.partial(jnp.sum, axis=1),
+
+Mutation #34 - ROR: Relational Operator Replacement: <= to <
+File: optax/experimental/microbatching.py
+Line: 190
+Status: survived
+
+--- original
++++ mutated
+@@ -190,1 +190,1 @@
+-  if num_microbatches <= 0:
++  if num_microbatches < 0:
+
+Mutation #35 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 190
+Status: killed
+
+--- original
++++ mutated
+@@ -190,1 +190,1 @@
+-  if num_microbatches <= 0:
++  if num_microbatches <= 1:
+
+Mutation #36 - SDL: Statement Deletion: removed raise statement
+File: optax/experimental/microbatching.py
+Line: 191
+Status: survived
+
+--- original
++++ mutated
+@@ -191,1 +191,1 @@
+-    raise ValueError(f'{num_microbatches=} must be positive.')
++    pass  # SDL: deleted raise statement
+
+Mutation #37 - AOR: Arithmetic Operator Replacement: + to -
+File: optax/experimental/microbatching.py
+Line: 195
+Status: killed
+
+--- original
++++ mutated
+@@ -195,1 +195,1 @@
+-          update=lambda carry, value, _: carry + value,
++          update=lambda carry, value, _: carry - value,
+
+Mutation #38 - AOR: Arithmetic Operator Replacement: / to *
+File: optax/experimental/microbatching.py
+Line: 196
+Status: killed
+
+--- original
++++ mutated
+@@ -196,1 +196,1 @@
+-          finalize=lambda carry: carry / num_microbatches,
++          finalize=lambda carry: carry * num_microbatches,
+
+Mutation #39 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 197
+Status: survived
+
+--- original
++++ mutated
+@@ -197,1 +197,1 @@
+-          aggregate=functools.partial(jnp.mean, axis=0),
++          aggregate=functools.partial(jnp.mean, axis=1),
+
+Mutation #40 - AOR: Arithmetic Operator Replacement: + to -
+File: optax/experimental/microbatching.py
+Line: 205
+Status: survived
+
+--- original
++++ mutated
+@@ -205,1 +205,1 @@
+-    p = index / (index + 1)
++    p = index / (index - 1)
+
+Mutation #41 - AOR: Arithmetic Operator Replacement: / to *
+File: optax/experimental/microbatching.py
+Line: 205
+Status: survived
+
+--- original
++++ mutated
+@@ -205,1 +205,1 @@
+-    p = index / (index + 1)
++    p = index * (index + 1)
+
+Mutation #42 - CRP: Constant Replacement: 1 to 2
+File: optax/experimental/microbatching.py
+Line: 205
+Status: survived
+
+--- original
++++ mutated
+@@ -205,1 +205,1 @@
+-    p = index / (index + 1)
++    p = index / (index + 2)
+
+Mutation #43 - AOR: Arithmetic Operator Replacement: + to -
+File: optax/experimental/microbatching.py
+Line: 206
+Status: survived
+
+--- original
++++ mutated
+@@ -206,1 +206,1 @@
+-    new_state = carry * p + value * (1 - p)
++    new_state = carry * p - value * (1 - p)
+
+Mutation #44 - AOR: Arithmetic Operator Replacement: - to +
+File: optax/experimental/microbatching.py
+Line: 206
+Status: survived
+
+--- original
++++ mutated
+@@ -206,1 +206,1 @@
+-    new_state = carry * p + value * (1 - p)
++    new_state = carry * p + value * (1 + p)
+
+Mutation #45 - AOR: Arithmetic Operator Replacement: * to /
+File: optax/experimental/microbatching.py
+Line: 206
+Status: survived
+
+--- original
++++ mutated
+@@ -206,1 +206,1 @@
+-    new_state = carry * p + value * (1 - p)
++    new_state = carry / p + value * (1 - p)
+
+Mutation #46 - AOR: Arithmetic Operator Replacement: * to /
+File: optax/experimental/microbatching.py
+Line: 206
+Status: survived
+
+--- original
++++ mutated
+@@ -206,1 +206,1 @@
+-    new_state = carry * p + value * (1 - p)
++    new_state = carry * p + value / (1 - p)
+
+Mutation #47 - CRP: Constant Replacement: 1 to 2
+File: optax/experimental/microbatching.py
+Line: 206
+Status: survived
+
+--- original
++++ mutated
+@@ -206,1 +206,1 @@
+-    new_state = carry * p + value * (1 - p)
++    new_state = carry * p + value * (2 - p)
+
+Mutation #48 - UOI: Unary Operator Insertion: not new_state
+File: optax/experimental/microbatching.py
+Line: 207
+Status: killed
+
+--- original
++++ mutated
+@@ -207,1 +207,1 @@
+-    return new_state
++    return not new_state
+
+Mutation #49 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 214
+Status: survived
+
+--- original
++++ mutated
+@@ -214,1 +214,1 @@
+-          aggregate=functools.partial(jnp.mean, axis=0),
++          aggregate=functools.partial(jnp.mean, axis=1),
+
+Mutation #50 - ROR: Relational Operator Replacement: < to <=
+File: optax/experimental/microbatching.py
+Line: 222
+Status: survived
+
+--- original
++++ mutated
+@@ -222,1 +222,1 @@
+-  if jax.__version__ < '0.7.0':
++  if jax.__version__ <= '0.7.0':
+
+Mutation #51 - CRP: Constant Replacement: 0.7 to 0.7999999999999999
+File: optax/experimental/microbatching.py
+Line: 222
+Status: survived
+
+--- original
++++ mutated
+@@ -222,1 +222,1 @@
+-  if jax.__version__ < '0.7.0':
++  if jax.__version__ < '0.7999999999999999.0':
+
+Mutation #52 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 222
+Status: survived
+
+--- original
++++ mutated
+@@ -222,1 +222,1 @@
+-  if jax.__version__ < '0.7.0':
++  if jax.__version__ < '0.7.1':
+
+Mutation #53 - CRP: Constant Replacement: 1 to 2
+File: optax/experimental/microbatching.py
+Line: 228
+Status: survived
+
+--- original
++++ mutated
+@@ -228,1 +228,1 @@
+-      spec = jax.sharding.PartitionSpec(*sharding.spec[1:])
++      spec = jax.sharding.PartitionSpec(*sharding.spec[2:])
+
+Mutation #54 - ROR: Relational Operator Replacement: <= to <
+File: optax/experimental/microbatching.py
+Line: 237
+Status: survived
+
+--- original
++++ mutated
+@@ -237,1 +237,1 @@
+-  if num_microbatches <= 0:
++  if num_microbatches < 0:
+
+Mutation #55 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 237
+Status: killed
+
+--- original
++++ mutated
+@@ -237,1 +237,1 @@
+-  if num_microbatches <= 0:
++  if num_microbatches <= 1:
+
+Mutation #56 - SDL: Statement Deletion: removed raise statement
+File: optax/experimental/microbatching.py
+Line: 238
+Status: survived
+
+--- original
++++ mutated
+@@ -238,1 +238,1 @@
+-    raise ValueError(f'{num_microbatches=} must be positive.')
++    pass  # SDL: deleted raise statement
+
+Mutation #57 - AOR: Arithmetic Operator Replacement: + to -
+File: optax/experimental/microbatching.py
+Line: 241
+Status: killed
+
+--- original
++++ mutated
+@@ -241,1 +241,1 @@
+-    shape = (num_microbatches,) + value.shape
++    shape = (num_microbatches,) - value.shape
+
+Mutation #58 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 243
+Status: killed
+
+--- original
++++ mutated
+@@ -243,1 +243,1 @@
+-    return zeros.at[0].set(value)
++    return zeros.at[1].set(value)
+
+Mutation #59 - UOI: Unary Operator Insertion: not zeros
+File: optax/experimental/microbatching.py
+Line: 243
+Status: killed
+
+--- original
++++ mutated
+@@ -243,1 +243,1 @@
+-    return zeros.at[0].set(value)
++    return not zeros.at[0].set(value)
+
+Mutation #60 - UOI: Unary Operator Insertion: not carry
+File: optax/experimental/microbatching.py
+Line: 246
+Status: killed
+
+--- original
++++ mutated
+@@ -246,1 +246,1 @@
+-    return carry.at[index].set(value)
++    return not carry.at[index].set(value)
+
+Mutation #61 - CRP: Constant Replacement: 1 to 2
+File: optax/experimental/microbatching.py
+Line: 250
+Status: killed
+
+--- original
++++ mutated
+@@ -250,1 +250,1 @@
+-    return carry.reshape(-1, *carry.shape[2:], order='F', **kwargs)
++    return carry.reshape(-2, *carry.shape[2:], order='F', **kwargs)
+
+Mutation #62 - CRP: Constant Replacement: 2 to 3
+File: optax/experimental/microbatching.py
+Line: 250
+Status: killed
+
+--- original
++++ mutated
+@@ -250,1 +250,1 @@
+-    return carry.reshape(-1, *carry.shape[2:], order='F', **kwargs)
++    return carry.reshape(-1, *carry.shape[3:], order='F', **kwargs)
+
+Mutation #63 - UOI: Unary Operator Insertion: not carry
+File: optax/experimental/microbatching.py
+Line: 250
+Status: killed
+
+--- original
++++ mutated
+@@ -250,1 +250,1 @@
+-    return carry.reshape(-1, *carry.shape[2:], order='F', **kwargs)
++    return not carry.reshape(-1, *carry.shape[2:], order='F', **kwargs)
+
+Mutation #64 - ASR: Argument Swap: swapped init and update in Accumulator()
+File: optax/experimental/microbatching.py
+Line: 252
+Status: killed
+
+--- original
++++ mutated
+@@ -252,1 +252,1 @@
+-  return _lift(Accumulator(init, update, finalize, _identity))
++  return _lift(Accumulator(update, init, finalize, _identity))
+
+Mutation #65 - UOI: Unary Operator Insertion: not acc
+File: optax/experimental/microbatching.py
+Line: 278
+Status: survived
+
+--- original
++++ mutated
+@@ -278,1 +278,1 @@
+-      return acc
++      return not acc
+
+Mutation #66 - SDL: Statement Deletion: removed raise statement
+File: optax/experimental/microbatching.py
+Line: 288
+Status: survived
+
+--- original
++++ mutated
+@@ -288,1 +288,1 @@
+-    raise ValueError(f'Unknown accumulator: {acc}')
++    pass  # SDL: deleted raise statement
+
+Mutation #67 - AOR: Arithmetic Operator Replacement: + to -
+File: optax/experimental/microbatching.py
+Line: 304
+Status: killed
+
+--- original
++++ mutated
+@@ -304,1 +304,1 @@
+-  batch_args = [args[i] for i in argnums] + [kwargs[i] for i in argnames]
++  batch_args = [args[i] for i in argnums] - [kwargs[i] for i in argnames]
+
+Mutation #68 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 309
+Status: killed
+
+--- original
++++ mutated
+@@ -309,1 +309,1 @@
+-  ))[0]
++  ))[1]
+
+Mutation #69 - ROR: Relational Operator Replacement: > to >=
+File: optax/experimental/microbatching.py
+Line: 311
+Status: killed
+
+--- original
++++ mutated
+@@ -311,1 +311,1 @@
+-  if len(set(batch_sizes)) > 1:
++  if len(set(batch_sizes)) >= 1:
+
+Mutation #70 - CRP: Constant Replacement: 1 to 2
+File: optax/experimental/microbatching.py
+Line: 311
+Status: survived
+
+--- original
++++ mutated
+@@ -311,1 +311,1 @@
+-  if len(set(batch_sizes)) > 1:
++  if len(set(batch_sizes)) > 2:
+
+Mutation #71 - SDL: Statement Deletion: removed raise statement
+File: optax/experimental/microbatching.py
+Line: 312
+Status: killed
+
+--- original
++++ mutated
+@@ -312,1 +312,1 @@
+-    raise ValueError(
++    pass  # SDL: deleted raise statement
+
+Mutation #72 - AOR: Arithmetic Operator Replacement: - to +
+File: optax/experimental/microbatching.py
+Line: 313
+Status: survived
+
+--- original
++++ mutated
+@@ -313,1 +313,1 @@
+-        f'Batch Arguments must have equal-size batch axes, found {batch_sizes}.'
++        f'Batch Arguments must have equal+size batch axes, found {batch_sizes}.'
+
+Mutation #73 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 316
+Status: killed
+
+--- original
++++ mutated
+@@ -316,1 +316,1 @@
+-  batch_size = list(batch_sizes)[0]
++  batch_size = list(batch_sizes)[1]
+
+Mutation #74 - ROR: Relational Operator Replacement: != to ==
+File: optax/experimental/microbatching.py
+Line: 317
+Status: killed
+
+--- original
++++ mutated
+@@ -317,1 +317,1 @@
+-  if batch_size % microbatch_size != 0:
++  if batch_size % microbatch_size == 0:
+
+Mutation #75 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 317
+Status: killed
+
+--- original
++++ mutated
+@@ -317,1 +317,1 @@
+-  if batch_size % microbatch_size != 0:
++  if batch_size % microbatch_size != 1:
+
+Mutation #76 - SDL: Statement Deletion: removed raise statement
+File: optax/experimental/microbatching.py
+Line: 318
+Status: killed
+
+--- original
++++ mutated
+@@ -318,1 +318,1 @@
+-    raise ValueError(f'{batch_size=} must be divisible by {microbatch_size=}.')
++    pass  # SDL: deleted raise statement
+
+Mutation #77 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 326
+Status: killed
+
+--- original
++++ mutated
+@@ -326,1 +326,1 @@
+-  return tuple(new_args), new_kwargs, tuple(batch_sizes)[0]
++  return tuple(new_args), new_kwargs, tuple(batch_sizes)[1]
+
+Mutation #78 - AOR: Arithmetic Operator Replacement: * to /
+File: optax/experimental/microbatching.py
+Line: 336
+Status: killed
+
+--- original
++++ mutated
+@@ -336,1 +336,1 @@
+-    *,
++    /,
+
+Mutation #79 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 338
+Status: killed
+
+--- original
++++ mutated
+@@ -338,1 +338,1 @@
+-    in_axes: int | Sequence[int] = 0,
++    in_axes: int | Sequence[int] = 1,
+
+Mutation #80 - UOI: Unary Operator Insertion: not fun
+File: optax/experimental/microbatching.py
+Line: 409
+Status: killed
+
+--- original
++++ mutated
+@@ -409,1 +409,1 @@
+-    return fun
++    return not fun
+
+Mutation #81 - AOR: Arithmetic Operator Replacement: + to -
+File: optax/experimental/microbatching.py
+Line: 418
+Status: killed
+
+--- original
++++ mutated
+@@ -418,1 +418,1 @@
+-    in_axes = (in_axes,) * (len(argnums) + len(argnames))
++    in_axes = (in_axes,) * (len(argnums) - len(argnames))
+
+Mutation #82 - AOR: Arithmetic Operator Replacement: * to /
+File: optax/experimental/microbatching.py
+Line: 418
+Status: killed
+
+--- original
++++ mutated
+@@ -418,1 +418,1 @@
+-    in_axes = (in_axes,) * (len(argnums) + len(argnames))
++    in_axes = (in_axes,) / (len(argnums) + len(argnames))
+
+Mutation #83 - ASR: Argument Swap: swapped accumulator and num_microbatches in _canonicalize()
+File: optax/experimental/microbatching.py
+Line: 425
+Status: killed
+
+--- original
++++ mutated
+@@ -425,1 +425,1 @@
+-    accumulator_ = _canonicalize(accumulator, num_microbatches)
++    accumulator_ = _canonicalize(num_microbatches, accumulator)
+
+Mutation #84 - UOI: Unary Operator Insertion: not accumulator_
+File: optax/experimental/microbatching.py
+Line: 441
+Status: killed
+
+--- original
++++ mutated
+@@ -441,1 +441,1 @@
+-      return accumulator_.update(carry, f(index), index)
++      return not accumulator_.update(carry, f(index), index)
+
+Mutation #85 - LCR: Logical Connector Replacement: or to and
+File: optax/experimental/microbatching.py
+Line: 443
+Status: killed
+
+--- original
++++ mutated
+@@ -443,1 +443,1 @@
+-    loop_bound = num_real_microbatches or num_microbatches
++    loop_bound = num_real_microbatches and num_microbatches
+
+Mutation #86 - CRP: Constant Replacement: 1 to 2
+File: optax/experimental/microbatching.py
+Line: 445
+Status: killed
+
+--- original
++++ mutated
+@@ -445,1 +445,1 @@
+-        1, loop_bound, body_fun, accumulator_.init(f(0)),
++        2, loop_bound, body_fun, accumulator_.init(f(0)),
+
+Mutation #87 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 445
+Status: killed
+
+--- original
++++ mutated
+@@ -445,1 +445,1 @@
+-        1, loop_bound, body_fun, accumulator_.init(f(0)),
++        1, loop_bound, body_fun, accumulator_.init(f(1)),
+
+Mutation #88 - UOI: Unary Operator Insertion: not accumulator_
+File: optax/experimental/microbatching.py
+Line: 448
+Status: killed
+
+--- original
++++ mutated
+@@ -448,1 +448,1 @@
+-    return accumulator_.finalize(answer)
++    return not accumulator_.finalize(answer)
+
+Mutation #89 - UOI: Unary Operator Insertion: not microbatched_fun
+File: optax/experimental/microbatching.py
+Line: 450
+Status: killed
+
+--- original
++++ mutated
+@@ -450,1 +450,1 @@
+-  return microbatched_fun
++  return not microbatched_fun
+
+Mutation #90 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 456
+Status: survived
+
+--- original
++++ mutated
+@@ -456,1 +456,1 @@
+-    in_axes: int | Sequence[int] = 0,
++    in_axes: int | Sequence[int] = 1,
+
+Mutation #91 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 457
+Status: killed
+
+--- original
++++ mutated
+@@ -457,1 +457,1 @@
+-    out_axes: Any = 0,
++    out_axes: Any = 1,
+
+Mutation #92 - AOR: Arithmetic Operator Replacement: * to /
+File: optax/experimental/microbatching.py
+Line: 458
+Status: killed
+
+--- original
++++ mutated
+@@ -458,1 +458,1 @@
+-    *,
++    /,
+
+Mutation #93 - ROR: Relational Operator Replacement: != to ==
+File: optax/experimental/microbatching.py
+Line: 503
+Status: killed
+
+--- original
++++ mutated
+@@ -503,1 +503,1 @@
+-  if out_axes != 0:
++  if out_axes == 0:
+
+Mutation #94 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 503
+Status: killed
+
+--- original
++++ mutated
+@@ -503,1 +503,1 @@
+-  if out_axes != 0:
++  if out_axes != 1:
+
+Mutation #95 - ROR: Relational Operator Replacement: != to ==
+File: optax/experimental/microbatching.py
+Line: 504
+Status: survived
+
+--- original
++++ mutated
+@@ -504,1 +504,1 @@
+-    raise NotImplementedError('out_axis != 0 is not currently supported')
++    raise NotImplementedError('out_axis == 0 is not currently supported')
+
+Mutation #96 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 504
+Status: survived
+
+--- original
++++ mutated
+@@ -504,1 +504,1 @@
+-    raise NotImplementedError('out_axis != 0 is not currently supported')
++    raise NotImplementedError('out_axis != 1 is not currently supported')
+
+Mutation #97 - SDL: Statement Deletion: removed raise statement
+File: optax/experimental/microbatching.py
+Line: 504
+Status: survived
+
+--- original
++++ mutated
+@@ -504,1 +504,1 @@
+-    raise NotImplementedError('out_axis != 0 is not currently supported')
++    pass  # SDL: deleted raise statement
+
+Mutation #98 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 511
+Status: killed
+
+--- original
++++ mutated
+@@ -511,1 +511,1 @@
+-    microbatch_size_ = jax.tree.leaves(output)[0].shape[0]
++    microbatch_size_ = jax.tree.leaves(output)[1].shape[0]
+
+Mutation #99 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 511
+Status: killed
+
+--- original
++++ mutated
+@@ -511,1 +511,1 @@
+-    microbatch_size_ = jax.tree.leaves(output)[0].shape[0]
++    microbatch_size_ = jax.tree.leaves(output)[0].shape[1]
+
+Mutation #100 - ASR: Argument Swap: swapped accumulator and microbatch_size_ in _canonicalize()
+File: optax/experimental/microbatching.py
+Line: 515
+Status: killed
+
+--- original
++++ mutated
+@@ -515,1 +515,1 @@
+-    temporary_accumulator = _canonicalize(accumulator, microbatch_size_)
++    temporary_accumulator = _canonicalize(microbatch_size_, accumulator)
+
+Mutation #101 - UOI: Unary Operator Insertion: not temporary_accumulator
+File: optax/experimental/microbatching.py
+Line: 516
+Status: killed
+
+--- original
++++ mutated
+@@ -516,1 +516,1 @@
+-    return temporary_accumulator.aggregate(output)
++    return not temporary_accumulator.aggregate(output)
+
+Mutation #102 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 520
+Status: killed
+
+--- original
++++ mutated
+@@ -520,1 +520,1 @@
+-      argnums=tuple(x[0] for x in enumerate(in_axes) if x[1] is not None),
++      argnums=tuple(x[1] for x in enumerate(in_axes) if x[1] is not None),
+
+Mutation #103 - CRP: Constant Replacement: 1 to 2
+File: optax/experimental/microbatching.py
+Line: 520
+Status: killed
+
+--- original
++++ mutated
+@@ -520,1 +520,1 @@
+-      argnums=tuple(x[0] for x in enumerate(in_axes) if x[1] is not None),
++      argnums=tuple(x[0] for x in enumerate(in_axes) if x[2] is not None),
+
+Mutation #104 - UOI: Unary Operator Insertion: not fun
+File: optax/experimental/microbatching.py
+Line: 529
+Status: survived
+
+--- original
++++ mutated
+@@ -529,1 +529,1 @@
+-    return fun
++    return not fun
+
+Mutation #105 - UOI: Unary Operator Insertion: not lambda
+File: optax/experimental/microbatching.py
+Line: 531
+Status: killed
+
+--- original
++++ mutated
+@@ -531,1 +531,1 @@
+-    return lambda *args, **kwargs: (fun(*args, **kwargs), None)
++    return not lambda *args, **kwargs: (fun(*args, **kwargs), None)
+
+Mutation #106 - CRP: Constant Replacement: 1 to 2
+File: optax/experimental/microbatching.py
+Line: 542
+Status: killed
+
+--- original
++++ mutated
+@@ -542,1 +542,1 @@
+-          lambda x: jnp.expand_dims(x, axis=1), args[i]
++          lambda x: jnp.expand_dims(x, axis=2), args[i]
+
+Mutation #107 - UOI: Unary Operator Insertion: not wrapped_fun
+File: optax/experimental/microbatching.py
+Line: 546
+Status: killed
+
+--- original
++++ mutated
+@@ -546,1 +546,1 @@
+-  return wrapped_fun
++  return not wrapped_fun
+
+Mutation #108 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 552
+Status: survived
+
+--- original
++++ mutated
+@@ -552,1 +552,1 @@
+-    argnums: int | Sequence[int] = 0,
++    argnums: int | Sequence[int] = 1,
+
+Mutation #109 - AOR: Arithmetic Operator Replacement: * to /
+File: optax/experimental/microbatching.py
+Line: 553
+Status: killed
+
+--- original
++++ mutated
+@@ -553,1 +553,1 @@
+-    *,
++    /,
+
+Mutation #110 - CRP: Constant Replacement: 1 to 2
+File: optax/experimental/microbatching.py
+Line: 554
+Status: survived
+
+--- original
++++ mutated
+@@ -554,1 +554,1 @@
+-    batch_argnums: int | Sequence[int] = 1,
++    batch_argnums: int | Sequence[int] = 2,
+
+Mutation #111 - ASR: Argument Swap: swapped fun and has_aux in _normalize_fun_to_return_aux()
+File: optax/experimental/microbatching.py
+Line: 632
+Status: killed
+
+--- original
++++ mutated
+@@ -632,1 +632,1 @@
+-  fun = _normalize_fun_to_return_aux(fun, has_aux)
++  fun = _normalize_has_aux_to_return_aux(has_aux, fun)
+
+Mutation #112 - ASR: Argument Swap: swapped fun and argnums in value_and_grad()
+File: optax/experimental/microbatching.py
+Line: 633
+Status: killed
+
+--- original
++++ mutated
+@@ -633,1 +633,1 @@
+-  value_and_grad_fn = jax.value_and_grad(fun, argnums, has_aux=True)
++  value_and_grad_fn = jax.value_and_grad(argnums, fun, has_aux=True)
+
+Mutation #113 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 639
+Status: killed
+
+--- original
++++ mutated
+@@ -639,1 +639,1 @@
+-        values=value_and_aux[0],
++        values=value_and_aux[1],
+
+Mutation #114 - CRP: Constant Replacement: 1 to 2
+File: optax/experimental/microbatching.py
+Line: 641
+Status: killed
+
+--- original
++++ mutated
+@@ -641,1 +641,1 @@
+-        aux=value_and_aux[1],
++        aux=value_and_aux[2],
+
+Mutation #115 - UOI: Unary Operator Insertion: not result
+File: optax/experimental/microbatching.py
+Line: 643
+Status: killed
+
+--- original
++++ mutated
+@@ -643,1 +643,1 @@
+-    return result, aux
++    return not result, aux
+
+Mutation #116 - AOR: Arithmetic Operator Replacement: + to -
+File: optax/experimental/microbatching.py
+Line: 645
+Status: killed
+
+--- original
++++ mutated
+@@ -645,1 +645,1 @@
+-  in_axes = [None] * (max(batch_argnums) + 1)
++  in_axes = [None] * (max(batch_argnums) - 1)
+
+Mutation #117 - AOR: Arithmetic Operator Replacement: * to /
+File: optax/experimental/microbatching.py
+Line: 645
+Status: killed
+
+--- original
++++ mutated
+@@ -645,1 +645,1 @@
+-  in_axes = [None] * (max(batch_argnums) + 1)
++  in_axes = [None] / (max(batch_argnums) + 1)
+
+Mutation #118 - CRP: Constant Replacement: 1 to 2
+File: optax/experimental/microbatching.py
+Line: 645
+Status: killed
+
+--- original
++++ mutated
+@@ -645,1 +645,1 @@
+-  in_axes = [None] * (max(batch_argnums) + 1)
++  in_axes = [None] * (max(batch_argnums) + 2)
+
+Mutation #119 - CRP: Constant Replacement: 0 to 1
+File: optax/experimental/microbatching.py
+Line: 647
+Status: killed
+
+--- original
++++ mutated
+@@ -647,1 +647,1 @@
+-    in_axes[i] = 0
++    in_axes[i] = 1
+
+Mutation #120 - ASR: Argument Swap: swapped micro_fun and batch_argnums in _with_extra_batch_axis()
+File: optax/experimental/microbatching.py
+Line: 655
+Status: killed
+
+--- original
++++ mutated
+@@ -655,1 +655,1 @@
+-    micro_fun = _with_extra_batch_axis(micro_fun, batch_argnums)
++    micro_fun = _with_extra_batch_axis(batch_argnums, micro_fun)
+
+Mutation #121 - UOI: Unary Operator Insertion: not micro_fun
+File: optax/experimental/microbatching.py
+Line: 656
+Status: killed
+
+--- original
++++ mutated
+@@ -656,1 +656,1 @@
+-  return micro_fun
++  return not micro_fun
+
