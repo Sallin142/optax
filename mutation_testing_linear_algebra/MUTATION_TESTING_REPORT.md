@@ -1,6 +1,6 @@
 # Mutation Testing Report: Optax Linear Algebra
 
-**Date:** January 26, 2026
+**Date:** January 28, 2026
 
 **Target File:** optax/_src/linear_algebra.py
 
@@ -24,7 +24,7 @@
 - **Test Framework:** pytest
 - **Build Time:** N/A (interpreted Python)
 - **Test Suite Execution Time:** ~13 seconds for linear_algebra_test.py
-- **Mutation Testing Time:** 0.3 seconds (~0.0 minutes)
+- **Mutation Testing Time:** 773.6 seconds (~12.9 minutes)
 
 ---
 
@@ -102,13 +102,13 @@ Replaces logical operators:
 ## 5. Overall Test Suite Effectiveness
 
 - **Total Mutants:** 108
-- **Killed Mutants:** 108
-- **Survived Mutants:** 0
+- **Killed Mutants:** 43
+- **Survived Mutants:** 65
 - **Errors/Timeouts:** 0
-- **Mutation Score:** 100.00%
+- **Mutation Score:** 39.81%
 
-**Interpretation:** The test suite successfully detects 100.00% of seeded faults, 
-indicating good test coverage and fault detection capability.
+**Interpretation:** The test suite successfully detects 39.81% of seeded faults, 
+indicating weak test coverage and fault detection capability.
 
 ---
 
@@ -119,24 +119,444 @@ Mutation testing results broken down by individual linear algebra functions:
 | Routine | Total Mutants | Killed | Survived | Effectiveness |
 |---------|---------------|--------|----------|---------------|
 | `_normalize_tree` | 2 | 2 | 0 | 100.0% |
-| `_power_iteration_cond_fun` | 3 | 3 | 0 | 100.0% |
-| `get_spectral_radius_upper_bound` | 4 | 4 | 0 | 100.0% |
-| `matrix_inverse_pth_root` | 53 | 53 | 0 | 100.0% |
-| `nnls` | 35 | 35 | 0 | 100.0% |
-| `power_iteration` | 11 | 11 | 0 | 100.0% |
+| `_power_iteration_cond_fun` | 3 | 1 | 2 | 33.3% |
+| `get_spectral_radius_upper_bound` | 4 | 2 | 2 | 50.0% |
+| `matrix_inverse_pth_root` | 53 | 15 | 38 | 28.3% |
+| `nnls` | 35 | 22 | 13 | 62.9% |
+| `power_iteration` | 11 | 1 | 10 | 9.1% |
 
 ### Key Observations:
 - **Best Tested Routine:** `_normalize_tree` (100.0% effectiveness)
-- **Worst Tested Routine:** `_normalize_tree` (100.0% effectiveness)
+- **Worst Tested Routine:** `power_iteration` (9.1% effectiveness)
 
 ---
 
 ## 7. Analysis of Survived Mutants
 
-Of the 0 survived mutants, 0 were analyzed in detail:
+Of the 65 survived mutants, 20 were analyzed in detail:
 
 - **Potentially Equivalent Mutants:** 0
-- **Require Additional Tests:** 0
+- **Require Additional Tests:** 20
+
+### 7.1 Mutant #3 - ROR
+**Location:** Line 58
+**Operator:** Relational Operator Replacement: < to <=
+
+**Original Code:**
+```python
+converged = jnp.abs(residual_norm / eig) < error_tolerance
+```
+
+**Mutated Code:**
+```python
+converged = jnp.abs(residual_norm / eig) <= error_tolerance
+```
+
+**Analysis:** ✗ Non-Equivalent - Test Coverage Gap
+
+**Reason:** Mutation changes program behavior but no test detected the change
+
+**Suggested Test:**
+Add test case covering line 58 with assertions validating the specific computation
+
+### 7.2 Mutant #4 - ROR
+**Location:** Line 59
+**Operator:** Relational Operator Replacement: < to <=
+
+**Original Code:**
+```python
+return ~converged & (iter_num < num_iters)
+```
+
+**Mutated Code:**
+```python
+return ~converged & (iter_num <= num_iters)
+```
+
+**Analysis:** ✗ Non-Equivalent - Test Coverage Gap
+
+**Reason:** Mutation changes program behavior but no test detected the change
+
+**Suggested Test:**
+Add test case covering line 59 with assertions validating the specific computation
+
+### 7.3 Mutant #6 - CRP
+**Location:** Line 67
+**Operator:** Constant Replacement: 100 to 101
+
+**Original Code:**
+```python
+num_iters: jax.typing.ArrayLike = 100,
+```
+
+**Mutated Code:**
+```python
+num_iters: jax.typing.ArrayLike = 101,
+```
+
+**Analysis:** ✗ Non-Equivalent - Test Coverage Gap
+
+**Reason:** Mutation changes program behavior but no test detected the change
+
+**Suggested Test:**
+Add test case covering line 67 with assertions validating the specific computation
+
+### 7.4 Mutant #7 - CRP
+**Location:** Line 68
+**Operator:** Constant Replacement: 6 to 7
+
+**Original Code:**
+```python
+error_tolerance: jax.typing.ArrayLike = 1e-6,
+```
+
+**Mutated Code:**
+```python
+error_tolerance: jax.typing.ArrayLike = 1e-7,
+```
+
+**Analysis:** ✗ Non-Equivalent - Test Coverage Gap
+
+**Reason:** Mutation changes program behavior but no test detected the change
+
+**Suggested Test:**
+Add test case covering line 68 with assertions validating the specific computation
+
+### 7.5 Mutant #8 - CRP
+**Location:** Line 123
+**Operator:** Constant Replacement: 0 to 1
+
+**Original Code:**
+```python
+key = jax.random.PRNGKey(0)
+```
+
+**Mutated Code:**
+```python
+key = jax.random.PRNGKey(1)
+```
+
+**Analysis:** ✗ Non-Equivalent - Test Coverage Gap
+
+**Reason:** Mutation changes program behavior but no test detected the change
+
+**Suggested Test:**
+Add test case covering line 123 with assertions validating the specific computation
+
+### 7.6 Mutant #9 - CRP
+**Location:** Line 127
+**Operator:** Constant Replacement: 1 to 2
+
+**Original Code:**
+```python
+shape=matrix.shape[-1:],
+```
+
+**Mutated Code:**
+```python
+shape=matrix.shape[-2:],
+```
+
+**Analysis:** ✗ Non-Equivalent - Test Coverage Gap
+
+**Reason:** Mutation changes program behavior but no test detected the change
+
+**Suggested Test:**
+Add test case covering line 127 with assertions validating the specific computation
+
+### 7.7 Mutant #10 - CRP
+**Location:** Line 129
+**Operator:** Constant Replacement: 1.0 to 1.1
+
+**Original Code:**
+```python
+minval=-1.0,
+```
+
+**Mutated Code:**
+```python
+minval=-1.1,
+```
+
+**Analysis:** ✗ Non-Equivalent - Test Coverage Gap
+
+**Reason:** Mutation changes program behavior but no test detected the change
+
+**Suggested Test:**
+Add test case covering line 129 with assertions validating the specific computation
+
+### 7.8 Mutant #11 - CRP
+**Location:** Line 130
+**Operator:** Constant Replacement: 1.0 to 1.1
+
+**Original Code:**
+```python
+maxval=1.0,
+```
+
+**Mutated Code:**
+```python
+maxval=1.1,
+```
+
+**Analysis:** ✗ Non-Equivalent - Test Coverage Gap
+
+**Reason:** Mutation changes program behavior but no test detected the change
+
+**Suggested Test:**
+Add test case covering line 130 with assertions validating the specific computation
+
+### 7.9 Mutant #12 - AOR
+**Location:** Line 146
+**Operator:** Arithmetic Operator Replacement: + to -
+
+**Original Code:**
+```python
+return eigvec, z, eig, iter_num + 1
+```
+
+**Mutated Code:**
+```python
+return eigvec, z, eig, iter_num - 1
+```
+
+**Analysis:** ✗ Non-Equivalent - Test Coverage Gap
+
+**Reason:** Arithmetic operator change affects calculation
+
+**Suggested Test:**
+Add test with specific values that would produce different results
+
+### 7.10 Mutant #13 - CRP
+**Location:** Line 146
+**Operator:** Constant Replacement: 1 to 2
+
+**Original Code:**
+```python
+return eigvec, z, eig, iter_num + 1
+```
+
+**Mutated Code:**
+```python
+return eigvec, z, eig, iter_num + 2
+```
+
+**Analysis:** ✗ Non-Equivalent - Test Coverage Gap
+
+**Reason:** Mutation changes program behavior but no test detected the change
+
+**Suggested Test:**
+Add test case covering line 146 with assertions validating the specific computation
+
+### 7.11 Mutant #14 - CRP
+**Location:** Line 148
+**Operator:** Constant Replacement: 0.0 to 0.1
+
+**Original Code:**
+```python
+init_vars = (v0, mvp(v0), jnp.asarray(0.0), jnp.asarray(0))
+```
+
+**Mutated Code:**
+```python
+init_vars = (v0, mvp(v0), jnp.asarray(0.1), jnp.asarray(0))
+```
+
+**Analysis:** ✗ Non-Equivalent - Test Coverage Gap
+
+**Reason:** Mutation changes program behavior but no test detected the change
+
+**Suggested Test:**
+Add test case covering line 148 with assertions validating the specific computation
+
+### 7.12 Mutant #15 - CRP
+**Location:** Line 148
+**Operator:** Constant Replacement: 0 to 1
+
+**Original Code:**
+```python
+init_vars = (v0, mvp(v0), jnp.asarray(0.0), jnp.asarray(0))
+```
+
+**Mutated Code:**
+```python
+init_vars = (v0, mvp(v0), jnp.asarray(0.0), jnp.asarray(1))
+```
+
+**Analysis:** ✗ Non-Equivalent - Test Coverage Gap
+
+**Reason:** Mutation changes program behavior but no test detected the change
+
+**Suggested Test:**
+Add test case covering line 148 with assertions validating the specific computation
+
+### 7.13 Mutant #16 - CRP
+**Location:** Line 159
+**Operator:** Constant Replacement: 100 to 101
+
+**Original Code:**
+```python
+num_iters: jax.typing.ArrayLike = 100,
+```
+
+**Mutated Code:**
+```python
+num_iters: jax.typing.ArrayLike = 101,
+```
+
+**Analysis:** ✗ Non-Equivalent - Test Coverage Gap
+
+**Reason:** Mutation changes program behavior but no test detected the change
+
+**Suggested Test:**
+Add test case covering line 159 with assertions validating the specific computation
+
+### 7.14 Mutant #17 - CRP
+**Location:** Line 160
+**Operator:** Constant Replacement: 6 to 7
+
+**Original Code:**
+```python
+ridge_epsilon: jax.typing.ArrayLike = 1e-6,
+```
+
+**Mutated Code:**
+```python
+ridge_epsilon: jax.typing.ArrayLike = 1e-7,
+```
+
+**Analysis:** ✗ Non-Equivalent - Test Coverage Gap
+
+**Reason:** Mutation changes program behavior but no test detected the change
+
+**Suggested Test:**
+Add test case covering line 160 with assertions validating the specific computation
+
+### 7.15 Mutant #18 - CRP
+**Location:** Line 161
+**Operator:** Constant Replacement: 6 to 7
+
+**Original Code:**
+```python
+error_tolerance: jax.typing.ArrayLike = 1e-6,
+```
+
+**Mutated Code:**
+```python
+error_tolerance: jax.typing.ArrayLike = 1e-7,
+```
+
+**Analysis:** ✗ Non-Equivalent - Test Coverage Gap
+
+**Reason:** Mutation changes program behavior but no test detected the change
+
+**Suggested Test:**
+Add test case covering line 161 with assertions validating the specific computation
+
+### 7.16 Mutant #19 - CRP
+**Location:** Line 191
+**Operator:** Constant Replacement: 0 to 1
+
+**Original Code:**
+```python
+matrix_size = matrix.shape[0]
+```
+
+**Mutated Code:**
+```python
+matrix_size = matrix.shape[1]
+```
+
+**Analysis:** ✗ Non-Equivalent - Test Coverage Gap
+
+**Reason:** Mutation changes program behavior but no test detected the change
+
+**Suggested Test:**
+Add test case covering line 191 with assertions validating the specific computation
+
+### 7.17 Mutant #21 - CRP
+**Location:** Line 192
+**Operator:** Constant Replacement: 1.0 to 1.1
+
+**Original Code:**
+```python
+alpha = jnp.asarray(-1.0 / p, jnp.float32)
+```
+
+**Mutated Code:**
+```python
+alpha = jnp.asarray(-1.1 / p, jnp.float32)
+```
+
+**Analysis:** ✗ Non-Equivalent - Test Coverage Gap
+
+**Reason:** Mutation changes program behavior but no test detected the change
+
+**Suggested Test:**
+Add test case covering line 192 with assertions validating the specific computation
+
+### 7.18 Mutant #24 - CRP
+**Location:** Line 195
+**Operator:** Constant Replacement: 100 to 101
+
+**Original Code:**
+```python
+matrix=matrix, num_iters=100, error_tolerance=1e-6, precision=precision
+```
+
+**Mutated Code:**
+```python
+matrix=matrix, num_iters=101, error_tolerance=1e-6, precision=precision
+```
+
+**Analysis:** ✗ Non-Equivalent - Test Coverage Gap
+
+**Reason:** Mutation changes program behavior but no test detected the change
+
+**Suggested Test:**
+Add test case covering line 195 with assertions validating the specific computation
+
+### 7.19 Mutant #25 - CRP
+**Location:** Line 195
+**Operator:** Constant Replacement: 6 to 7
+
+**Original Code:**
+```python
+matrix=matrix, num_iters=100, error_tolerance=1e-6, precision=precision
+```
+
+**Mutated Code:**
+```python
+matrix=matrix, num_iters=100, error_tolerance=1e-7, precision=precision
+```
+
+**Analysis:** ✗ Non-Equivalent - Test Coverage Gap
+
+**Reason:** Mutation changes program behavior but no test detected the change
+
+**Suggested Test:**
+Add test case covering line 195 with assertions validating the specific computation
+
+### 7.20 Mutant #26 - AOR
+**Location:** Line 197
+**Operator:** Arithmetic Operator Replacement: * to /
+
+**Original Code:**
+```python
+ridge_epsilon = ridge_epsilon * jnp.maximum(max_ev, 1e-16)
+```
+
+**Mutated Code:**
+```python
+ridge_epsilon = ridge_epsilon / jnp.maximum(max_ev, 1e-16)
+```
+
+**Analysis:** ✗ Non-Equivalent - Test Coverage Gap
+
+**Reason:** Mutation changes program behavior but no test detected the change
+
+**Suggested Test:**
+Add test case covering line 197 with assertions validating the specific computation
 
 ---
 
@@ -184,7 +604,7 @@ The mutation testing was fully automated using a custom Python script that:
 
 ## 10. Conclusion
 
-The mutation testing study revealed that the Optax linear algebra module has a **100.00% mutation score**, 
+The mutation testing study revealed that the Optax linear algebra module has a **39.81% mutation score**, 
 indicating a strong but improvable test suite. The analysis identified specific areas where test coverage can be enhanced, 
 particularly around boundary conditions and edge cases. The automated mutation testing approach proved effective 
 for systematically evaluating test suite quality and identifying gaps in fault detection capability.
@@ -203,13 +623,13 @@ for systematically evaluating test suite quality and identifying gaps in fault d
 ### 11.2 Mutation Score Formula
 ```
 Mutation Score = (Killed Mutants / Total Mutants) × 100%
-                = (108 / 108) × 100%
-                = 100.00%
+                = (43 / 108) × 100%
+                = 39.81%
 ```
 
 ### 11.3 Adjusted Score (Excluding Estimated Equivalents)
-If we estimate that ~20% of survived mutants (0 mutants) are equivalent:
+If we estimate that ~20% of survived mutants (13 mutants) are equivalent:
 ```
-Adjusted Score = 108 / (108 - 0) × 100%
-               = 100.00%
+Adjusted Score = 43 / (108 - 13) × 100%
+               = 45.26%
 ```
