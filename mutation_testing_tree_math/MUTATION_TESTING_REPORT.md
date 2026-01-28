@@ -23,7 +23,7 @@
 - **Key Dependencies:** JAX, NumPy, Chex
 - **Test Framework:** pytest / absltest
 - **Build Time:** N/A (interpreted Python)
-- **Mutation Testing Time:** 265.8 seconds (~4.4 minutes)
+- **Mutation Testing Time:** 290.0 seconds (~4.8 minutes)
 
 ---
 
@@ -89,24 +89,24 @@ Replaces logical operators:
 
 | Operator | Count | Percentage |
 |----------|-------|------------|
-| AOR | 9 | 7.9% |
-| ROR | 10 | 8.8% |
-| CRP | 29 | 25.4% |
-| LCR | 2 | 1.8% |
-| **Total** | **114** | **100.0%** |
+| AOR | 27 | 27.0% |
+| ROR | 30 | 30.0% |
+| CRP | 41 | 41.0% |
+| LCR | 2 | 2.0% |
+| **Total** | **100** | **100.0%** |
 
 ---
 
 ## 5. Overall Test Suite Effectiveness
 
-- **Total Mutants:** 114
-- **Killed Mutants:** 73
-- **Survived Mutants:** 41
+- **Total Mutants:** 100
+- **Killed Mutants:** 52
+- **Survived Mutants:** 48
 - **Errors/Timeouts:** 0
-- **Mutation Score:** 64.04%
+- **Mutation Score:** 52.00%
 
-**Interpretation:** The test suite successfully detects 64.04% of seeded faults, 
-indicating moderate test coverage and fault detection capability.
+**Interpretation:** The test suite successfully detects 52.00% of seeded faults, 
+indicating weak test coverage and fault detection capability.
 
 ---
 
@@ -116,59 +116,46 @@ Mutation testing results broken down by individual tree math functions:
 
 | Routine | Total Mutants | Killed | Survived | Effectiveness |
 |---------|---------------|--------|----------|---------------|
-| `_square` | 1 | 1 | 0 | 100.0% |
-| `_vdot` | 7 | 5 | 2 | 71.4% |
-| `_vdot_safe` | 1 | 1 | 0 | 100.0% |
-| `tree_add` | 2 | 2 | 0 | 100.0% |
-| `tree_add_scale` | 3 | 2 | 1 | 66.7% |
-| `tree_allclose` | 7 | 6 | 1 | 85.7% |
-| `tree_bias_correction` | 9 | 3 | 6 | 33.3% |
-| `tree_clip` | 1 | 1 | 0 | 100.0% |
-| `tree_conj` | 1 | 1 | 0 | 100.0% |
-| `tree_div` | 1 | 1 | 0 | 100.0% |
-| `tree_full_like` | 1 | 0 | 1 | 0.0% |
-| `tree_max` | 6 | 6 | 0 | 100.0% |
-| `tree_min` | 6 | 6 | 0 | 100.0% |
-| `tree_mul` | 1 | 1 | 0 | 100.0% |
-| `tree_norm` | 24 | 20 | 4 | 83.3% |
-| `tree_ones_like` | 1 | 1 | 0 | 100.0% |
-| `tree_real` | 1 | 1 | 0 | 100.0% |
-| `tree_scale` | 1 | 1 | 0 | 100.0% |
-| `tree_size` | 1 | 1 | 0 | 100.0% |
-| `tree_sub` | 1 | 1 | 0 | 100.0% |
-| `tree_sum` | 8 | 5 | 3 | 62.5% |
-| `tree_update_infinity_moment` | 1 | 1 | 0 | 100.0% |
-| `tree_update_moment` | 5 | 1 | 4 | 20.0% |
-| `tree_update_moment_per_elem_norm` | 19 | 1 | 18 | 5.3% |
-| `tree_vdot` | 3 | 3 | 0 | 100.0% |
-| `tree_where` | 1 | 0 | 1 | 0.0% |
-| `tree_zeros_like` | 1 | 1 | 0 | 100.0% |
+| `_square` | 2 | 2 | 0 | 100.0% |
+| `_vdot` | 5 | 3 | 2 | 60.0% |
+| `tree_add_scale` | 4 | 4 | 0 | 100.0% |
+| `tree_allclose` | 5 | 1 | 4 | 20.0% |
+| `tree_bias_correction` | 6 | 1 | 5 | 16.7% |
+| `tree_max` | 8 | 7 | 1 | 87.5% |
+| `tree_min` | 7 | 6 | 1 | 85.7% |
+| `tree_norm` | 26 | 18 | 8 | 69.2% |
+| `tree_scale` | 2 | 2 | 0 | 100.0% |
+| `tree_sum` | 4 | 2 | 2 | 50.0% |
+| `tree_update_infinity_moment` | 4 | 4 | 0 | 100.0% |
+| `tree_update_moment` | 4 | 0 | 4 | 0.0% |
+| `tree_update_moment_per_elem_norm` | 21 | 0 | 21 | 0.0% |
+| `tree_vdot` | 2 | 2 | 0 | 100.0% |
 
 ### Key Observations:
-- **Best Tested Routine:** `tree_add` (100.0% effectiveness)
-- **Worst Tested Routine:** `tree_full_like` (0.0% effectiveness)
+- **Best Tested Routine:** `tree_scale` (100.0% effectiveness)
+- **Worst Tested Routine:** `tree_update_moment` (0.0% effectiveness)
 
 ---
 
 ## 7. Analysis of Survived Mutants
 
-Of the 41 survived mutants, 20 were analyzed in detail:
+Of the 48 survived mutants, 20 were analyzed in detail:
 
 - **Potentially Equivalent Mutants:** 0
 - **Require Additional Tests:** 20
 
-### 7.1 Mutant #6 - SDL
-**Location:** Line 119
-**Operator:** Statement Deletion: removed assignment
+### 7.1 Mutant #8 - ROR
+**Location:** Line 129
+**Operator:** Relational Operator Replacement: == to <=
 
 **Original Code:**
 ```python
-scalar = jnp.asarray(scalar)
+assert a.shape == b.shape
 ```
 
 **Mutated Code:**
 ```python
-pass  # SDL mutation
+assert a.shape <= b.shape
 ```
 
 **Analysis:** Non-Equivalent - Test Coverage Gap
@@ -176,20 +163,20 @@ pass  # SDL mutation
 **Reason:** Mutation changes program behavior but no test detected the change
 
 **Suggested Test:**
-Add test case covering line 119 with assertions validating the specific computation
+Add test case covering line 129 with assertions validating the specific computation
 
-### 7.2 Mutant #9 - RVR
-**Location:** Line 128
-**Operator:** Return Value Replacement: jnp.vdot(a, b, precision=preci to None
+### 7.2 Mutant #10 - ROR
+**Location:** Line 129
+**Operator:** Relational Operator Replacement: == to >=
 
 **Original Code:**
 ```python
-return jnp.vdot(a, b, precision=precision)
+assert a.shape == b.shape
 ```
 
 **Mutated Code:**
 ```python
-return None
+assert a.shape >= b.shape
 ```
 
 **Analysis:** Non-Equivalent - Test Coverage Gap
@@ -197,74 +184,11 @@ return None
 **Reason:** Mutation changes program behavior but no test detected the change
 
 **Suggested Test:**
-Add test case covering line 128 with assertions validating the specific computation
+Add test case covering line 129 with assertions validating the specific computation
 
-### 7.3 Mutant #14 - NCM
-**Location:** Line 135
-**Operator:** Negate Conditionals: add not to if
-
-**Original Code:**
-```python
-if mesh.are_all_axes_explicit:
-```
-
-**Mutated Code:**
-```python
-if not mesh.are_all_axes_explicit:
-```
-
-**Analysis:** Non-Equivalent - Test Coverage Gap
-
-**Reason:** Mutation changes program behavior but no test detected the change
-
-**Suggested Test:**
-Add test case covering line 135 with assertions validating the specific computation
-
-### 7.4 Mutant #20 - BCR
-**Location:** Line 173
-**Operator:** Boolean Constant Replacement: False to True
-
-**Original Code:**
-```python
-tree: Any, associative_reduction: bool = False
-```
-
-**Mutated Code:**
-```python
-tree: Any, associative_reduction: bool = True
-```
-
-**Analysis:** Non-Equivalent - Test Coverage Gap
-
-**Reason:** Mutation changes program behavior but no test detected the change
-
-**Suggested Test:**
-Add test case covering line 173 with assertions validating the specific computation
-
-### 7.5 Mutant #22 - NCM
-**Location:** Line 188
-**Operator:** Negate Conditionals: add not to if
-
-**Original Code:**
-```python
-if associative_reduction:
-```
-
-**Mutated Code:**
-```python
-if not associative_reduction:
-```
-
-**Analysis:** Non-Equivalent - Test Coverage Gap
-
-**Reason:** Mutation changes program behavior but no test detected the change
-
-**Suggested Test:**
-Add test case covering line 188 with assertions validating the specific computation
-
-### 7.6 Mutant #24 - CRP
+### 7.3 Mutant #13 - CRP
 **Location:** Line 191
-**Operator:** Constant Replacement: 0 to 1
+**Operator:** Constant Replacement: 0 to 1 (increment)
 
 **Original Code:**
 ```python
@@ -283,18 +207,39 @@ return jax.tree.reduce_associative(operator.add, sums, identity=1)
 **Suggested Test:**
 Add test case that exercises the specific computation on line 191
 
-### 7.7 Mutant #44 - AOR
-**Location:** Line 279
-**Operator:** Arithmetic Operator Replacement: - to +
+### 7.4 Mutant #14 - CRP
+**Location:** Line 191
+**Operator:** Constant Replacement: 0 to 2
 
 **Original Code:**
 ```python
-ord: int | str | float | None = None,  # pylint: disable=redefined-builtin
+return jax.tree.reduce_associative(operator.add, sums, identity=0)
 ```
 
 **Mutated Code:**
 ```python
-ord: int | str | float | None = None,  # pylint: disable=redefined + builtin
+return jax.tree.reduce_associative(operator.add, sums, identity=2)
+```
+
+**Analysis:** Non-Equivalent - Test Coverage Gap
+
+**Reason:** Constant replacement may change computation results
+
+**Suggested Test:**
+Add test case that exercises the specific computation on line 191
+
+### 7.5 Mutant #21 - ROR
+**Location:** Line 212
+**Operator:** Relational Operator Replacement: == to <=
+
+**Original Code:**
+```python
+if jnp.size(array) == 0:
+```
+
+**Mutated Code:**
+```python
+if jnp.size(array) <= 0:
 ```
 
 **Analysis:** Non-Equivalent - Test Coverage Gap
@@ -302,11 +247,32 @@ ord: int | str | float | None = None,  # pylint: disable=redefined + builtin
 **Reason:** Mutation changes program behavior but no test detected the change
 
 **Suggested Test:**
-Add test case covering line 279 with assertions validating the specific computation
+Add test case covering line 212 with assertions validating the specific computation
 
-### COMPLETED - 7.8 Mutant #49 - CRP
+### 7.6 Mutant #29 - ROR
+**Location:** Line 230
+**Operator:** Relational Operator Replacement: == to <=
+
+**Original Code:**
+```python
+if jnp.size(array) == 0:
+```
+
+**Mutated Code:**
+```python
+if jnp.size(array) <= 0:
+```
+
+**Analysis:** Non-Equivalent - Test Coverage Gap
+
+**Reason:** Mutation changes program behavior but no test detected the change
+
+**Suggested Test:**
+Add test case covering line 230 with assertions validating the specific computation
+
+### 7.7 Mutant #34 - CRP
 **Location:** Line 291
-**Operator:** Constant Replacement: 2 to 3
+**Operator:** Constant Replacement: 2 to -2 (negate)
 
 **Original Code:**
 ```python
@@ -315,27 +281,17 @@ if ord is None or ord == 2:
 
 **Mutated Code:**
 ```python
-if ord is None or ord == 3:
+if ord is None or ord == -2:
 ```
 
 **Analysis:** Non-Equivalent - Test Coverage Gap
 
-**Reason:** ord is the order of the vector norm to compute from. Supported ord values for tree_norm is [None, 1, 2, inf]. 3 is supposed to produce a ValueError. When the order of the vector norm is 3 and the mutation exists however, it ends up producing a scalar value which is either the sum of a squared tree (when argument squared is true) or the sum of the tree itself.
+**Reason:** Mutation changes program behavior but no test detected the change
 
 **Suggested Test:**
+Add test case covering line 291 with assertions validating the specific computation
 
-```python
-def test_tree_unsupported(self):
-    ord = 3 # unsupported ord value
-    try:
-        tu.tree_norm(self.array_a, ord)
-    except ValueError:
-        return  # correct
-
-    raise AssertionError(f"ord value {ord} is supposed to be unsupported")
-```
-
-### 7.9 Mutant #51 - CRP
+### 7.8 Mutant #35 - CRP
 **Location:** Line 291
 **Operator:** Constant Replacement: 2 to 0
 
@@ -356,9 +312,9 @@ if ord is None or ord == 0:
 **Suggested Test:**
 Add test case covering line 291 with assertions validating the specific computation
 
-### 7.10 Mutant #52 - CRP
+### 7.9 Mutant #37 - CRP
 **Location:** Line 291
-**Operator:** Constant Replacement: 2 to -2
+**Operator:** Constant Replacement: 2 to 2
 
 **Original Code:**
 ```python
@@ -367,7 +323,7 @@ if ord is None or ord == 2:
 
 **Mutated Code:**
 ```python
-if ord is None or ord == -2:
+if ord is None or ord == 2:
 ```
 
 **Analysis:** Non-Equivalent - Test Coverage Gap
@@ -377,18 +333,18 @@ if ord is None or ord == -2:
 **Suggested Test:**
 Add test case covering line 291 with assertions validating the specific computation
 
-### 7.11 Mutant #70 - RVR
-**Location:** Line 369
-**Operator:** Return Value Replacement: jax.tree.map(lambda x: jnp.ful to None
+### 7.10 Mutant #38 - CRP
+**Location:** Line 291
+**Operator:** Constant Replacement: 2 to 3 (increment)
 
 **Original Code:**
 ```python
-return jax.tree.map(lambda x: jnp.full_like(x, fill_value, dtype=dtype), tree)
+if ord is None or ord == 2:
 ```
 
 **Mutated Code:**
 ```python
-return None
+if ord is None or ord == 3:
 ```
 
 **Analysis:** Non-Equivalent - Test Coverage Gap
@@ -396,20 +352,20 @@ return None
 **Reason:** Mutation changes program behavior but no test detected the change
 
 **Suggested Test:**
-Add test case covering line 369 with assertions validating the specific computation
+Add test case covering line 291 with assertions validating the specific computation
 
-### 7.12 Mutant #72 - CRP
-**Location:** Line 398
-**Operator:** Constant Replacement: 1 to 2
+### 7.11 Mutant #47 - CRP
+**Location:** Line 295
+**Operator:** Constant Replacement: 1 to 1
 
 **Original Code:**
 ```python
-(1 - decay) * (g**order) + decay * t if g is not None else None
+elif ord == 1:
 ```
 
 **Mutated Code:**
 ```python
-(2 - decay) * (g**order) + decay * t if g is not None else None
+elif ord == 1:
 ```
 
 **Analysis:** Non-Equivalent - Test Coverage Gap
@@ -417,20 +373,20 @@ Add test case covering line 369 with assertions validating the specific computat
 **Reason:** Mutation changes program behavior but no test detected the change
 
 **Suggested Test:**
-Add test case covering line 398 with assertions validating the specific computation
+Add test case covering line 295 with assertions validating the specific computation
 
-### 7.13 Mutant #73 - CRP
-**Location:** Line 398
-**Operator:** Constant Replacement: 1 to 0
+### 7.12 Mutant #51 - ROR
+**Location:** Line 295
+**Operator:** Relational Operator Replacement: == to <=
 
 **Original Code:**
 ```python
-(1 - decay) * (g**order) + decay * t if g is not None else None
+elif ord == 1:
 ```
 
 **Mutated Code:**
 ```python
-(0 - decay) * (g**order) + decay * t if g is not None else None
+elif ord <= 1:
 ```
 
 **Analysis:** Non-Equivalent - Test Coverage Gap
@@ -438,20 +394,20 @@ Add test case covering line 398 with assertions validating the specific computat
 **Reason:** Mutation changes program behavior but no test detected the change
 
 **Suggested Test:**
-Add test case covering line 398 with assertions validating the specific computation
+Add test case covering line 295 with assertions validating the specific computation
 
-### 7.14 Mutant #74 - CRP
-**Location:** Line 398
-**Operator:** Constant Replacement: 1 to 0
+### 7.13 Mutant #57 - ROR
+**Location:** Line 297
+**Operator:** Relational Operator Replacement: == to <=
 
 **Original Code:**
 ```python
-(1 - decay) * (g**order) + decay * t if g is not None else None
+elif ord == jnp.inf or ord in ('inf', 'infinity'):
 ```
 
 **Mutated Code:**
 ```python
-(0 - decay) * (g**order) + decay * t if g is not None else None
+elif ord <= jnp.inf or ord in ('inf', 'infinity'):
 ```
 
 **Analysis:** Non-Equivalent - Test Coverage Gap
@@ -459,11 +415,32 @@ Add test case covering line 398 with assertions validating the specific computat
 **Reason:** Mutation changes program behavior but no test detected the change
 
 **Suggested Test:**
-Add test case covering line 398 with assertions validating the specific computation
+Add test case covering line 297 with assertions validating the specific computation
 
-### 7.15 Mutant #75 - CRP
+### 7.14 Mutant #59 - ROR
+**Location:** Line 297
+**Operator:** Relational Operator Replacement: == to >=
+
+**Original Code:**
+```python
+elif ord == jnp.inf or ord in ('inf', 'infinity'):
+```
+
+**Mutated Code:**
+```python
+elif ord >= jnp.inf or ord in ('inf', 'infinity'):
+```
+
+**Analysis:** Non-Equivalent - Test Coverage Gap
+
+**Reason:** Mutation changes program behavior but no test detected the change
+
+**Suggested Test:**
+Add test case covering line 297 with assertions validating the specific computation
+
+### 7.15 Mutant #60 - CRP
 **Location:** Line 398
-**Operator:** Constant Replacement: 1 to -1
+**Operator:** Constant Replacement: 1 to -1 (negate)
 
 **Original Code:**
 ```python
@@ -482,18 +459,18 @@ Add test case covering line 398 with assertions validating the specific computat
 **Suggested Test:**
 Add test case covering line 398 with assertions validating the specific computation
 
-### 7.16 Mutant #78 - NCM
-**Location:** Line 422
-**Operator:** Negate Conditionals: add not to if
+### 7.16 Mutant #61 - CRP
+**Location:** Line 398
+**Operator:** Constant Replacement: 1 to 0 (decrement)
 
 **Original Code:**
 ```python
-if jnp.isrealobj(g):
+(1 - decay) * (g**order) + decay * t if g is not None else None
 ```
 
 **Mutated Code:**
 ```python
-if not jnp.isrealobj(g):
+(0 - decay) * (g**order) + decay * t if g is not None else None
 ```
 
 **Analysis:** Non-Equivalent - Test Coverage Gap
@@ -501,9 +478,51 @@ if not jnp.isrealobj(g):
 **Reason:** Mutation changes program behavior but no test detected the change
 
 **Suggested Test:**
-Add test case covering line 422 with assertions validating the specific computation
+Add test case covering line 398 with assertions validating the specific computation
 
-### 7.17 Mutant #79 - AOR
+### 7.17 Mutant #62 - CRP
+**Location:** Line 398
+**Operator:** Constant Replacement: 1 to 1
+
+**Original Code:**
+```python
+(1 - decay) * (g**order) + decay * t if g is not None else None
+```
+
+**Mutated Code:**
+```python
+(1 - decay) * (g**order) + decay * t if g is not None else None
+```
+
+**Analysis:** Non-Equivalent - Test Coverage Gap
+
+**Reason:** Mutation changes program behavior but no test detected the change
+
+**Suggested Test:**
+Add test case covering line 398 with assertions validating the specific computation
+
+### 7.18 Mutant #63 - CRP
+**Location:** Line 398
+**Operator:** Constant Replacement: 1 to 2 (increment)
+
+**Original Code:**
+```python
+(1 - decay) * (g**order) + decay * t if g is not None else None
+```
+
+**Mutated Code:**
+```python
+(2 - decay) * (g**order) + decay * t if g is not None else None
+```
+
+**Analysis:** Non-Equivalent - Test Coverage Gap
+
+**Reason:** Mutation changes program behavior but no test detected the change
+
+**Suggested Test:**
+Add test case covering line 398 with assertions validating the specific computation
+
+### 7.19 Mutant #68 - AOR
 **Location:** Line 423
 **Operator:** Arithmetic Operator Replacement: ** to *
 
@@ -524,9 +543,9 @@ return g * order
 **Suggested Test:**
 Add test case covering line 423 with assertions validating the specific computation
 
-### 7.18 Mutant #80 - RVR
+### 7.20 Mutant #69 - AOR
 **Location:** Line 423
-**Operator:** Return Value Replacement: g ** order to None
+**Operator:** Arithmetic Operator Replacement: ** to +
 
 **Original Code:**
 ```python
@@ -535,7 +554,7 @@ return g ** order
 
 **Mutated Code:**
 ```python
-return None
+return g + order
 ```
 
 **Analysis:** Non-Equivalent - Test Coverage Gap
@@ -544,48 +563,6 @@ return None
 
 **Suggested Test:**
 Add test case covering line 423 with assertions validating the specific computation
-
-### 7.19 Mutant #81 - AOR
-**Location:** Line 425
-**Operator:** Arithmetic Operator Replacement: / to *
-
-**Original Code:**
-```python
-half_order = order / 2
-```
-
-**Mutated Code:**
-```python
-half_order = order * 2
-```
-
-**Analysis:** Non-Equivalent - Test Coverage Gap
-
-**Reason:** Mutation changes program behavior but no test detected the change
-
-**Suggested Test:**
-Add test case covering line 425 with assertions validating the specific computation
-
-### 7.20 Mutant #82 - CRP
-**Location:** Line 425
-**Operator:** Constant Replacement: 2 to 3
-
-**Original Code:**
-```python
-half_order = order / 2
-```
-
-**Mutated Code:**
-```python
-half_order = order / 3
-```
-
-**Analysis:** Non-Equivalent - Test Coverage Gap
-
-**Reason:** Mutation changes program behavior but no test detected the change
-
-**Suggested Test:**
-Add test case covering line 425 with assertions validating the specific computation
 
 ---
 
@@ -615,7 +592,7 @@ The mutation testing was fully automated using a custom Python script that:
 ### 8.3 Lessons Learned
 1. **Filtering is Critical:** Overly aggressive filtering (excluding docstrings) was necessary to avoid useless mutations
 2. **Context-Aware Mutations:** Regex-based mutation can create syntactically valid but semantically nonsensical changes
-3. **Test Suite Quality:** 64.04% mutation score indicates moderate test coverage
+3. **Test Suite Quality:** 52.00% mutation score indicates weak test coverage
 4. **Boundary Conditions:** Many survived mutants involve boundary condition changes
 5. **Strong vs Weak Mutation:** Strong mutation (requiring different output) provides higher confidence but is more expensive
 
@@ -633,7 +610,7 @@ The mutation testing was fully automated using a custom Python script that:
 
 ## 10. Conclusion
 
-The mutation testing study revealed that the Optax tree_math module has a **64.04% mutation score**, 
+The mutation testing study revealed that the Optax tree_math module has a **52.00% mutation score**, 
 indicating the test suite's ability to detect seeded faults. The analysis identified specific areas where test coverage can be enhanced, 
 particularly around boundary conditions and edge cases. The automated mutation testing approach proved effective 
 for systematically evaluating test suite quality and identifying gaps in fault detection capability.
@@ -652,13 +629,13 @@ for systematically evaluating test suite quality and identifying gaps in fault d
 ### 11.2 Mutation Score Formula
 ```
 Mutation Score = (Killed Mutants / Total Mutants) x 100%
-                = (73 / 114) x 100%
-                = 64.04%
+                = (52 / 100) x 100%
+                = 52.00%
 ```
 
 ### 11.3 Adjusted Score (Excluding Estimated Equivalents)
-If we estimate that ~20% of survived mutants (8 mutants) are equivalent:
+If we estimate that ~20% of survived mutants (9 mutants) are equivalent:
 ```
-Adjusted Score = 73 / (114 - 8) x 100%
-               = 68.87%
+Adjusted Score = 52 / (100 - 9) x 100%
+               = 57.14%
 ```

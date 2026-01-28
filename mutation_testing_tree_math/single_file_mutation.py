@@ -1,5 +1,13 @@
 """
 This script performs mutation testing on the optax/tree_utils/_tree_math.py file
+
+Only uses 4 mutation operators:
+- AOR: Arithmetic Operator Replacement
+- ROR: Relational Operator Replacement
+- CRP: Constant Replacement Operator
+- LCR: Logical Connector Replacement
+
+Generates exactly 100 deterministic mutations.
 """
 
 import os
@@ -8,6 +16,7 @@ import json
 import subprocess
 import shutil
 import time
+import ast
 from datetime import datetime
 from pathlib import Path
 from dataclasses import dataclass
@@ -40,136 +49,382 @@ class Mutation:
 
 
 class MutationGenerator:
-    """Generates mutations using multiple operators."""
+    """Generates mutations using exactly 4 operators: AOR, ROR, CRP, LCR."""
 
-    # Operator definitions - Arithmetic Operator Replacement
-    # More specific patterns to avoid matching Python syntax like *args
-    # Use negative lookbehind to avoid scientific notation (1e-05, 1e+05)
-    AOR_REPLACEMENTS = [
-        # Match + in arithmetic context (between identifiers/numbers), exclude scientific notation
-        # Negative lookbehind ensures we don't match after digit+e (scientific notation)
-        (r'(?<!\de)(?<!\dE)(\w)\s*(\+)\s*(\w)', r'\1 - \3', '+ to -'),
-        # Match - in arithmetic context, exclude scientific notation
-        (r'(?<!\de)(?<!\dE)(\w)\s*(-)\s*(\w)', r'\1 + \3', '- to +'),
-        # Match * in arithmetic context (not *args or **kwargs)
-        (r'(\w)\s*(\*)\s*(?!\*|\s*\w+\s*[,)])(\w)', r'\1 / \3', '* to /'),
-        # Match / in arithmetic context
-        (r'(\w)\s*(/)\s*(?!/|\*)(\w)', r'\1 * \3', '/ to *'),
-        # Match ** exponentiation
-        (r'(\w)\s*(\*\*)\s*(\w)', r'\1 * \3', '** to *'),
+    # Arithmetic Operator Replacement (AOR)
+    # Patterns to match arithmetic operators in code context
+    AOR_PATTERNS = [
+        # Addition to subtraction
+        (r'(?<![eE])(\s*)\+(\s*)(?![+=])', r'\1-\2', '+ to -'),
+        # Addition to multiplication
+        (r'(?<![eE])(\s*)\+(\s*)(?![+=])', r'\1*\2', '+ to *'),
+        # Subtraction to addition
+        (r'(?<![eE\d])(\s*)-(\s*)(?![-=>\d])', r'\1+\2', '- to +'),
+        # Subtraction to multiplication
+        (r'(?<![eE\d])(\s*)-(\s*)(?![-=>\d])', r'\1*\2', '- to *'),
+        # Multiplication to division
+        (r'(?<!\*)(\s*)\*(\s*)(?!\*)', r'\1/\2', '* to /'),
+        # Multiplication to addition
+        (r'(?<!\*)(\s*)\*(\s*)(?!\*)', r'\1+\2', '* to +'),
+        # Division to multiplication
+        (r'(?<!/)(\s*)/(\s*)(?![/=])', r'\1*\2', '/ to *'),
+        # Division to subtraction
+        (r'(?<!/)(\s*)/(\s*)(?![/=])', r'\1-\2', '/ to -'),
+        # Exponentiation to multiplication
+        (r'\*\*', '*', '** to *'),
+        # Exponentiation to addition
+        (r'\*\*', '+', '** to +'),
     ]
 
-    # Relational Operator Replacement
-    # Match the operator with surrounding context, capture only the operator for replacement
-    ROR_REPLACEMENTS = [
-        # Pattern: (before_context)(operator)(after_context), replacement_op, description
-        # Using non-capturing groups for context
-        (r'(?<=\s)<(?=\s)', '<=', '< to <='),
-        (r'(?<=\s)<=(?=\s)', '<', '<= to <'),
-        (r'(?<=\s)>(?=\s)(?!>)', '>=', '> to >='),
-        (r'(?<=\s)>=(?=\s)', '>', '>= to >'),
-        (r'(?<=\s)==(?=\s)', '!=', '== to !='),
-        (r'(?<=\s)!=(?=\s)', '==', '!= to =='),
-        # Also match comparisons with word characters (using lookbehind/lookahead)
-        (r'(?<=\w)\s*<\s*(?=\w)', ' <= ', '< to <='),
-        (r'(?<=\w)\s*<=\s*(?=\w)', ' < ', '<= to <'),
-        (r'(?<=\w)\s*>\s*(?=\w)(?!>)', ' >= ', '> to >='),
-        (r'(?<=\w)\s*>=\s*(?=\w)', ' > ', '>= to >'),
-        (r'(?<=\w)\s*==\s*(?=\w)', ' != ', '== to !='),
-        (r'(?<=\w)\s*!=\s*(?=\w)', ' == ', '!= to =='),
+    # Relational Operator Replacement (ROR)
+    # Extended patterns for more thorough mutation coverage
+    ROR_PATTERNS = [
+        # <= mutations
+        (r'(?<![<>=!])<=(?!=)', '<', '<= to <'),
+        (r'(?<![<>=!])<=(?!=)', '>=', '<= to >='),
+        (r'(?<![<>=!])<=(?!=)', '>', '<= to >'),
+        (r'(?<![<>=!])<=(?!=)', '==', '<= to =='),
+        (r'(?<![<>=!])<=(?!=)', '!=', '<= to !='),
+        # < mutations
+        (r'(?<![<>=!])<(?![<=])', '<=', '< to <='),
+        (r'(?<![<>=!])<(?![<=])', '>', '< to >'),
+        (r'(?<![<>=!])<(?![<=])', '>=', '< to >='),
+        (r'(?<![<>=!])<(?![<=])', '==', '< to =='),
+        (r'(?<![<>=!])<(?![<=])', '!=', '< to !='),
+        # >= mutations
+        (r'(?<![<>=!])>=(?!=)', '>', '>= to >'),
+        (r'(?<![<>=!])>=(?!=)', '<=', '>= to <='),
+        (r'(?<![<>=!])>=(?!=)', '<', '>= to <'),
+        (r'(?<![<>=!])>=(?!=)', '==', '>= to =='),
+        (r'(?<![<>=!])>=(?!=)', '!=', '>= to !='),
+        # > mutations
+        (r'(?<![<>=!])>(?![>=])', '>=', '> to >='),
+        (r'(?<![<>=!])>(?![>=])', '<', '> to <'),
+        (r'(?<![<>=!])>(?![>=])', '<=', '> to <='),
+        (r'(?<![<>=!])>(?![>=])', '==', '> to =='),
+        (r'(?<![<>=!])>(?![>=])', '!=', '> to !='),
+        # == mutations
+        (r'(?<![<>=!])==(?!=)', '!=', '== to !='),
+        (r'(?<![<>=!])==(?!=)', '<', '== to <'),
+        (r'(?<![<>=!])==(?!=)', '<=', '== to <='),
+        (r'(?<![<>=!])==(?!=)', '>', '== to >'),
+        (r'(?<![<>=!])==(?!=)', '>=', '== to >='),
+        # != mutations
+        (r'(?<![<>=!])!=(?!=)', '==', '!= to =='),
+        (r'(?<![<>=!])!=(?!=)', '<', '!= to <'),
+        (r'(?<![<>=!])!=(?!=)', '<=', '!= to <='),
+        (r'(?<![<>=!])!=(?!=)', '>', '!= to >'),
+        (r'(?<![<>=!])!=(?!=)', '>=', '!= to >='),
     ]
 
-    # Logical Connector Replacement
-    LCR_REPLACEMENTS = [
-        (r'\b(and)\b', 'or', 'and to or'),
-        (r'\b(or)\b', 'and', 'or to and'),
-    ]
-
-    # Negate Conditionals Mutation patterns
-    NCM_PATTERNS = [
-        (r'\bif\s+not\s+', 'if ', 'remove not from if'),
-        (r'\bif\s+(?!not\b)(\w)', r'if not \1', 'add not to if'),
-        (r'\bwhile\s+not\s+', 'while ', 'remove not from while'),
-        (r'\bwhile\s+(?!not\b)(\w)', r'while not \1', 'add not to while'),
-    ]
-
-    # Boolean Constant Replacement
-    BCR_REPLACEMENTS = [
-        (r'\bTrue\b', 'False', 'True to False'),
-        (r'\bFalse\b', 'True', 'False to True'),
-    ]
-
-    # Return Value Replacement patterns
-    RVR_PATTERNS = [
-        (r'return\s+(\w+)', 'return None', 'return value to None'),
+    # Logical Connector Replacement (LCR)
+    LCR_PATTERNS = [
+        (r'\band\b', 'or', 'and to or'),
+        (r'\bor\b', 'and', 'or to and'),
     ]
 
     def __init__(self, project_root: Path):
         self.project_root = project_root
 
-    def _is_in_function_def(self, line: str) -> bool:
-        """Check if line is a function definition (to skip *args mutations)."""
-        return line.strip().startswith('def ') or 'lambda' in line
+    def _is_comment_line(self, line: str) -> bool:
+        """Check if line is a comment (starts with #)."""
+        return line.strip().startswith('#')
+
+    def _is_in_string(self, line: str, pos: int) -> bool:
+        """Check if position is inside a string literal."""
+        in_single = False
+        in_double = False
+        i = 0
+        while i < pos and i < len(line):
+            char = line[i]
+            # Handle escape sequences
+            if i > 0 and line[i-1] == '\\':
+                i += 1
+                continue
+            if char == "'" and not in_double:
+                in_single = not in_single
+            elif char == '"' and not in_single:
+                in_double = not in_double
+            i += 1
+        return in_single or in_double
+
+    def _strip_comments(self, line: str) -> str:
+        """Remove inline comments from line, respecting string literals."""
+        in_string = False
+        string_char = None
+        i = 0
+        while i < len(line):
+            char = line[i]
+            # Handle string literals
+            if char in ('"', "'") and (i == 0 or line[i-1] != '\\'):
+                if not in_string:
+                    in_string = True
+                    string_char = char
+                elif char == string_char:
+                    in_string = False
+                    string_char = None
+            # Handle comment start (only outside strings)
+            if char == '#' and not in_string:
+                return line[:i]
+            i += 1
+        return line
+
+    def _is_version_comparison(self, line: str) -> bool:
+        """Check if line contains version compatibility comparisons."""
+        version_patterns = [
+            r'__version__',
+            r'jax\.__version__',
+        ]
+        for pattern in version_patterns:
+            if re.search(pattern, line):
+                return True
+        return False
+
+    def _validates_syntax(self, source: str) -> bool:
+        """Check if source code compiles without syntax errors."""
+        try:
+            ast.parse(source)
+            return True
+        except SyntaxError:
+            return False
 
     def _has_star_args(self, line: str) -> bool:
-        """Check if line contains *args or **kwargs patterns."""
-        return bool(re.search(r'\*\w+', line) and ('def ' in line or 'lambda' in line or '(' in line))
-
-    def _has_scientific_notation(self, line: str) -> bool:
-        """Check if line contains scientific notation (e.g., 1e-05, 2.5E+10)."""
-        return bool(re.search(r'\d+\.?\d*[eE][+-]\d+', line))
-
-    def _is_multiline_start(self, line: str) -> bool:
-        """Check if line starts a multi-line statement (ends with open paren/bracket/brace or backslash)."""
-        stripped = line.rstrip()
-        # Check for explicit line continuation
-        if stripped.endswith('\\'):
+        """Check if line contains *args, **kwargs, or *unpacking patterns."""
+        # Check for function definitions with *args/**kwargs
+        if re.search(r'def\s+\w+\s*\([^)]*\*', line):
             return True
-        # Check for unclosed brackets
-        open_count = stripped.count('(') + stripped.count('[') + stripped.count('{')
-        close_count = stripped.count(')') + stripped.count(']') + stripped.count('}')
-        return open_count > close_count
-
-    def _is_multiline_continuation(self, lines: List[str], line_num: int) -> bool:
-        """Check if this line is a continuation of a previous multi-line statement."""
-        if line_num <= 1:
-            return False
-        # Check previous lines for unclosed brackets
-        open_count = 0
-        for i in range(line_num - 1):
-            prev_line = lines[i]
-            open_count += prev_line.count('(') + prev_line.count('[') + prev_line.count('{')
-            open_count -= prev_line.count(')') + prev_line.count(']') + prev_line.count('}')
-        return open_count > 0
-
-    def _is_single_statement_if_body(self, lines: List[str], line_num: int) -> bool:
-        """Check if this line is the only statement in an if/else/elif body."""
-        if line_num <= 1 or line_num >= len(lines):
-            return False
-        current_line = lines[line_num - 1]
-        prev_line = lines[line_num - 2]
-        # Check if previous line is if/elif/else
-        prev_stripped = prev_line.strip()
-        if prev_stripped.endswith(':') and (
-            prev_stripped.startswith('if ') or
-            prev_stripped.startswith('elif ') or
-            prev_stripped.startswith('else') or
-            prev_stripped.startswith('try') or
-            prev_stripped.startswith('except') or
-            prev_stripped.startswith('finally') or
-            prev_stripped.startswith('for ') or
-            prev_stripped.startswith('while ') or
-            prev_stripped.startswith('with ') or
-            prev_stripped.startswith('def ') or
-            prev_stripped.startswith('class ')
-        ):
+        # Check for *unpacking in lists, tuples, function calls
+        if re.search(r'[\[\(,]\s*\*[a-zA-Z_]', line):
+            return True
+        # Check for **kwargs unpacking
+        if re.search(r'\*\*[a-zA-Z_]', line):
             return True
         return False
 
-    def generate_all(self, target_file: str, max_mutations: int = 120) -> List[Mutation]:
-        """Generate mutations for target file - EXCLUDE docstrings and comments."""
+    def _has_scientific_notation(self, line: str) -> bool:
+        """Check if line contains scientific notation."""
+        return bool(re.search(r'\d+\.?\d*[eE][+-]?\d+', line))
+
+    def _generate_aor_mutations(self, line: str, line_num: int, code_only: str,
+                                 lines: List[str], target_file: str) -> List[Mutation]:
+        """Generate Arithmetic Operator Replacement mutations."""
+        mutations = []
+
+        # Skip lines with *args/**kwargs or scientific notation
+        if self._has_star_args(code_only) or self._has_scientific_notation(code_only):
+            return mutations
+
+        for pattern, replacement, desc in self.AOR_PATTERNS:
+            # Find all matches to generate one mutation per match
+            for match in re.finditer(pattern, code_only):
+                # Skip if match is in a string
+                if self._is_in_string(code_only, match.start()):
+                    continue
+
+                # Apply replacement at this specific position
+                mutated_code = code_only[:match.start()] + re.sub(pattern, replacement, match.group(), count=1) + code_only[match.end():]
+
+                if mutated_code != code_only:
+                    # Preserve any trailing comment
+                    comment_part = line[len(code_only):] if len(line) > len(code_only) else ''
+                    mutated_line = mutated_code + comment_part
+
+                    # Validate syntax
+                    test_lines = lines.copy()
+                    test_lines[line_num - 1] = mutated_line
+                    if self._validates_syntax('\n'.join(test_lines)):
+                        mutations.append(Mutation(
+                            id=0,  # Will be assigned later
+                            file_path=target_file,
+                            line_number=line_num,
+                            original_code=line,
+                            mutated_code=mutated_line,
+                            operator="AOR",
+                            operator_description=f"Arithmetic Operator Replacement: {desc}"
+                        ))
+                break  # Only one mutation per pattern per line for determinism
+
+        return mutations
+
+    def _generate_ror_mutations(self, line: str, line_num: int, code_only: str,
+                                 lines: List[str], target_file: str) -> List[Mutation]:
+        """Generate Relational Operator Replacement mutations."""
+        mutations = []
+
+        for pattern, replacement, desc in self.ROR_PATTERNS:
+            match = re.search(pattern, code_only)
+            if match:
+                # Skip if in string
+                if self._is_in_string(code_only, match.start()):
+                    continue
+
+                mutated_code = re.sub(pattern, replacement, code_only, count=1)
+
+                if mutated_code != code_only:
+                    comment_part = line[len(code_only):] if len(line) > len(code_only) else ''
+                    mutated_line = mutated_code + comment_part
+
+                    test_lines = lines.copy()
+                    test_lines[line_num - 1] = mutated_line
+                    if self._validates_syntax('\n'.join(test_lines)):
+                        mutations.append(Mutation(
+                            id=0,
+                            file_path=target_file,
+                            line_number=line_num,
+                            original_code=line,
+                            mutated_code=mutated_line,
+                            operator="ROR",
+                            operator_description=f"Relational Operator Replacement: {desc}"
+                        ))
+
+        return mutations
+
+    def _generate_lcr_mutations(self, line: str, line_num: int, code_only: str,
+                                 lines: List[str], target_file: str) -> List[Mutation]:
+        """Generate Logical Connector Replacement mutations."""
+        mutations = []
+
+        for pattern, replacement, desc in self.LCR_PATTERNS:
+            match = re.search(pattern, code_only)
+            if match:
+                # Skip if in string
+                if self._is_in_string(code_only, match.start()):
+                    continue
+
+                mutated_code = re.sub(pattern, replacement, code_only, count=1)
+
+                if mutated_code != code_only:
+                    comment_part = line[len(code_only):] if len(line) > len(code_only) else ''
+                    mutated_line = mutated_code + comment_part
+
+                    test_lines = lines.copy()
+                    test_lines[line_num - 1] = mutated_line
+                    if self._validates_syntax('\n'.join(test_lines)):
+                        mutations.append(Mutation(
+                            id=0,
+                            file_path=target_file,
+                            line_number=line_num,
+                            original_code=line,
+                            mutated_code=mutated_line,
+                            operator="LCR",
+                            operator_description=f"Logical Connector Replacement: {desc}"
+                        ))
+
+        return mutations
+
+    def _generate_crp_mutations(self, line: str, line_num: int, code_only: str,
+                                 lines: List[str], target_file: str) -> List[Mutation]:
+        """Generate Constant Replacement mutations."""
+        mutations = []
+
+        # Pattern to match numeric constants (integers and floats)
+        # Avoid matching numbers in scientific notation exponents, version strings, etc.
+        number_pattern = r'(?<![a-zA-Z_eE])(-?\d+\.?\d*)(?![a-zA-Z_\d])'
+
+        for match in re.finditer(number_pattern, code_only):
+            # Skip if in string
+            if self._is_in_string(code_only, match.start()):
+                continue
+
+            original = match.group(1)
+            start, end = match.span(1)
+
+            # Skip version-like patterns
+            context_before = code_only[max(0, start-3):start]
+            context_after = code_only[end:min(len(code_only), end+3)]
+            if "'" in context_before or '"' in context_before:
+                continue
+            if "'" in context_after or '"' in context_after:
+                continue
+
+            # Skip scientific notation exponents
+            if re.search(r'[eE]$', code_only[:start]):
+                continue
+
+            try:
+                num_val = float(original)
+            except ValueError:
+                continue
+
+            # Generate different CRP variants
+            # Use a set to track unique replacement values and avoid duplicates
+            seen_values = set()
+            crp_variants = []
+
+            is_float = '.' in original
+
+            # Variant 1: Increment by 1
+            if is_float:
+                new_val = str(num_val + 1.0)
+            else:
+                new_val = str(int(num_val) + 1)
+            if new_val not in seen_values:
+                seen_values.add(new_val)
+                crp_variants.append((new_val, f"{original} to {new_val} (increment)"))
+
+            # Variant 2: Decrement by 1 (if not already 0)
+            if num_val != 0:
+                if is_float:
+                    new_val = str(num_val - 1.0)
+                else:
+                    new_val = str(int(num_val) - 1)
+                if new_val not in seen_values:
+                    seen_values.add(new_val)
+                    crp_variants.append((new_val, f"{original} to {new_val} (decrement)"))
+
+            # Variant 3: Replace with 0 (if not already 0)
+            if num_val != 0 and "0" not in seen_values:
+                seen_values.add("0")
+                crp_variants.append(("0", f"{original} to 0"))
+
+            # Variant 4: Negate (if not 0)
+            if num_val != 0:
+                if is_float:
+                    new_val = str(-num_val)
+                else:
+                    new_val = str(-int(num_val))
+                if new_val not in seen_values:
+                    seen_values.add(new_val)
+                    crp_variants.append((new_val, f"{original} to {new_val} (negate)"))
+
+            # Variant 5: Replace with 1 (if not already 1)
+            if "1" not in seen_values:
+                seen_values.add("1")
+                crp_variants.append(("1", f"{original} to 1"))
+
+            # Variant 6: Replace with 2 (for more coverage)
+            if "2" not in seen_values:
+                seen_values.add("2")
+                crp_variants.append(("2", f"{original} to 2"))
+
+            for new_val, desc in crp_variants:
+                mutated_code = code_only[:start] + new_val + code_only[end:]
+                comment_part = line[len(code_only):] if len(line) > len(code_only) else ''
+                mutated_line = mutated_code + comment_part
+
+                test_lines = lines.copy()
+                test_lines[line_num - 1] = mutated_line
+                if self._validates_syntax('\n'.join(test_lines)):
+                    mutations.append(Mutation(
+                        id=0,
+                        file_path=target_file,
+                        line_number=line_num,
+                        original_code=line,
+                        mutated_code=mutated_line,
+                        operator="CRP",
+                        operator_description=f"Constant Replacement: {desc}"
+                    ))
+
+        return mutations
+
+    def generate_all(self, target_file: str, max_mutations: int = 100) -> List[Mutation]:
+        """Generate exactly max_mutations mutations for target file.
+
+        Mutations are deterministic - same source file produces same mutations.
+        Only uses AOR, ROR, CRP, LCR operators.
+        EXCLUDES docstrings, comments, and version compatibility comparisons.
+        """
         all_mutations = []
-        mutation_id = 0
 
         full_path = self.project_root / target_file
         if not full_path.exists():
@@ -187,13 +442,20 @@ class MutationGenerator:
         for line_num, line in enumerate(lines, 1):
             stripped = line.strip()
 
-            # Skip blank lines and copyright/license
-            if not stripped or 'Copyright' in line or 'apache.org' in line.lower():
+            # Skip blank lines
+            if not stripped:
+                continue
+
+            # Skip comment lines
+            if stripped.startswith('#'):
+                continue
+
+            # Skip copyright/license lines
+            if 'Copyright' in line or 'apache.org' in line.lower():
                 continue
 
             # Detect docstring start/end
             if '"""' in line or "'''" in line:
-                # Count triple quotes
                 triple_double = line.count('"""')
                 triple_single = line.count("'''")
 
@@ -201,7 +463,6 @@ class MutationGenerator:
                     if not in_docstring:
                         in_docstring = True
                         docstring_char = '"'
-                        # Check if docstring ends on same line
                         if triple_double >= 2:
                             in_docstring = False
                         continue
@@ -222,266 +483,51 @@ class MutationGenerator:
                         docstring_char = None
                         continue
 
-            # Skip lines inside docstrings or comments
-            if in_docstring or stripped.startswith('#'):
-                continue
-
-            # Skip string-only lines (logging messages, etc.)
-            if (stripped.startswith("'") and stripped.endswith("'")) or \
-               (stripped.startswith('"') and stripped.endswith('"')):
+            # Skip lines inside docstrings
+            if in_docstring:
                 continue
 
             # Skip import statements
             if stripped.startswith('import ') or stripped.startswith('from '):
                 continue
 
-            # Skip jax.__version__ checks (version compatibility code is not meaningful to mutate)
-            if 'jax.__version__' in line:
+            # Skip version compatibility comparisons
+            if self._is_version_comparison(line):
                 continue
 
-            # Generate AOR mutations (skip lines with *args/**kwargs patterns)
-            if not self._has_star_args(line):
-                for pattern, replacement, desc in self.AOR_REPLACEMENTS:
-                    try:
-                        # Skip +/- mutations on lines with scientific notation
-                        if ('+ to -' in desc or '- to +' in desc) and self._has_scientific_notation(line):
-                            continue
-                        mutated = re.sub(pattern, replacement, line, count=1)
-                        if mutated != line:
-                            all_mutations.append(Mutation(
-                                id=mutation_id,
-                                file_path=target_file,
-                                line_number=line_num,
-                                original_code=line,
-                                mutated_code=mutated,
-                                operator="AOR",
-                                operator_description=f"Arithmetic Operator Replacement: {desc}"
-                            ))
-                            mutation_id += 1
-                    except re.error:
-                        continue
+            # Skip decorator lines
+            if stripped.startswith('@'):
+                continue
 
-            # Generate ROR mutations
-            for pattern, replacement, desc in self.ROR_REPLACEMENTS:
-                try:
-                    # Use re.sub to replace the matched pattern directly
-                    mutated = re.sub(pattern, replacement, line, count=1)
-                    if mutated != line:
-                        all_mutations.append(Mutation(
-                            id=mutation_id,
-                            file_path=target_file,
-                            line_number=line_num,
-                            original_code=line,
-                            mutated_code=mutated,
-                            operator="ROR",
-                            operator_description=f"Relational Operator Replacement: {desc}"
-                        ))
-                        mutation_id += 1
-                except re.error:
-                    continue
+            # Strip inline comments for mutation - only mutate code portion
+            code_only = self._strip_comments(line)
 
-            # Generate LCR mutations
-            for pattern, replacement, desc in self.LCR_REPLACEMENTS:
-                try:
-                    mutated = re.sub(pattern, replacement, line, count=1)
-                    if mutated != line:
-                        all_mutations.append(Mutation(
-                            id=mutation_id,
-                            file_path=target_file,
-                            line_number=line_num,
-                            original_code=line,
-                            mutated_code=mutated,
-                            operator="LCR",
-                            operator_description=f"Logical Connector Replacement: {desc}"
-                        ))
-                        mutation_id += 1
-                except re.error:
-                    continue
+            # Generate mutations using each operator
+            all_mutations.extend(self._generate_aor_mutations(line, line_num, code_only, lines, target_file))
+            all_mutations.extend(self._generate_ror_mutations(line, line_num, code_only, lines, target_file))
+            all_mutations.extend(self._generate_lcr_mutations(line, line_num, code_only, lines, target_file))
+            all_mutations.extend(self._generate_crp_mutations(line, line_num, code_only, lines, target_file))
 
-            # Generate CRP mutations (constant replacement) - multiple variants
-            number_pattern = r'(?<![a-zA-Z_])(\d+\.?\d*)(?![a-zA-Z_\d])'
-            for match in re.finditer(number_pattern, line):
-                try:
-                    original = match.group(1)
-                    num_val = float(original)
-                    start, end = match.span(1)
+        # Sort mutations by (line_number, operator, description) for deterministic ordering
+        all_mutations.sort(key=lambda m: (m.line_number, m.operator, m.operator_description))
 
-                    # Skip version numbers like '0.7.2'
-                    if "'" in line[max(0,start-2):start] or '"' in line[max(0,start-2):start]:
-                        continue
+        # Deduplicate mutations based on (line_number, original_code, mutated_code)
+        seen = set()
+        unique_mutations = []
+        for m in all_mutations:
+            key = (m.line_number, m.original_code.strip(), m.mutated_code.strip())
+            if key not in seen:
+                seen.add(key)
+                unique_mutations.append(m)
+        all_mutations = unique_mutations
 
-                    # Skip numbers that are part of scientific notation (e.g., 1e-05)
-                    # Check if preceded by e- or e+ or E- or E+
-                    prefix = line[max(0, start-2):start]
-                    if re.search(r'[eE][-+]$', prefix):
-                        continue
-
-                    # Variant 1: increment
-                    if '.' in original:
-                        new_val = str(num_val + 0.1)
-                    else:
-                        new_val = str(int(num_val) + 1)
-
-                    mutated = line[:start] + new_val + line[end:]
-                    all_mutations.append(Mutation(
-                        id=mutation_id,
-                        file_path=target_file,
-                        line_number=line_num,
-                        original_code=line,
-                        mutated_code=mutated,
-                        operator="CRP",
-                        operator_description=f"Constant Replacement: {original} to {new_val}"
-                    ))
-                    mutation_id += 1
-
-                    # Variant 2: decrement (if not already 0)
-                    if num_val != 0:
-                        if '.' in original:
-                            new_val = str(num_val - 0.1)
-                        else:
-                            new_val = str(int(num_val) - 1)
-
-                        mutated = line[:start] + new_val + line[end:]
-                        all_mutations.append(Mutation(
-                            id=mutation_id,
-                            file_path=target_file,
-                            line_number=line_num,
-                            original_code=line,
-                            mutated_code=mutated,
-                            operator="CRP",
-                            operator_description=f"Constant Replacement: {original} to {new_val}"
-                        ))
-                        mutation_id += 1
-
-                    # Variant 3: replace with 0 (if not already 0)
-                    if num_val != 0:
-                        mutated = line[:start] + '0' + line[end:]
-                        all_mutations.append(Mutation(
-                            id=mutation_id,
-                            file_path=target_file,
-                            line_number=line_num,
-                            original_code=line,
-                            mutated_code=mutated,
-                            operator="CRP",
-                            operator_description=f"Constant Replacement: {original} to 0"
-                        ))
-                        mutation_id += 1
-
-                    # Variant 4: negate (if not 0)
-                    if num_val != 0:
-                        if '.' in original:
-                            new_val = str(-num_val)
-                        else:
-                            new_val = str(-int(num_val))
-
-                        mutated = line[:start] + new_val + line[end:]
-                        all_mutations.append(Mutation(
-                            id=mutation_id,
-                            file_path=target_file,
-                            line_number=line_num,
-                            original_code=line,
-                            mutated_code=mutated,
-                            operator="CRP",
-                            operator_description=f"Constant Replacement: {original} to {new_val}"
-                        ))
-                        mutation_id += 1
-
-                except ValueError:
-                    continue
-
-            # Generate NCM mutations (Negate Conditionals)
-            for pattern, replacement, desc in self.NCM_PATTERNS:
-                try:
-                    mutated = re.sub(pattern, replacement, line, count=1)
-                    if mutated != line:
-                        all_mutations.append(Mutation(
-                            id=mutation_id,
-                            file_path=target_file,
-                            line_number=line_num,
-                            original_code=line,
-                            mutated_code=mutated,
-                            operator="NCM",
-                            operator_description=f"Negate Conditionals: {desc}"
-                        ))
-                        mutation_id += 1
-                except re.error:
-                    continue
-
-            # Generate BCR mutations (Boolean Constant Replacement)
-            for pattern, replacement, desc in self.BCR_REPLACEMENTS:
-                try:
-                    mutated = re.sub(pattern, replacement, line, count=1)
-                    if mutated != line:
-                        all_mutations.append(Mutation(
-                            id=mutation_id,
-                            file_path=target_file,
-                            line_number=line_num,
-                            original_code=line,
-                            mutated_code=mutated,
-                            operator="BCR",
-                            operator_description=f"Boolean Constant Replacement: {desc}"
-                        ))
-                        mutation_id += 1
-                except re.error:
-                    continue
-
-            # Generate RVR mutations (Return Value Replacement)
-            # Skip multi-line returns and lines that are continuations
-            if (stripped.startswith('return ') and 'return None' not in line and
-                not self._is_multiline_start(line) and
-                not self._is_multiline_continuation(lines, line_num)):
-                # Don't mutate simple returns
-                return_value = stripped[7:].strip()
-                if return_value and return_value != 'None':
-                    indent = len(line) - len(line.lstrip())
-                    mutated = ' ' * indent + 'return None'
-                    all_mutations.append(Mutation(
-                        id=mutation_id,
-                        file_path=target_file,
-                        line_number=line_num,
-                        original_code=line,
-                        mutated_code=mutated,
-                        operator="RVR",
-                        operator_description=f"Return Value Replacement: {return_value[:30]} to None"
-                    ))
-                    mutation_id += 1
-
-            # Generate SDL mutations (Statement Deletion) for assignment statements
-            # Skip if this is the only statement in an if/else body, or if it's multi-line
-            if ('=' in line and not stripped.startswith('def ') and not stripped.startswith('class ') and
-                not self._is_single_statement_if_body(lines, line_num) and
-                not self._is_multiline_start(line) and
-                not self._is_multiline_continuation(lines, line_num)):
-                # Check if it's an assignment (not comparison)
-                if re.search(r'^\s*\w+\s*=\s*[^=]', line) and 'lambda' not in line:
-                    # Check if next line is indented (would break if we replace with pass)
-                    skip_mutation = False
-                    if line_num < len(lines):
-                        next_line = lines[line_num] if line_num < len(lines) else ''
-                        next_stripped = next_line.strip()
-                        if next_stripped and not next_stripped.startswith('#'):
-                            current_indent = len(line) - len(line.lstrip())
-                            next_indent = len(next_line) - len(next_line.lstrip())
-                            # Skip if next line is more indented (multi-line statement continuation)
-                            if next_indent > current_indent:
-                                skip_mutation = True
-                    if not skip_mutation:
-                        indent = len(line) - len(line.lstrip())
-                        mutated = ' ' * indent + 'pass  # SDL mutation'
-                        all_mutations.append(Mutation(
-                            id=mutation_id,
-                            file_path=target_file,
-                            line_number=line_num,
-                            original_code=line,
-                            mutated_code=mutated,
-                            operator="SDL",
-                            operator_description=f"Statement Deletion: removed assignment"
-                        ))
-                        mutation_id += 1
-
-        # Limit to max_mutations
+        # Limit to exactly max_mutations (deterministic - always same first N)
         if len(all_mutations) > max_mutations:
             all_mutations = all_mutations[:max_mutations]
+
+        # Re-assign IDs to ensure they're sequential from 0 to len-1
+        for i, mutation in enumerate(all_mutations):
+            mutation.id = i
 
         return all_mutations
 
@@ -520,19 +566,16 @@ class MutationTester:
 
     def run_targeted_test(self, test_file: str, timeout: int = 120) -> Tuple[bool, str]:
         """Run tests for the mutated file."""
-        # Use the venv Python to ensure pytest is available
-        # Cross-platform support: detect correct Python executable
         import platform
         if platform.system() == "Windows":
             python_exe = self.project_root / ".venv" / "Scripts" / "python.exe"
-        else:  # macOS / Linux
+        else:
             python_exe = self.project_root / ".venv" / "bin" / "python3"
 
-        # Fallback to system Python if venv doesn't exist
         if not python_exe.exists():
             python_exe = sys.executable
 
-        # VALIDATION: Verify pytest can be imported
+        # Verify pytest is available
         check_cmd = f'"{python_exe}" -c "import pytest"'
         check_result = subprocess.run(
             check_cmd,
@@ -561,7 +604,7 @@ class MutationTester:
             )
             output = result.stdout + result.stderr
 
-            # VALIDATION: Check for common error patterns that indicate tests didn't run
+            # Check for common error patterns
             error_patterns = [
                 "ModuleNotFoundError",
                 "ImportError",
@@ -573,7 +616,6 @@ class MutationTester:
 
             for pattern in error_patterns:
                 if pattern in output:
-                    # This is an import/collection error, not a test failure
                     raise RuntimeError(
                         f"Test execution failed with error: {pattern}\n"
                         f"Output: {output[:500]}\n"
@@ -593,8 +635,6 @@ class MutationTester:
 
         try:
             passed, output = self.run_targeted_test(test_file)
-            # If test PASSES with mutation, mutant SURVIVED
-            # If test FAILS with mutation, mutant is KILLED
             mutation.status = "survived" if passed else "killed"
         except Exception as e:
             mutation.status = "error"
@@ -665,6 +705,7 @@ def generate_diff_file(mutations: List[Mutation], output_path: Path):
         f.write(f"# Target: {mutations[0].file_path}\n")
         f.write(f"# Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
         f.write(f"# Total Mutations: {len(mutations)}\n")
+        f.write(f"# Operators: AOR, ROR, CRP, LCR only\n")
         f.write("=" * 80 + "\n\n")
 
         for m in mutations:
@@ -690,10 +731,13 @@ def main():
     print(f"OPTAX MUTATION TESTING - {target_file}")
     print("="*70 + "\n")
 
-    # Generate mutations
-    print("Generating mutations...")
+    # Generate mutations (exactly 100, deterministic)
+    print("Generating mutations (deterministic, exactly 100)...")
+    print("Operators: AOR, ROR, CRP, LCR only")
     generator = MutationGenerator(project_root)
-    mutations = generator.generate_all(target_file)
+    mutations = generator.generate_all(target_file, max_mutations=100)
+
+    print(f"Generated {len(mutations)} mutations")
 
     # Count by operator
     op_counts = {}
