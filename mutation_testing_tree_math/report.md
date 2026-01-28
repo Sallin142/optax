@@ -101,6 +101,31 @@ This mutant survives because it is an equivalent mutant and is therefore not a b
 
 # Conclusion
 
+| Operator | Count | Percentage |
+|----------|-------|------------|
+| AOR | 27 | 27.0% |
+| ROR | 30 | 30.0% |
+| CRP | 41 | 41.0% |
+| LCR | 2 | 2.0% |
+| **Total** | **100** | **100.0%** |
+
+| Routine | Total Mutants | Killed | Survived | Effectiveness |
+|---------|---------------|--------|----------|---------------|
+| `_square` | 2 | 2 | 0 | 100.0% |
+| `_vdot` | 5 | 3 | 2 | 60.0% |
+| `tree_add_scale` | 4 | 4 | 0 | 100.0% |
+| `tree_allclose` | 4 | 1 | 3 | 25.0% |
+| `tree_bias_correction` | 5 | 1 | 4 | 20.0% |
+| `tree_max` | 9 | 8 | 1 | 88.9% |
+| `tree_min` | 8 | 7 | 1 | 87.5% |
+| `tree_norm` | 25 | 18 | 7 | 72.0% |
+| `tree_scale` | 2 | 2 | 0 | 100.0% |
+| `tree_sum` | 6 | 3 | 3 | 50.0% |
+| `tree_update_infinity_moment` | 4 | 4 | 0 | 100.0% |
+| `tree_update_moment` | 3 | 0 | 3 | 0.0% |
+| `tree_update_moment_per_elem_norm` | 20 | 0 | 20 | 0.0% |
+| `tree_vdot` | 3 | 3 | 0 | 100.0% |
+
 - Total mutations: 100
   - AOR: 27
   - ROR: 30
