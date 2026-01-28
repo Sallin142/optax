@@ -495,17 +495,6 @@ Status: survived
 
 --- original
 +++ mutated
-@@ -279,1 +279,1 @@
--              ord: int | str | float | None = None,  # pylint: disable=redefined-builtin
-+              ord: int | str | float | None = None,  # pylint: disable=redefined + builtin
-
-Mutation #45 - BCR: Boolean Constant Replacement: False to True
-File: optax/tree_utils/_tree_math.py
-Line: 280
-Status: killed
-
---- original
-+++ mutated
 @@ -280,1 +280,1 @@
 -              squared: bool = False) -> jax.Array:
 +              squared: bool = True) -> jax.Array:
