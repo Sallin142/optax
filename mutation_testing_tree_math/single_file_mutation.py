@@ -349,6 +349,7 @@ class MutationGenerator:
             # Generate different CRP variants
             # Use a set to track unique replacement values and avoid duplicates
             seen_values = set()
+            seen_values.add(original)  # Don't replace a constant with itself
             crp_variants = []
 
             is_float = '.' in original
@@ -396,6 +397,11 @@ class MutationGenerator:
             if "2" not in seen_values:
                 seen_values.add("2")
                 crp_variants.append(("2", f"{original} to 2"))
+
+            # Variant 7: Replace with -1 (for more coverage, especially for 0 constants)
+            if "-1" not in seen_values:
+                seen_values.add("-1")
+                crp_variants.append(("-1", f"{original} to -1"))
 
             for new_val, desc in crp_variants:
                 mutated_code = code_only[:start] + new_val + code_only[end:]
