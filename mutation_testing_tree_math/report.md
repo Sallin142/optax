@@ -99,3 +99,11 @@ The following test will catch this mutation
 
 This mutant survives because it is an equivalent mutant and is therefore not a bug. For `tree_norm`, all legal ord values are still permitted (None, 1, 2, inf), and all illegal ord values still produce an error. The value of ord cannot be greater than infinity, so it is similar to the size check in mutant 25 where sizes of an array cannot be less than 0.
 
+# Conclusion
+
+- Total mutations: 100
+  - AOR: 27
+  - ROR: 30
+  - CRP: 41
+  - LCR: 2
+- Mutation score: 56 / 100 = 56.00%
