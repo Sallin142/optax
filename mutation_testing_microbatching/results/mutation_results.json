@@ -1,0 +1,1230 @@
+{
+  "total_mutations": 122,
+  "killed": 78,
+  "survived": 44,
+  "errors": 0,
+  "mutation_score": 63.934426229508205,
+  "elapsed_time": 450.5205500125885,
+  "mutations": [
+    {
+      "id": 0,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 74,
+      "original_code": "raise ValueError(",
+      "mutated_code": "pass  # SDL: deleted raise statement",
+      "operator": "SDL",
+      "operator_description": "Statement Deletion: removed raise statement",
+      "status": "killed"
+    },
+    {
+      "id": 1,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 78,
+      "original_code": "return wrapper",
+      "mutated_code": "return not wrapper",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not wrapper",
+      "status": "killed"
+    },
+    {
+      "id": 2,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 82,
+      "original_code": "return value",
+      "mutated_code": "return not value",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not value",
+      "status": "killed"
+    },
+    {
+      "id": 3,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 85,
+      "original_code": "def reshape_batch_axis(tree: Any, microbatch_size: int, axis: int = 0) -> Any:",
+      "mutated_code": "def reshape_batch_axis(tree: Any, microbatch_size: int, axis: int = 1) -> Any:",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "survived"
+    },
+    {
+      "id": 4,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 103,
+      "original_code": "new_shape = x.shape[:axis] + (-1, microbatch_size) + x.shape[axis + 1:]",
+      "mutated_code": "new_shape = x.shape[:axis] - (-1, microbatch_size) + x.shape[axis + 1:]",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: + to -",
+      "status": "killed"
+    },
+    {
+      "id": 5,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 103,
+      "original_code": "new_shape = x.shape[:axis] + (-1, microbatch_size) + x.shape[axis + 1:]",
+      "mutated_code": "new_shape = x.shape[:axis] + (-1, microbatch_size) - x.shape[axis + 1:]",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: + to -",
+      "status": "killed"
+    },
+    {
+      "id": 6,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 103,
+      "original_code": "new_shape = x.shape[:axis] + (-1, microbatch_size) + x.shape[axis + 1:]",
+      "mutated_code": "new_shape = x.shape[:axis] + (-1, microbatch_size) + x.shape[axis - 1:]",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: + to -",
+      "status": "killed"
+    },
+    {
+      "id": 7,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 103,
+      "original_code": "new_shape = x.shape[:axis] + (-1, microbatch_size) + x.shape[axis + 1:]",
+      "mutated_code": "new_shape = x.shape[:axis] + (-2, microbatch_size) + x.shape[axis + 1:]",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to 2",
+      "status": "killed"
+    },
+    {
+      "id": 8,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 103,
+      "original_code": "new_shape = x.shape[:axis] + (-1, microbatch_size) + x.shape[axis + 1:]",
+      "mutated_code": "new_shape = x.shape[:axis] + (-1, microbatch_size) + x.shape[axis + 2:]",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to 2",
+      "status": "killed"
+    },
+    {
+      "id": 9,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 104,
+      "original_code": "if jax.__version__ < '0.7.0':",
+      "mutated_code": "if jax.__version__ <= '0.7.0':",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: < to <=",
+      "status": "survived"
+    },
+    {
+      "id": 10,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 104,
+      "original_code": "if jax.__version__ < '0.7.0':",
+      "mutated_code": "if jax.__version__ < '0.7999999999999999.0':",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0.7 to 0.7999999999999999",
+      "status": "survived"
+    },
+    {
+      "id": 11,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 104,
+      "original_code": "if jax.__version__ < '0.7.0':",
+      "mutated_code": "if jax.__version__ < '0.7.1':",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "survived"
+    },
+    {
+      "id": 12,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 105,
+      "original_code": "return x.reshape(new_shape, order='F')",
+      "mutated_code": "return not x.reshape(new_shape, order='F')",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not x",
+      "status": "survived"
+    },
+    {
+      "id": 13,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 109,
+      "original_code": "return x.reshape(new_shape, order='F')",
+      "mutated_code": "return not x.reshape(new_shape, order='F')",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not x",
+      "status": "killed"
+    },
+    {
+      "id": 14,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 111,
+      "original_code": "assert jax.__version__ >= '0.8.1', (",
+      "mutated_code": "assert jax.__version__ > '0.8.1', (",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: >= to >",
+      "status": "survived"
+    },
+    {
+      "id": 15,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 111,
+      "original_code": "assert jax.__version__ >= '0.8.1', (",
+      "mutated_code": "assert jax.__version__ >= '0.9.1', (",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0.8 to 0.9",
+      "status": "survived"
+    },
+    {
+      "id": 16,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 111,
+      "original_code": "assert jax.__version__ >= '0.8.1', (",
+      "mutated_code": "assert jax.__version__ >= '0.8.2', (",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to 2",
+      "status": "survived"
+    },
+    {
+      "id": 17,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 115,
+      "original_code": "if len(spec) < axis:  # The batch axis is not sharded.",
+      "mutated_code": "if len(spec) <= axis:  # The batch axis is not sharded.",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: < to <=",
+      "status": "survived"
+    },
+    {
+      "id": 18,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 118,
+      "original_code": "new_spec = jax.P(*spec[:axis], None, spec[axis], *spec[axis + 1:])",
+      "mutated_code": "new_spec = jax.P(*spec[:axis], None, spec[axis], *spec[axis - 1:])",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: + to -",
+      "status": "survived"
+    },
+    {
+      "id": 19,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 118,
+      "original_code": "new_spec = jax.P(*spec[:axis], None, spec[axis], *spec[axis + 1:])",
+      "mutated_code": "new_spec = jax.P(*spec[:axis], None, spec[axis], *spec[axis + 2:])",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to 2",
+      "status": "survived"
+    },
+    {
+      "id": 20,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 123,
+      "original_code": "if microbatch_size % nshards != 0:",
+      "mutated_code": "if microbatch_size % nshards == 0:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: != to ==",
+      "status": "survived"
+    },
+    {
+      "id": 21,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 123,
+      "original_code": "if microbatch_size % nshards != 0:",
+      "mutated_code": "if microbatch_size % nshards != 1:",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "survived"
+    },
+    {
+      "id": 22,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 124,
+      "original_code": "raise ValueError(f'{nshards=} must evenly divide {microbatch_size=}.')",
+      "mutated_code": "pass  # SDL: deleted raise statement",
+      "operator": "SDL",
+      "operator_description": "Statement Deletion: removed raise statement",
+      "status": "survived"
+    },
+    {
+      "id": 23,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 126,
+      "original_code": "return x.reshape(new_shape, order='F', out_sharding=out_sharding)",
+      "mutated_code": "return not x.reshape(new_shape, order='F', out_sharding=out_sharding)",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not x",
+      "status": "survived"
+    },
+    {
+      "id": 24,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 128,
+      "original_code": "return jax.tree.map(reshape_leaf, tree)",
+      "mutated_code": "return not jax.tree.map(reshape_leaf, tree)",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not jax",
+      "status": "killed"
+    },
+    {
+      "id": 25,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 136,
+      "original_code": "lambda c, v: accumulator.update(c, v, i), carry, value",
+      "mutated_code": "lambda c, v: accumulator.update(v, c, i), carry, value",
+      "operator": "ASR",
+      "operator_description": "Argument Swap: swapped c and v in update()",
+      "status": "killed"
+    },
+    {
+      "id": 26,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 147,
+      "original_code": "return jax.tree.map(",
+      "mutated_code": "return not jax.tree.map(",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not jax",
+      "status": "killed"
+    },
+    {
+      "id": 27,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 154,
+      "original_code": "return jax.tree.map(",
+      "mutated_code": "return not jax.tree.map(",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not jax",
+      "status": "killed"
+    },
+    {
+      "id": 28,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 155,
+      "original_code": "lambda acc, car, val: acc.update(car, val, index),",
+      "mutated_code": "lambda acc, car, val: acc.update(val, car, index),",
+      "operator": "ASR",
+      "operator_description": "Argument Swap: swapped car and val in update()",
+      "status": "killed"
+    },
+    {
+      "id": 29,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 162,
+      "original_code": "return jax.tree.map(",
+      "mutated_code": "return not jax.tree.map(",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not jax",
+      "status": "killed"
+    },
+    {
+      "id": 30,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 169,
+      "original_code": "return jax.tree.map(",
+      "mutated_code": "return not jax.tree.map(",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not jax",
+      "status": "killed"
+    },
+    {
+      "id": 31,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 173,
+      "original_code": "return Accumulator(init, update, finalize, aggregate)",
+      "mutated_code": "return Accumulator(update, init, finalize, aggregate)",
+      "operator": "ASR",
+      "operator_description": "Argument Swap: swapped init and update in Accumulator()",
+      "status": "killed"
+    },
+    {
+      "id": 32,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 181,
+      "original_code": "update=lambda carry, value, _: carry + value,",
+      "mutated_code": "update=lambda carry, value, _: carry - value,",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: + to -",
+      "status": "killed"
+    },
+    {
+      "id": 33,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 183,
+      "original_code": "aggregate=functools.partial(jnp.sum, axis=0),",
+      "mutated_code": "aggregate=functools.partial(jnp.sum, axis=1),",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "killed"
+    },
+    {
+      "id": 34,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 190,
+      "original_code": "if num_microbatches <= 0:",
+      "mutated_code": "if num_microbatches < 0:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: <= to <",
+      "status": "survived"
+    },
+    {
+      "id": 35,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 190,
+      "original_code": "if num_microbatches <= 0:",
+      "mutated_code": "if num_microbatches <= 1:",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "killed"
+    },
+    {
+      "id": 36,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 191,
+      "original_code": "raise ValueError(f'{num_microbatches=} must be positive.')",
+      "mutated_code": "pass  # SDL: deleted raise statement",
+      "operator": "SDL",
+      "operator_description": "Statement Deletion: removed raise statement",
+      "status": "survived"
+    },
+    {
+      "id": 37,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 195,
+      "original_code": "update=lambda carry, value, _: carry + value,",
+      "mutated_code": "update=lambda carry, value, _: carry - value,",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: + to -",
+      "status": "killed"
+    },
+    {
+      "id": 38,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 196,
+      "original_code": "finalize=lambda carry: carry / num_microbatches,",
+      "mutated_code": "finalize=lambda carry: carry * num_microbatches,",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: / to *",
+      "status": "killed"
+    },
+    {
+      "id": 39,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 197,
+      "original_code": "aggregate=functools.partial(jnp.mean, axis=0),",
+      "mutated_code": "aggregate=functools.partial(jnp.mean, axis=1),",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "survived"
+    },
+    {
+      "id": 40,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 205,
+      "original_code": "p = index / (index + 1)",
+      "mutated_code": "p = index / (index - 1)",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: + to -",
+      "status": "survived"
+    },
+    {
+      "id": 41,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 205,
+      "original_code": "p = index / (index + 1)",
+      "mutated_code": "p = index * (index + 1)",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: / to *",
+      "status": "survived"
+    },
+    {
+      "id": 42,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 205,
+      "original_code": "p = index / (index + 1)",
+      "mutated_code": "p = index / (index + 2)",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to 2",
+      "status": "survived"
+    },
+    {
+      "id": 43,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 206,
+      "original_code": "new_state = carry * p + value * (1 - p)",
+      "mutated_code": "new_state = carry * p - value * (1 - p)",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: + to -",
+      "status": "survived"
+    },
+    {
+      "id": 44,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 206,
+      "original_code": "new_state = carry * p + value * (1 - p)",
+      "mutated_code": "new_state = carry * p + value * (1 + p)",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: - to +",
+      "status": "survived"
+    },
+    {
+      "id": 45,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 206,
+      "original_code": "new_state = carry * p + value * (1 - p)",
+      "mutated_code": "new_state = carry / p + value * (1 - p)",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: * to /",
+      "status": "survived"
+    },
+    {
+      "id": 46,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 206,
+      "original_code": "new_state = carry * p + value * (1 - p)",
+      "mutated_code": "new_state = carry * p + value / (1 - p)",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: * to /",
+      "status": "survived"
+    },
+    {
+      "id": 47,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 206,
+      "original_code": "new_state = carry * p + value * (1 - p)",
+      "mutated_code": "new_state = carry * p + value * (2 - p)",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to 2",
+      "status": "survived"
+    },
+    {
+      "id": 48,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 207,
+      "original_code": "return new_state",
+      "mutated_code": "return not new_state",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not new_state",
+      "status": "killed"
+    },
+    {
+      "id": 49,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 214,
+      "original_code": "aggregate=functools.partial(jnp.mean, axis=0),",
+      "mutated_code": "aggregate=functools.partial(jnp.mean, axis=1),",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "survived"
+    },
+    {
+      "id": 50,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 222,
+      "original_code": "if jax.__version__ < '0.7.0':",
+      "mutated_code": "if jax.__version__ <= '0.7.0':",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: < to <=",
+      "status": "survived"
+    },
+    {
+      "id": 51,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 222,
+      "original_code": "if jax.__version__ < '0.7.0':",
+      "mutated_code": "if jax.__version__ < '0.7999999999999999.0':",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0.7 to 0.7999999999999999",
+      "status": "survived"
+    },
+    {
+      "id": 52,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 222,
+      "original_code": "if jax.__version__ < '0.7.0':",
+      "mutated_code": "if jax.__version__ < '0.7.1':",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "survived"
+    },
+    {
+      "id": 53,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 228,
+      "original_code": "spec = jax.sharding.PartitionSpec(*sharding.spec[1:])",
+      "mutated_code": "spec = jax.sharding.PartitionSpec(*sharding.spec[2:])",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to 2",
+      "status": "survived"
+    },
+    {
+      "id": 54,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 237,
+      "original_code": "if num_microbatches <= 0:",
+      "mutated_code": "if num_microbatches < 0:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: <= to <",
+      "status": "survived"
+    },
+    {
+      "id": 55,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 237,
+      "original_code": "if num_microbatches <= 0:",
+      "mutated_code": "if num_microbatches <= 1:",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "killed"
+    },
+    {
+      "id": 56,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 238,
+      "original_code": "raise ValueError(f'{num_microbatches=} must be positive.')",
+      "mutated_code": "pass  # SDL: deleted raise statement",
+      "operator": "SDL",
+      "operator_description": "Statement Deletion: removed raise statement",
+      "status": "survived"
+    },
+    {
+      "id": 57,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 241,
+      "original_code": "shape = (num_microbatches,) + value.shape",
+      "mutated_code": "shape = (num_microbatches,) - value.shape",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: + to -",
+      "status": "killed"
+    },
+    {
+      "id": 58,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 243,
+      "original_code": "return zeros.at[0].set(value)",
+      "mutated_code": "return zeros.at[1].set(value)",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "killed"
+    },
+    {
+      "id": 59,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 243,
+      "original_code": "return zeros.at[0].set(value)",
+      "mutated_code": "return not zeros.at[0].set(value)",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not zeros",
+      "status": "killed"
+    },
+    {
+      "id": 60,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 246,
+      "original_code": "return carry.at[index].set(value)",
+      "mutated_code": "return not carry.at[index].set(value)",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not carry",
+      "status": "killed"
+    },
+    {
+      "id": 61,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 250,
+      "original_code": "return carry.reshape(-1, *carry.shape[2:], order='F', **kwargs)",
+      "mutated_code": "return carry.reshape(-2, *carry.shape[2:], order='F', **kwargs)",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to 2",
+      "status": "killed"
+    },
+    {
+      "id": 62,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 250,
+      "original_code": "return carry.reshape(-1, *carry.shape[2:], order='F', **kwargs)",
+      "mutated_code": "return carry.reshape(-1, *carry.shape[3:], order='F', **kwargs)",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 2 to 3",
+      "status": "killed"
+    },
+    {
+      "id": 63,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 250,
+      "original_code": "return carry.reshape(-1, *carry.shape[2:], order='F', **kwargs)",
+      "mutated_code": "return not carry.reshape(-1, *carry.shape[2:], order='F', **kwargs)",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not carry",
+      "status": "killed"
+    },
+    {
+      "id": 64,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 252,
+      "original_code": "return _lift(Accumulator(init, update, finalize, _identity))",
+      "mutated_code": "return _lift(Accumulator(update, init, finalize, _identity))",
+      "operator": "ASR",
+      "operator_description": "Argument Swap: swapped init and update in Accumulator()",
+      "status": "killed"
+    },
+    {
+      "id": 65,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 278,
+      "original_code": "return acc",
+      "mutated_code": "return not acc",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not acc",
+      "status": "survived"
+    },
+    {
+      "id": 66,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 288,
+      "original_code": "raise ValueError(f'Unknown accumulator: {acc}')",
+      "mutated_code": "pass  # SDL: deleted raise statement",
+      "operator": "SDL",
+      "operator_description": "Statement Deletion: removed raise statement",
+      "status": "survived"
+    },
+    {
+      "id": 67,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 304,
+      "original_code": "batch_args = [args[i] for i in argnums] + [kwargs[i] for i in argnames]",
+      "mutated_code": "batch_args = [args[i] for i in argnums] - [kwargs[i] for i in argnames]",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: + to -",
+      "status": "killed"
+    },
+    {
+      "id": 68,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 309,
+      "original_code": "))[0]",
+      "mutated_code": "))[1]",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "killed"
+    },
+    {
+      "id": 69,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 311,
+      "original_code": "if len(set(batch_sizes)) > 1:",
+      "mutated_code": "if len(set(batch_sizes)) >= 1:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: > to >=",
+      "status": "killed"
+    },
+    {
+      "id": 70,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 311,
+      "original_code": "if len(set(batch_sizes)) > 1:",
+      "mutated_code": "if len(set(batch_sizes)) > 2:",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to 2",
+      "status": "survived"
+    },
+    {
+      "id": 71,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 312,
+      "original_code": "raise ValueError(",
+      "mutated_code": "pass  # SDL: deleted raise statement",
+      "operator": "SDL",
+      "operator_description": "Statement Deletion: removed raise statement",
+      "status": "killed"
+    },
+    {
+      "id": 72,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 313,
+      "original_code": "f'Batch Arguments must have equal-size batch axes, found {batch_sizes}.'",
+      "mutated_code": "f'Batch Arguments must have equal+size batch axes, found {batch_sizes}.'",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: - to +",
+      "status": "survived"
+    },
+    {
+      "id": 73,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 316,
+      "original_code": "batch_size = list(batch_sizes)[0]",
+      "mutated_code": "batch_size = list(batch_sizes)[1]",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "killed"
+    },
+    {
+      "id": 74,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 317,
+      "original_code": "if batch_size % microbatch_size != 0:",
+      "mutated_code": "if batch_size % microbatch_size == 0:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: != to ==",
+      "status": "killed"
+    },
+    {
+      "id": 75,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 317,
+      "original_code": "if batch_size % microbatch_size != 0:",
+      "mutated_code": "if batch_size % microbatch_size != 1:",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "killed"
+    },
+    {
+      "id": 76,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 318,
+      "original_code": "raise ValueError(f'{batch_size=} must be divisible by {microbatch_size=}.')",
+      "mutated_code": "pass  # SDL: deleted raise statement",
+      "operator": "SDL",
+      "operator_description": "Statement Deletion: removed raise statement",
+      "status": "killed"
+    },
+    {
+      "id": 77,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 326,
+      "original_code": "return tuple(new_args), new_kwargs, tuple(batch_sizes)[0]",
+      "mutated_code": "return tuple(new_args), new_kwargs, tuple(batch_sizes)[1]",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "killed"
+    },
+    {
+      "id": 78,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 336,
+      "original_code": "*,",
+      "mutated_code": "/,",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: * to /",
+      "status": "killed"
+    },
+    {
+      "id": 79,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 338,
+      "original_code": "in_axes: int | Sequence[int] = 0,",
+      "mutated_code": "in_axes: int | Sequence[int] = 1,",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "killed"
+    },
+    {
+      "id": 80,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 409,
+      "original_code": "return fun",
+      "mutated_code": "return not fun",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not fun",
+      "status": "killed"
+    },
+    {
+      "id": 81,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 418,
+      "original_code": "in_axes = (in_axes,) * (len(argnums) + len(argnames))",
+      "mutated_code": "in_axes = (in_axes,) * (len(argnums) - len(argnames))",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: + to -",
+      "status": "killed"
+    },
+    {
+      "id": 82,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 418,
+      "original_code": "in_axes = (in_axes,) * (len(argnums) + len(argnames))",
+      "mutated_code": "in_axes = (in_axes,) / (len(argnums) + len(argnames))",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: * to /",
+      "status": "killed"
+    },
+    {
+      "id": 83,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 425,
+      "original_code": "accumulator_ = _canonicalize(accumulator, num_microbatches)",
+      "mutated_code": "accumulator_ = _canonicalize(num_microbatches, accumulator)",
+      "operator": "ASR",
+      "operator_description": "Argument Swap: swapped accumulator and num_microbatches in _canonicalize()",
+      "status": "killed"
+    },
+    {
+      "id": 84,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 441,
+      "original_code": "return accumulator_.update(carry, f(index), index)",
+      "mutated_code": "return not accumulator_.update(carry, f(index), index)",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not accumulator_",
+      "status": "killed"
+    },
+    {
+      "id": 85,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 443,
+      "original_code": "loop_bound = num_real_microbatches or num_microbatches",
+      "mutated_code": "loop_bound = num_real_microbatches and num_microbatches",
+      "operator": "LCR",
+      "operator_description": "Logical Connector Replacement: or to and",
+      "status": "killed"
+    },
+    {
+      "id": 86,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 445,
+      "original_code": "1, loop_bound, body_fun, accumulator_.init(f(0)),",
+      "mutated_code": "2, loop_bound, body_fun, accumulator_.init(f(0)),",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to 2",
+      "status": "killed"
+    },
+    {
+      "id": 87,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 445,
+      "original_code": "1, loop_bound, body_fun, accumulator_.init(f(0)),",
+      "mutated_code": "1, loop_bound, body_fun, accumulator_.init(f(1)),",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "killed"
+    },
+    {
+      "id": 88,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 448,
+      "original_code": "return accumulator_.finalize(answer)",
+      "mutated_code": "return not accumulator_.finalize(answer)",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not accumulator_",
+      "status": "killed"
+    },
+    {
+      "id": 89,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 450,
+      "original_code": "return microbatched_fun",
+      "mutated_code": "return not microbatched_fun",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not microbatched_fun",
+      "status": "killed"
+    },
+    {
+      "id": 90,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 456,
+      "original_code": "in_axes: int | Sequence[int] = 0,",
+      "mutated_code": "in_axes: int | Sequence[int] = 1,",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "survived"
+    },
+    {
+      "id": 91,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 457,
+      "original_code": "out_axes: Any = 0,",
+      "mutated_code": "out_axes: Any = 1,",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "killed"
+    },
+    {
+      "id": 92,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 458,
+      "original_code": "*,",
+      "mutated_code": "/,",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: * to /",
+      "status": "killed"
+    },
+    {
+      "id": 93,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 503,
+      "original_code": "if out_axes != 0:",
+      "mutated_code": "if out_axes == 0:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: != to ==",
+      "status": "killed"
+    },
+    {
+      "id": 94,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 503,
+      "original_code": "if out_axes != 0:",
+      "mutated_code": "if out_axes != 1:",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "killed"
+    },
+    {
+      "id": 95,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 504,
+      "original_code": "raise NotImplementedError('out_axis != 0 is not currently supported')",
+      "mutated_code": "raise NotImplementedError('out_axis == 0 is not currently supported')",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: != to ==",
+      "status": "survived"
+    },
+    {
+      "id": 96,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 504,
+      "original_code": "raise NotImplementedError('out_axis != 0 is not currently supported')",
+      "mutated_code": "raise NotImplementedError('out_axis != 1 is not currently supported')",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "survived"
+    },
+    {
+      "id": 97,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 504,
+      "original_code": "raise NotImplementedError('out_axis != 0 is not currently supported')",
+      "mutated_code": "pass  # SDL: deleted raise statement",
+      "operator": "SDL",
+      "operator_description": "Statement Deletion: removed raise statement",
+      "status": "survived"
+    },
+    {
+      "id": 98,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 511,
+      "original_code": "microbatch_size_ = jax.tree.leaves(output)[0].shape[0]",
+      "mutated_code": "microbatch_size_ = jax.tree.leaves(output)[1].shape[0]",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "killed"
+    },
+    {
+      "id": 99,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 511,
+      "original_code": "microbatch_size_ = jax.tree.leaves(output)[0].shape[0]",
+      "mutated_code": "microbatch_size_ = jax.tree.leaves(output)[0].shape[1]",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "killed"
+    },
+    {
+      "id": 100,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 515,
+      "original_code": "temporary_accumulator = _canonicalize(accumulator, microbatch_size_)",
+      "mutated_code": "temporary_accumulator = _canonicalize(microbatch_size_, accumulator)",
+      "operator": "ASR",
+      "operator_description": "Argument Swap: swapped accumulator and microbatch_size_ in _canonicalize()",
+      "status": "killed"
+    },
+    {
+      "id": 101,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 516,
+      "original_code": "return temporary_accumulator.aggregate(output)",
+      "mutated_code": "return not temporary_accumulator.aggregate(output)",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not temporary_accumulator",
+      "status": "killed"
+    },
+    {
+      "id": 102,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 520,
+      "original_code": "argnums=tuple(x[0] for x in enumerate(in_axes) if x[1] is not None),",
+      "mutated_code": "argnums=tuple(x[1] for x in enumerate(in_axes) if x[1] is not None),",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "killed"
+    },
+    {
+      "id": 103,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 520,
+      "original_code": "argnums=tuple(x[0] for x in enumerate(in_axes) if x[1] is not None),",
+      "mutated_code": "argnums=tuple(x[0] for x in enumerate(in_axes) if x[2] is not None),",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to 2",
+      "status": "killed"
+    },
+    {
+      "id": 104,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 529,
+      "original_code": "return fun",
+      "mutated_code": "return not fun",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not fun",
+      "status": "survived"
+    },
+    {
+      "id": 105,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 531,
+      "original_code": "return lambda *args, **kwargs: (fun(*args, **kwargs), None)",
+      "mutated_code": "return not lambda *args, **kwargs: (fun(*args, **kwargs), None)",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not lambda",
+      "status": "killed"
+    },
+    {
+      "id": 106,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 542,
+      "original_code": "lambda x: jnp.expand_dims(x, axis=1), args[i]",
+      "mutated_code": "lambda x: jnp.expand_dims(x, axis=2), args[i]",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to 2",
+      "status": "killed"
+    },
+    {
+      "id": 107,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 546,
+      "original_code": "return wrapped_fun",
+      "mutated_code": "return not wrapped_fun",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not wrapped_fun",
+      "status": "killed"
+    },
+    {
+      "id": 108,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 552,
+      "original_code": "argnums: int | Sequence[int] = 0,",
+      "mutated_code": "argnums: int | Sequence[int] = 1,",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "survived"
+    },
+    {
+      "id": 109,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 553,
+      "original_code": "*,",
+      "mutated_code": "/,",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: * to /",
+      "status": "killed"
+    },
+    {
+      "id": 110,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 554,
+      "original_code": "batch_argnums: int | Sequence[int] = 1,",
+      "mutated_code": "batch_argnums: int | Sequence[int] = 2,",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to 2",
+      "status": "survived"
+    },
+    {
+      "id": 111,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 632,
+      "original_code": "fun = _normalize_fun_to_return_aux(fun, has_aux)",
+      "mutated_code": "fun = _normalize_has_aux_to_return_aux(has_aux, fun)",
+      "operator": "ASR",
+      "operator_description": "Argument Swap: swapped fun and has_aux in _normalize_fun_to_return_aux()",
+      "status": "killed"
+    },
+    {
+      "id": 112,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 633,
+      "original_code": "value_and_grad_fn = jax.value_and_grad(fun, argnums, has_aux=True)",
+      "mutated_code": "value_and_grad_fn = jax.value_and_grad(argnums, fun, has_aux=True)",
+      "operator": "ASR",
+      "operator_description": "Argument Swap: swapped fun and argnums in value_and_grad()",
+      "status": "killed"
+    },
+    {
+      "id": 113,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 639,
+      "original_code": "values=value_and_aux[0],",
+      "mutated_code": "values=value_and_aux[1],",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "killed"
+    },
+    {
+      "id": 114,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 641,
+      "original_code": "aux=value_and_aux[1],",
+      "mutated_code": "aux=value_and_aux[2],",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to 2",
+      "status": "killed"
+    },
+    {
+      "id": 115,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 643,
+      "original_code": "return result, aux",
+      "mutated_code": "return not result, aux",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not result",
+      "status": "killed"
+    },
+    {
+      "id": 116,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 645,
+      "original_code": "in_axes = [None] * (max(batch_argnums) + 1)",
+      "mutated_code": "in_axes = [None] * (max(batch_argnums) - 1)",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: + to -",
+      "status": "killed"
+    },
+    {
+      "id": 117,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 645,
+      "original_code": "in_axes = [None] * (max(batch_argnums) + 1)",
+      "mutated_code": "in_axes = [None] / (max(batch_argnums) + 1)",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: * to /",
+      "status": "killed"
+    },
+    {
+      "id": 118,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 645,
+      "original_code": "in_axes = [None] * (max(batch_argnums) + 1)",
+      "mutated_code": "in_axes = [None] * (max(batch_argnums) + 2)",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to 2",
+      "status": "killed"
+    },
+    {
+      "id": 119,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 647,
+      "original_code": "in_axes[i] = 0",
+      "mutated_code": "in_axes[i] = 1",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1",
+      "status": "killed"
+    },
+    {
+      "id": 120,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 655,
+      "original_code": "micro_fun = _with_extra_batch_axis(micro_fun, batch_argnums)",
+      "mutated_code": "micro_fun = _with_extra_batch_axis(batch_argnums, micro_fun)",
+      "operator": "ASR",
+      "operator_description": "Argument Swap: swapped micro_fun and batch_argnums in _with_extra_batch_axis()",
+      "status": "killed"
+    },
+    {
+      "id": 121,
+      "file_path": "optax/experimental/microbatching.py",
+      "line_number": 656,
+      "original_code": "return micro_fun",
+      "mutated_code": "return not micro_fun",
+      "operator": "UOI",
+      "operator_description": "Unary Operator Insertion: not micro_fun",
+      "status": "killed"
+    }
+  ]
+}
