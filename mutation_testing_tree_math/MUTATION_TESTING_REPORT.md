@@ -105,7 +105,7 @@ Replaces logical operators:
 - **Errors/Timeouts:** 0
 - **Mutation Score:** 64.04%
 
-**Interpretation:** The test suite successfully detects 64.04% of seeded faults,
+**Interpretation:** The test suite successfully detects 64.04% of seeded faults, 
 indicating moderate test coverage and fault detection capability.
 
 ---
@@ -304,7 +304,7 @@ ord: int | str | float | None = None,  # pylint: disable=redefined + builtin
 **Suggested Test:**
 Add test case covering line 279 with assertions validating the specific computation
 
-### <COMPLETED> 7.8 Mutant #49 - CRP
+### COMPLETED - 7.8 Mutant #49 - CRP
 **Location:** Line 291
 **Operator:** Constant Replacement: 2 to 3
 
@@ -320,10 +320,20 @@ if ord is None or ord == 3:
 
 **Analysis:** Non-Equivalent - Test Coverage Gap
 
-**Reason:** Mutation changes program behavior but no test detected the change
+**Reason:** ord is the order of the vector norm to compute from. Supported ord values for tree_norm is [None, 1, 2, inf]. 3 is supposed to produce a ValueError. When the order of the vector norm is 3 and the mutation exists however, it ends up producing a scalar value which is either the sum of a squared tree (when argument squared is true) or the sum of the tree itself.
 
 **Suggested Test:**
-Add test case covering line 291 with assertions validating the specific computation
+
+```python
+def test_tree_unsupported(self):
+    ord = 3 # unsupported ord value
+    try:
+        tu.tree_norm(self.array_a, ord)
+    except ValueError:
+        return  # correct
+
+    raise AssertionError(f"ord value {ord} is supposed to be unsupported")
+```
 
 ### 7.9 Mutant #51 - CRP
 **Location:** Line 291
@@ -623,9 +633,9 @@ The mutation testing was fully automated using a custom Python script that:
 
 ## 10. Conclusion
 
-The mutation testing study revealed that the Optax tree_math module has a **64.04% mutation score**,
-indicating the test suite's ability to detect seeded faults. The analysis identified specific areas where test coverage can be enhanced,
-particularly around boundary conditions and edge cases. The automated mutation testing approach proved effective
+The mutation testing study revealed that the Optax tree_math module has a **64.04% mutation score**, 
+indicating the test suite's ability to detect seeded faults. The analysis identified specific areas where test coverage can be enhanced, 
+particularly around boundary conditions and edge cases. The automated mutation testing approach proved effective 
 for systematically evaluating test suite quality and identifying gaps in fault detection capability.
 
 ---
