@@ -24,4 +24,3 @@ for i in range(min(10, len(muts))):
         mut = mut[:77] + '...'
     print(f'  Original: {orig}')
     print(f'  Mutated:  {mut}')
-
