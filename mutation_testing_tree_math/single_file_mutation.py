@@ -711,7 +711,6 @@ def generate_diff_file(mutations: List[Mutation], output_path: Path):
         f.write(f"# Target: {mutations[0].file_path}\n")
         f.write(f"# Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
         f.write(f"# Total Mutations: {len(mutations)}\n")
-        f.write(f"# Operators: AOR, ROR, CRP, LCR only\n")
         f.write("=" * 80 + "\n\n")
 
         for m in mutations:

@@ -2,7 +2,6 @@
 # Target: optax/tree_utils/_tree_math.py
 # Generated: 2026-01-28 14:17:21
 # Total Mutations: 100
-# Operators: AOR, ROR, CRP, LCR only
 ================================================================================
 
 Mutation #0 - AOR: Arithmetic Operator Replacement: * to +
