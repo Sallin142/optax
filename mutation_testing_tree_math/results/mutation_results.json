@@ -1,0 +1,1010 @@
+{
+  "total_mutations": 100,
+  "killed": 56,
+  "survived": 44,
+  "errors": 0,
+  "mutation_score": 56.00000000000001,
+  "elapsed_time": 259.0673921108246,
+  "mutations": [
+    {
+      "id": 0,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 101,
+      "original_code": "return jax.tree.map(lambda x: scalar * x, tree)",
+      "mutated_code": "return jax.tree.map(lambda x: scalar + x, tree)",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: * to +",
+      "status": "killed"
+    },
+    {
+      "id": 1,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 101,
+      "original_code": "return jax.tree.map(lambda x: scalar * x, tree)",
+      "mutated_code": "return jax.tree.map(lambda x: scalar / x, tree)",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: * to /",
+      "status": "killed"
+    },
+    {
+      "id": 2,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 121,
+      "original_code": "lambda x, y: (None if x is None else (x + scalar * y)),",
+      "mutated_code": "lambda x, y: (None if x is None else (x + scalar + y)),",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: * to +",
+      "status": "killed"
+    },
+    {
+      "id": 3,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 121,
+      "original_code": "lambda x, y: (None if x is None else (x + scalar * y)),",
+      "mutated_code": "lambda x, y: (None if x is None else (x + scalar / y)),",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: * to /",
+      "status": "killed"
+    },
+    {
+      "id": 4,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 121,
+      "original_code": "lambda x, y: (None if x is None else (x + scalar * y)),",
+      "mutated_code": "lambda x, y: (None if x is None else (x * scalar * y)),",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: + to *",
+      "status": "killed"
+    },
+    {
+      "id": 5,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 121,
+      "original_code": "lambda x, y: (None if x is None else (x + scalar * y)),",
+      "mutated_code": "lambda x, y: (None if x is None else (x - scalar * y)),",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: + to -",
+      "status": "killed"
+    },
+    {
+      "id": 6,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 129,
+      "original_code": "assert a.shape == b.shape",
+      "mutated_code": "assert a.shape != b.shape",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to !=",
+      "status": "killed"
+    },
+    {
+      "id": 7,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 129,
+      "original_code": "assert a.shape == b.shape",
+      "mutated_code": "assert a.shape < b.shape",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to <",
+      "status": "killed"
+    },
+    {
+      "id": 8,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 129,
+      "original_code": "assert a.shape == b.shape",
+      "mutated_code": "assert a.shape <= b.shape",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to <=",
+      "status": "survived"
+    },
+    {
+      "id": 9,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 129,
+      "original_code": "assert a.shape == b.shape",
+      "mutated_code": "assert a.shape > b.shape",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to >",
+      "status": "killed"
+    },
+    {
+      "id": 10,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 129,
+      "original_code": "assert a.shape == b.shape",
+      "mutated_code": "assert a.shape >= b.shape",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to >=",
+      "status": "survived"
+    },
+    {
+      "id": 11,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 169,
+      "original_code": "return jax.tree.reduce(operator.add, vdots, initializer=0)",
+      "mutated_code": "return jax.tree.reduce(operator.add, vdots, initializer=-1)",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to -1",
+      "status": "killed"
+    },
+    {
+      "id": 12,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 169,
+      "original_code": "return jax.tree.reduce(operator.add, vdots, initializer=0)",
+      "mutated_code": "return jax.tree.reduce(operator.add, vdots, initializer=1)",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1 (increment)",
+      "status": "killed"
+    },
+    {
+      "id": 13,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 169,
+      "original_code": "return jax.tree.reduce(operator.add, vdots, initializer=0)",
+      "mutated_code": "return jax.tree.reduce(operator.add, vdots, initializer=2)",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 2",
+      "status": "killed"
+    },
+    {
+      "id": 14,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 191,
+      "original_code": "return jax.tree.reduce_associative(operator.add, sums, identity=0)",
+      "mutated_code": "return jax.tree.reduce_associative(operator.add, sums, identity=-1)",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to -1",
+      "status": "survived"
+    },
+    {
+      "id": 15,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 191,
+      "original_code": "return jax.tree.reduce_associative(operator.add, sums, identity=0)",
+      "mutated_code": "return jax.tree.reduce_associative(operator.add, sums, identity=1)",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1 (increment)",
+      "status": "survived"
+    },
+    {
+      "id": 16,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 191,
+      "original_code": "return jax.tree.reduce_associative(operator.add, sums, identity=0)",
+      "mutated_code": "return jax.tree.reduce_associative(operator.add, sums, identity=2)",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 2",
+      "status": "survived"
+    },
+    {
+      "id": 17,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 199,
+      "original_code": "return jax.tree.reduce(operator.add, sums, initializer=0)",
+      "mutated_code": "return jax.tree.reduce(operator.add, sums, initializer=-1)",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to -1",
+      "status": "killed"
+    },
+    {
+      "id": 18,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 199,
+      "original_code": "return jax.tree.reduce(operator.add, sums, initializer=0)",
+      "mutated_code": "return jax.tree.reduce(operator.add, sums, initializer=1)",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1 (increment)",
+      "status": "killed"
+    },
+    {
+      "id": 19,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 199,
+      "original_code": "return jax.tree.reduce(operator.add, sums, initializer=0)",
+      "mutated_code": "return jax.tree.reduce(operator.add, sums, initializer=2)",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 2",
+      "status": "killed"
+    },
+    {
+      "id": 20,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 212,
+      "original_code": "if jnp.size(array) == 0:",
+      "mutated_code": "if jnp.size(array) == -1:",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to -1",
+      "status": "killed"
+    },
+    {
+      "id": 21,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 212,
+      "original_code": "if jnp.size(array) == 0:",
+      "mutated_code": "if jnp.size(array) == 1:",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1 (increment)",
+      "status": "killed"
+    },
+    {
+      "id": 22,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 212,
+      "original_code": "if jnp.size(array) == 0:",
+      "mutated_code": "if jnp.size(array) == 2:",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 2",
+      "status": "killed"
+    },
+    {
+      "id": 23,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 212,
+      "original_code": "if jnp.size(array) == 0:",
+      "mutated_code": "if jnp.size(array) != 0:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to !=",
+      "status": "killed"
+    },
+    {
+      "id": 24,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 212,
+      "original_code": "if jnp.size(array) == 0:",
+      "mutated_code": "if jnp.size(array) < 0:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to <",
+      "status": "killed"
+    },
+    {
+      "id": 25,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 212,
+      "original_code": "if jnp.size(array) == 0:",
+      "mutated_code": "if jnp.size(array) <= 0:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to <=",
+      "status": "survived"
+    },
+    {
+      "id": 26,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 212,
+      "original_code": "if jnp.size(array) == 0:",
+      "mutated_code": "if jnp.size(array) > 0:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to >",
+      "status": "killed"
+    },
+    {
+      "id": 27,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 212,
+      "original_code": "if jnp.size(array) == 0:",
+      "mutated_code": "if jnp.size(array) >= 0:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to >=",
+      "status": "killed"
+    },
+    {
+      "id": 28,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 217,
+      "original_code": "return jax.tree.reduce(jnp.maximum, maxes, initializer=-float('inf'))",
+      "mutated_code": "return jax.tree.reduce(jnp.maximum, maxes, initializer=+float('inf'))",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: - to +",
+      "status": "killed"
+    },
+    {
+      "id": 29,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 230,
+      "original_code": "if jnp.size(array) == 0:",
+      "mutated_code": "if jnp.size(array) == -1:",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to -1",
+      "status": "killed"
+    },
+    {
+      "id": 30,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 230,
+      "original_code": "if jnp.size(array) == 0:",
+      "mutated_code": "if jnp.size(array) == 1:",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 1 (increment)",
+      "status": "killed"
+    },
+    {
+      "id": 31,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 230,
+      "original_code": "if jnp.size(array) == 0:",
+      "mutated_code": "if jnp.size(array) == 2:",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 0 to 2",
+      "status": "killed"
+    },
+    {
+      "id": 32,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 230,
+      "original_code": "if jnp.size(array) == 0:",
+      "mutated_code": "if jnp.size(array) != 0:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to !=",
+      "status": "killed"
+    },
+    {
+      "id": 33,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 230,
+      "original_code": "if jnp.size(array) == 0:",
+      "mutated_code": "if jnp.size(array) < 0:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to <",
+      "status": "killed"
+    },
+    {
+      "id": 34,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 230,
+      "original_code": "if jnp.size(array) == 0:",
+      "mutated_code": "if jnp.size(array) <= 0:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to <=",
+      "status": "survived"
+    },
+    {
+      "id": 35,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 230,
+      "original_code": "if jnp.size(array) == 0:",
+      "mutated_code": "if jnp.size(array) > 0:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to >",
+      "status": "killed"
+    },
+    {
+      "id": 36,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 230,
+      "original_code": "if jnp.size(array) == 0:",
+      "mutated_code": "if jnp.size(array) >= 0:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to >=",
+      "status": "killed"
+    },
+    {
+      "id": 37,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 275,
+      "original_code": "return jnp.square(leaf.real) + jnp.square(leaf.imag)",
+      "mutated_code": "return jnp.square(leaf.real) * jnp.square(leaf.imag)",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: + to *",
+      "status": "killed"
+    },
+    {
+      "id": 38,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 275,
+      "original_code": "return jnp.square(leaf.real) + jnp.square(leaf.imag)",
+      "mutated_code": "return jnp.square(leaf.real) - jnp.square(leaf.imag)",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: + to -",
+      "status": "killed"
+    },
+    {
+      "id": 39,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 291,
+      "original_code": "if ord is None or ord == 2:",
+      "mutated_code": "if ord is None or ord == -1:",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 2 to -1",
+      "status": "survived"
+    },
+    {
+      "id": 40,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 291,
+      "original_code": "if ord is None or ord == 2:",
+      "mutated_code": "if ord is None or ord == -2:",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 2 to -2 (negate)",
+      "status": "survived"
+    },
+    {
+      "id": 41,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 291,
+      "original_code": "if ord is None or ord == 2:",
+      "mutated_code": "if ord is None or ord == 0:",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 2 to 0",
+      "status": "survived"
+    },
+    {
+      "id": 42,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 291,
+      "original_code": "if ord is None or ord == 2:",
+      "mutated_code": "if ord is None or ord == 1:",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 2 to 1 (decrement)",
+      "status": "killed"
+    },
+    {
+      "id": 43,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 291,
+      "original_code": "if ord is None or ord == 2:",
+      "mutated_code": "if ord is None or ord == 3:",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 2 to 3 (increment)",
+      "status": "survived"
+    },
+    {
+      "id": 44,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 291,
+      "original_code": "if ord is None or ord == 2:",
+      "mutated_code": "if ord is None and ord == 2:",
+      "operator": "LCR",
+      "operator_description": "Logical Connector Replacement: or to and",
+      "status": "killed"
+    },
+    {
+      "id": 45,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 291,
+      "original_code": "if ord is None or ord == 2:",
+      "mutated_code": "if ord is None or ord != 2:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to !=",
+      "status": "killed"
+    },
+    {
+      "id": 46,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 291,
+      "original_code": "if ord is None or ord == 2:",
+      "mutated_code": "if ord is None or ord < 2:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to <",
+      "status": "killed"
+    },
+    {
+      "id": 47,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 291,
+      "original_code": "if ord is None or ord == 2:",
+      "mutated_code": "if ord is None or ord <= 2:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to <=",
+      "status": "killed"
+    },
+    {
+      "id": 48,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 291,
+      "original_code": "if ord is None or ord == 2:",
+      "mutated_code": "if ord is None or ord > 2:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to >",
+      "status": "killed"
+    },
+    {
+      "id": 49,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 291,
+      "original_code": "if ord is None or ord == 2:",
+      "mutated_code": "if ord is None or ord >= 2:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to >=",
+      "status": "killed"
+    },
+    {
+      "id": 50,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 295,
+      "original_code": "elif ord == 1:",
+      "mutated_code": "elif ord == -1:",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to -1 (negate)",
+      "status": "killed"
+    },
+    {
+      "id": 51,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 295,
+      "original_code": "elif ord == 1:",
+      "mutated_code": "elif ord == 0:",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to 0 (decrement)",
+      "status": "killed"
+    },
+    {
+      "id": 52,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 295,
+      "original_code": "elif ord == 1:",
+      "mutated_code": "elif ord == 2:",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to 2 (increment)",
+      "status": "killed"
+    },
+    {
+      "id": 53,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 295,
+      "original_code": "elif ord == 1:",
+      "mutated_code": "elif ord != 1:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to !=",
+      "status": "killed"
+    },
+    {
+      "id": 54,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 295,
+      "original_code": "elif ord == 1:",
+      "mutated_code": "elif ord < 1:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to <",
+      "status": "killed"
+    },
+    {
+      "id": 55,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 295,
+      "original_code": "elif ord == 1:",
+      "mutated_code": "elif ord <= 1:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to <=",
+      "status": "survived"
+    },
+    {
+      "id": 56,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 295,
+      "original_code": "elif ord == 1:",
+      "mutated_code": "elif ord > 1:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to >",
+      "status": "killed"
+    },
+    {
+      "id": 57,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 295,
+      "original_code": "elif ord == 1:",
+      "mutated_code": "elif ord >= 1:",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to >=",
+      "status": "killed"
+    },
+    {
+      "id": 58,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 297,
+      "original_code": "elif ord == jnp.inf or ord in ('inf', 'infinity'):",
+      "mutated_code": "elif ord == jnp.inf and ord in ('inf', 'infinity'):",
+      "operator": "LCR",
+      "operator_description": "Logical Connector Replacement: or to and",
+      "status": "killed"
+    },
+    {
+      "id": 59,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 297,
+      "original_code": "elif ord == jnp.inf or ord in ('inf', 'infinity'):",
+      "mutated_code": "elif ord != jnp.inf or ord in ('inf', 'infinity'):",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to !=",
+      "status": "killed"
+    },
+    {
+      "id": 60,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 297,
+      "original_code": "elif ord == jnp.inf or ord in ('inf', 'infinity'):",
+      "mutated_code": "elif ord < jnp.inf or ord in ('inf', 'infinity'):",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to <",
+      "status": "killed"
+    },
+    {
+      "id": 61,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 297,
+      "original_code": "elif ord == jnp.inf or ord in ('inf', 'infinity'):",
+      "mutated_code": "elif ord <= jnp.inf or ord in ('inf', 'infinity'):",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to <=",
+      "status": "survived"
+    },
+    {
+      "id": 62,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 297,
+      "original_code": "elif ord == jnp.inf or ord in ('inf', 'infinity'):",
+      "mutated_code": "elif ord > jnp.inf or ord in ('inf', 'infinity'):",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to >",
+      "status": "killed"
+    },
+    {
+      "id": 63,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 297,
+      "original_code": "elif ord == jnp.inf or ord in ('inf', 'infinity'):",
+      "mutated_code": "elif ord >= jnp.inf or ord in ('inf', 'infinity'):",
+      "operator": "ROR",
+      "operator_description": "Relational Operator Replacement: == to >=",
+      "status": "survived"
+    },
+    {
+      "id": 64,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 398,
+      "original_code": "(1 - decay) * (g**order) + decay * t if g is not None else None",
+      "mutated_code": "(-1 - decay) * (g**order) + decay * t if g is not None else None",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to -1 (negate)",
+      "status": "survived"
+    },
+    {
+      "id": 65,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 398,
+      "original_code": "(1 - decay) * (g**order) + decay * t if g is not None else None",
+      "mutated_code": "(0 - decay) * (g**order) + decay * t if g is not None else None",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to 0 (decrement)",
+      "status": "survived"
+    },
+    {
+      "id": 66,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 398,
+      "original_code": "(1 - decay) * (g**order) + decay * t if g is not None else None",
+      "mutated_code": "(2 - decay) * (g**order) + decay * t if g is not None else None",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to 2 (increment)",
+      "status": "survived"
+    },
+    {
+      "id": 67,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 410,
+      "original_code": "jnp.maximum(jnp.abs(g) + eps, decay * t) if g is not None else g",
+      "mutated_code": "jnp.maximum(jnp.abs(g) + eps, decay + t) if g is not None else g",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: * to +",
+      "status": "killed"
+    },
+    {
+      "id": 68,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 410,
+      "original_code": "jnp.maximum(jnp.abs(g) + eps, decay * t) if g is not None else g",
+      "mutated_code": "jnp.maximum(jnp.abs(g) + eps, decay / t) if g is not None else g",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: * to /",
+      "status": "killed"
+    },
+    {
+      "id": 69,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 410,
+      "original_code": "jnp.maximum(jnp.abs(g) + eps, decay * t) if g is not None else g",
+      "mutated_code": "jnp.maximum(jnp.abs(g) * eps, decay * t) if g is not None else g",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: + to *",
+      "status": "killed"
+    },
+    {
+      "id": 70,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 410,
+      "original_code": "jnp.maximum(jnp.abs(g) + eps, decay * t) if g is not None else g",
+      "mutated_code": "jnp.maximum(jnp.abs(g) - eps, decay * t) if g is not None else g",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: + to -",
+      "status": "killed"
+    },
+    {
+      "id": 71,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 423,
+      "original_code": "return g ** order",
+      "mutated_code": "return g * order",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: ** to *",
+      "status": "survived"
+    },
+    {
+      "id": 72,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 423,
+      "original_code": "return g ** order",
+      "mutated_code": "return g + order",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: ** to +",
+      "status": "survived"
+    },
+    {
+      "id": 73,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 425,
+      "original_code": "half_order = order / 2",
+      "mutated_code": "half_order = order * 2",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: / to *",
+      "status": "survived"
+    },
+    {
+      "id": 74,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 425,
+      "original_code": "half_order = order / 2",
+      "mutated_code": "half_order = order - 2",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: / to -",
+      "status": "survived"
+    },
+    {
+      "id": 75,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 425,
+      "original_code": "half_order = order / 2",
+      "mutated_code": "half_order = order / -1",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 2 to -1",
+      "status": "survived"
+    },
+    {
+      "id": 76,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 425,
+      "original_code": "half_order = order / 2",
+      "mutated_code": "half_order = order / -2",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 2 to -2 (negate)",
+      "status": "survived"
+    },
+    {
+      "id": 77,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 425,
+      "original_code": "half_order = order / 2",
+      "mutated_code": "half_order = order / 0",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 2 to 0",
+      "status": "survived"
+    },
+    {
+      "id": 78,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 425,
+      "original_code": "half_order = order / 2",
+      "mutated_code": "half_order = order / 1",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 2 to 1 (decrement)",
+      "status": "survived"
+    },
+    {
+      "id": 79,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 425,
+      "original_code": "half_order = order / 2",
+      "mutated_code": "half_order = order / 3",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 2 to 3 (increment)",
+      "status": "survived"
+    },
+    {
+      "id": 80,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 429,
+      "original_code": "return numerics.abs_sq(g) ** half_order",
+      "mutated_code": "return numerics.abs_sq(g) * half_order",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: ** to *",
+      "status": "survived"
+    },
+    {
+      "id": 81,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 429,
+      "original_code": "return numerics.abs_sq(g) ** half_order",
+      "mutated_code": "return numerics.abs_sq(g) + half_order",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: ** to +",
+      "status": "survived"
+    },
+    {
+      "id": 82,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 433,
+      "original_code": "(1 - decay) * orderth_norm(g) + decay * t if g is not None else None",
+      "mutated_code": "(1 - decay) + orderth_norm(g) + decay * t if g is not None else None",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: * to +",
+      "status": "survived"
+    },
+    {
+      "id": 83,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 433,
+      "original_code": "(1 - decay) * orderth_norm(g) + decay * t if g is not None else None",
+      "mutated_code": "(1 - decay) / orderth_norm(g) + decay * t if g is not None else None",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: * to /",
+      "status": "survived"
+    },
+    {
+      "id": 84,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 433,
+      "original_code": "(1 - decay) * orderth_norm(g) + decay * t if g is not None else None",
+      "mutated_code": "(1 - decay) * orderth_norm(g) * decay * t if g is not None else None",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: + to *",
+      "status": "survived"
+    },
+    {
+      "id": 85,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 433,
+      "original_code": "(1 - decay) * orderth_norm(g) + decay * t if g is not None else None",
+      "mutated_code": "(1 - decay) * orderth_norm(g) - decay * t if g is not None else None",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: + to -",
+      "status": "survived"
+    },
+    {
+      "id": 86,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 433,
+      "original_code": "(1 - decay) * orderth_norm(g) + decay * t if g is not None else None",
+      "mutated_code": "(1 * decay) * orderth_norm(g) + decay * t if g is not None else None",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: - to *",
+      "status": "survived"
+    },
+    {
+      "id": 87,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 433,
+      "original_code": "(1 - decay) * orderth_norm(g) + decay * t if g is not None else None",
+      "mutated_code": "(1 + decay) * orderth_norm(g) + decay * t if g is not None else None",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: - to +",
+      "status": "survived"
+    },
+    {
+      "id": 88,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 433,
+      "original_code": "(1 - decay) * orderth_norm(g) + decay * t if g is not None else None",
+      "mutated_code": "(-1 - decay) * orderth_norm(g) + decay * t if g is not None else None",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to -1 (negate)",
+      "status": "survived"
+    },
+    {
+      "id": 89,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 433,
+      "original_code": "(1 - decay) * orderth_norm(g) + decay * t if g is not None else None",
+      "mutated_code": "(0 - decay) * orderth_norm(g) + decay * t if g is not None else None",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to 0 (decrement)",
+      "status": "survived"
+    },
+    {
+      "id": 90,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 433,
+      "original_code": "(1 - decay) * orderth_norm(g) + decay * t if g is not None else None",
+      "mutated_code": "(2 - decay) * orderth_norm(g) + decay * t if g is not None else None",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to 2 (increment)",
+      "status": "survived"
+    },
+    {
+      "id": 91,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 449,
+      "original_code": "bias_correction_ = 1 - decay**count",
+      "mutated_code": "bias_correction_ = -1 - decay**count",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to -1 (negate)",
+      "status": "survived"
+    },
+    {
+      "id": 92,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 449,
+      "original_code": "bias_correction_ = 1 - decay**count",
+      "mutated_code": "bias_correction_ = 0 - decay**count",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to 0 (decrement)",
+      "status": "killed"
+    },
+    {
+      "id": 93,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 449,
+      "original_code": "bias_correction_ = 1 - decay**count",
+      "mutated_code": "bias_correction_ = 2 - decay**count",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 1 to 2 (increment)",
+      "status": "survived"
+    },
+    {
+      "id": 94,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 452,
+      "original_code": "return jax.tree.map(lambda t: t / bias_correction_.astype(t.dtype), moment)",
+      "mutated_code": "return jax.tree.map(lambda t: t * bias_correction_.astype(t.dtype), moment)",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: / to *",
+      "status": "survived"
+    },
+    {
+      "id": 95,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 452,
+      "original_code": "return jax.tree.map(lambda t: t / bias_correction_.astype(t.dtype), moment)",
+      "mutated_code": "return jax.tree.map(lambda t: t - bias_correction_.astype(t.dtype), moment)",
+      "operator": "AOR",
+      "operator_description": "Arithmetic Operator Replacement: / to -",
+      "status": "survived"
+    },
+    {
+      "id": 96,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 472,
+      "original_code": "rtol: jax.typing.ArrayLike = 1e-05,",
+      "mutated_code": "rtol: jax.typing.ArrayLike = 1e-0,",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 05 to 0",
+      "status": "killed"
+    },
+    {
+      "id": 97,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 472,
+      "original_code": "rtol: jax.typing.ArrayLike = 1e-05,",
+      "mutated_code": "rtol: jax.typing.ArrayLike = 1e-1,",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 05 to 1",
+      "status": "survived"
+    },
+    {
+      "id": 98,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 472,
+      "original_code": "rtol: jax.typing.ArrayLike = 1e-05,",
+      "mutated_code": "rtol: jax.typing.ArrayLike = 1e-2,",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 05 to 2",
+      "status": "survived"
+    },
+    {
+      "id": 99,
+      "file_path": "optax/tree_utils/_tree_math.py",
+      "line_number": 472,
+      "original_code": "rtol: jax.typing.ArrayLike = 1e-05,",
+      "mutated_code": "rtol: jax.typing.ArrayLike = 1e-4,",
+      "operator": "CRP",
+      "operator_description": "Constant Replacement: 05 to 4 (decrement)",
+      "status": "survived"
+    }
+  ]
+}

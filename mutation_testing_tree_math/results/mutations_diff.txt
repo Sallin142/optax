@@ -1,0 +1,1106 @@
+# Mutation Testing Diff File
+# Target: optax/tree_utils/_tree_math.py
+# Generated: 2026-01-28 14:17:21
+# Total Mutations: 100
+================================================================================
+
+Mutation #0 - AOR: Arithmetic Operator Replacement: * to +
+File: optax/tree_utils/_tree_math.py
+Line: 101
+Status: killed
+
+--- original
++++ mutated
+@@ -101,1 +101,1 @@
+-  return jax.tree.map(lambda x: scalar * x, tree)
++  return jax.tree.map(lambda x: scalar + x, tree)
+
+Mutation #1 - AOR: Arithmetic Operator Replacement: * to /
+File: optax/tree_utils/_tree_math.py
+Line: 101
+Status: killed
+
+--- original
++++ mutated
+@@ -101,1 +101,1 @@
+-  return jax.tree.map(lambda x: scalar * x, tree)
++  return jax.tree.map(lambda x: scalar / x, tree)
+
+Mutation #2 - AOR: Arithmetic Operator Replacement: * to +
+File: optax/tree_utils/_tree_math.py
+Line: 121
+Status: killed
+
+--- original
++++ mutated
+@@ -121,1 +121,1 @@
+-      lambda x, y: (None if x is None else (x + scalar * y)),
++      lambda x, y: (None if x is None else (x + scalar + y)),
+
+Mutation #3 - AOR: Arithmetic Operator Replacement: * to /
+File: optax/tree_utils/_tree_math.py
+Line: 121
+Status: killed
+
+--- original
++++ mutated
+@@ -121,1 +121,1 @@
+-      lambda x, y: (None if x is None else (x + scalar * y)),
++      lambda x, y: (None if x is None else (x + scalar / y)),
+
+Mutation #4 - AOR: Arithmetic Operator Replacement: + to *
+File: optax/tree_utils/_tree_math.py
+Line: 121
+Status: killed
+
+--- original
++++ mutated
+@@ -121,1 +121,1 @@
+-      lambda x, y: (None if x is None else (x + scalar * y)),
++      lambda x, y: (None if x is None else (x * scalar * y)),
+
+Mutation #5 - AOR: Arithmetic Operator Replacement: + to -
+File: optax/tree_utils/_tree_math.py
+Line: 121
+Status: killed
+
+--- original
++++ mutated
+@@ -121,1 +121,1 @@
+-      lambda x, y: (None if x is None else (x + scalar * y)),
++      lambda x, y: (None if x is None else (x - scalar * y)),
+
+Mutation #6 - ROR: Relational Operator Replacement: == to !=
+File: optax/tree_utils/_tree_math.py
+Line: 129
+Status: killed
+
+--- original
++++ mutated
+@@ -129,1 +129,1 @@
+-  assert a.shape == b.shape
++  assert a.shape != b.shape
+
+Mutation #7 - ROR: Relational Operator Replacement: == to <
+File: optax/tree_utils/_tree_math.py
+Line: 129
+Status: killed
+
+--- original
++++ mutated
+@@ -129,1 +129,1 @@
+-  assert a.shape == b.shape
++  assert a.shape < b.shape
+
+Mutation #8 - ROR: Relational Operator Replacement: == to <=
+File: optax/tree_utils/_tree_math.py
+Line: 129
+Status: survived
+
+--- original
++++ mutated
+@@ -129,1 +129,1 @@
+-  assert a.shape == b.shape
++  assert a.shape <= b.shape
+
+Mutation #9 - ROR: Relational Operator Replacement: == to >
+File: optax/tree_utils/_tree_math.py
+Line: 129
+Status: killed
+
+--- original
++++ mutated
+@@ -129,1 +129,1 @@
+-  assert a.shape == b.shape
++  assert a.shape > b.shape
+
+Mutation #10 - ROR: Relational Operator Replacement: == to >=
+File: optax/tree_utils/_tree_math.py
+Line: 129
+Status: survived
+
+--- original
++++ mutated
+@@ -129,1 +129,1 @@
+-  assert a.shape == b.shape
++  assert a.shape >= b.shape
+
+Mutation #11 - CRP: Constant Replacement: 0 to -1
+File: optax/tree_utils/_tree_math.py
+Line: 169
+Status: killed
+
+--- original
++++ mutated
+@@ -169,1 +169,1 @@
+-  return jax.tree.reduce(operator.add, vdots, initializer=0)
++  return jax.tree.reduce(operator.add, vdots, initializer=-1)
+
+Mutation #12 - CRP: Constant Replacement: 0 to 1 (increment)
+File: optax/tree_utils/_tree_math.py
+Line: 169
+Status: killed
+
+--- original
++++ mutated
+@@ -169,1 +169,1 @@
+-  return jax.tree.reduce(operator.add, vdots, initializer=0)
++  return jax.tree.reduce(operator.add, vdots, initializer=1)
+
+Mutation #13 - CRP: Constant Replacement: 0 to 2
+File: optax/tree_utils/_tree_math.py
+Line: 169
+Status: killed
+
+--- original
++++ mutated
+@@ -169,1 +169,1 @@
+-  return jax.tree.reduce(operator.add, vdots, initializer=0)
++  return jax.tree.reduce(operator.add, vdots, initializer=2)
+
+Mutation #14 - CRP: Constant Replacement: 0 to -1
+File: optax/tree_utils/_tree_math.py
+Line: 191
+Status: survived
+
+--- original
++++ mutated
+@@ -191,1 +191,1 @@
+-      return jax.tree.reduce_associative(operator.add, sums, identity=0)
++      return jax.tree.reduce_associative(operator.add, sums, identity=-1)
+
+Mutation #15 - CRP: Constant Replacement: 0 to 1 (increment)
+File: optax/tree_utils/_tree_math.py
+Line: 191
+Status: survived
+
+--- original
++++ mutated
+@@ -191,1 +191,1 @@
+-      return jax.tree.reduce_associative(operator.add, sums, identity=0)
++      return jax.tree.reduce_associative(operator.add, sums, identity=1)
+
+Mutation #16 - CRP: Constant Replacement: 0 to 2
+File: optax/tree_utils/_tree_math.py
+Line: 191
+Status: survived
+
+--- original
++++ mutated
+@@ -191,1 +191,1 @@
+-      return jax.tree.reduce_associative(operator.add, sums, identity=0)
++      return jax.tree.reduce_associative(operator.add, sums, identity=2)
+
+Mutation #17 - CRP: Constant Replacement: 0 to -1
+File: optax/tree_utils/_tree_math.py
+Line: 199
+Status: killed
+
+--- original
++++ mutated
+@@ -199,1 +199,1 @@
+-    return jax.tree.reduce(operator.add, sums, initializer=0)
++    return jax.tree.reduce(operator.add, sums, initializer=-1)
+
+Mutation #18 - CRP: Constant Replacement: 0 to 1 (increment)
+File: optax/tree_utils/_tree_math.py
+Line: 199
+Status: killed
+
+--- original
++++ mutated
+@@ -199,1 +199,1 @@
+-    return jax.tree.reduce(operator.add, sums, initializer=0)
++    return jax.tree.reduce(operator.add, sums, initializer=1)
+
+Mutation #19 - CRP: Constant Replacement: 0 to 2
+File: optax/tree_utils/_tree_math.py
+Line: 199
+Status: killed
+
+--- original
++++ mutated
+@@ -199,1 +199,1 @@
+-    return jax.tree.reduce(operator.add, sums, initializer=0)
++    return jax.tree.reduce(operator.add, sums, initializer=2)
+
+Mutation #20 - CRP: Constant Replacement: 0 to -1
+File: optax/tree_utils/_tree_math.py
+Line: 212
+Status: killed
+
+--- original
++++ mutated
+@@ -212,1 +212,1 @@
+-    if jnp.size(array) == 0:
++    if jnp.size(array) == -1:
+
+Mutation #21 - CRP: Constant Replacement: 0 to 1 (increment)
+File: optax/tree_utils/_tree_math.py
+Line: 212
+Status: killed
+
+--- original
++++ mutated
+@@ -212,1 +212,1 @@
+-    if jnp.size(array) == 0:
++    if jnp.size(array) == 1:
+
+Mutation #22 - CRP: Constant Replacement: 0 to 2
+File: optax/tree_utils/_tree_math.py
+Line: 212
+Status: killed
+
+--- original
++++ mutated
+@@ -212,1 +212,1 @@
+-    if jnp.size(array) == 0:
++    if jnp.size(array) == 2:
+
+Mutation #23 - ROR: Relational Operator Replacement: == to !=
+File: optax/tree_utils/_tree_math.py
+Line: 212
+Status: killed
+
+--- original
++++ mutated
+@@ -212,1 +212,1 @@
+-    if jnp.size(array) == 0:
++    if jnp.size(array) != 0:
+
+Mutation #24 - ROR: Relational Operator Replacement: == to <
+File: optax/tree_utils/_tree_math.py
+Line: 212
+Status: killed
+
+--- original
++++ mutated
+@@ -212,1 +212,1 @@
+-    if jnp.size(array) == 0:
++    if jnp.size(array) < 0:
+
+Mutation #25 - ROR: Relational Operator Replacement: == to <=
+File: optax/tree_utils/_tree_math.py
+Line: 212
+Status: survived
+
+--- original
++++ mutated
+@@ -212,1 +212,1 @@
+-    if jnp.size(array) == 0:
++    if jnp.size(array) <= 0:
+
+Mutation #26 - ROR: Relational Operator Replacement: == to >
+File: optax/tree_utils/_tree_math.py
+Line: 212
+Status: killed
+
+--- original
++++ mutated
+@@ -212,1 +212,1 @@
+-    if jnp.size(array) == 0:
++    if jnp.size(array) > 0:
+
+Mutation #27 - ROR: Relational Operator Replacement: == to >=
+File: optax/tree_utils/_tree_math.py
+Line: 212
+Status: killed
+
+--- original
++++ mutated
+@@ -212,1 +212,1 @@
+-    if jnp.size(array) == 0:
++    if jnp.size(array) >= 0:
+
+Mutation #28 - AOR: Arithmetic Operator Replacement: - to +
+File: optax/tree_utils/_tree_math.py
+Line: 217
+Status: killed
+
+--- original
++++ mutated
+@@ -217,1 +217,1 @@
+-  return jax.tree.reduce(jnp.maximum, maxes, initializer=-float('inf'))
++  return jax.tree.reduce(jnp.maximum, maxes, initializer=+float('inf'))
+
+Mutation #29 - CRP: Constant Replacement: 0 to -1
+File: optax/tree_utils/_tree_math.py
+Line: 230
+Status: killed
+
+--- original
++++ mutated
+@@ -230,1 +230,1 @@
+-    if jnp.size(array) == 0:
++    if jnp.size(array) == -1:
+
+Mutation #30 - CRP: Constant Replacement: 0 to 1 (increment)
+File: optax/tree_utils/_tree_math.py
+Line: 230
+Status: killed
+
+--- original
++++ mutated
+@@ -230,1 +230,1 @@
+-    if jnp.size(array) == 0:
++    if jnp.size(array) == 1:
+
+Mutation #31 - CRP: Constant Replacement: 0 to 2
+File: optax/tree_utils/_tree_math.py
+Line: 230
+Status: killed
+
+--- original
++++ mutated
+@@ -230,1 +230,1 @@
+-    if jnp.size(array) == 0:
++    if jnp.size(array) == 2:
+
+Mutation #32 - ROR: Relational Operator Replacement: == to !=
+File: optax/tree_utils/_tree_math.py
+Line: 230
+Status: killed
+
+--- original
++++ mutated
+@@ -230,1 +230,1 @@
+-    if jnp.size(array) == 0:
++    if jnp.size(array) != 0:
+
+Mutation #33 - ROR: Relational Operator Replacement: == to <
+File: optax/tree_utils/_tree_math.py
+Line: 230
+Status: killed
+
+--- original
++++ mutated
+@@ -230,1 +230,1 @@
+-    if jnp.size(array) == 0:
++    if jnp.size(array) < 0:
+
+Mutation #34 - ROR: Relational Operator Replacement: == to <=
+File: optax/tree_utils/_tree_math.py
+Line: 230
+Status: survived
+
+--- original
++++ mutated
+@@ -230,1 +230,1 @@
+-    if jnp.size(array) == 0:
++    if jnp.size(array) <= 0:
+
+Mutation #35 - ROR: Relational Operator Replacement: == to >
+File: optax/tree_utils/_tree_math.py
+Line: 230
+Status: killed
+
+--- original
++++ mutated
+@@ -230,1 +230,1 @@
+-    if jnp.size(array) == 0:
++    if jnp.size(array) > 0:
+
+Mutation #36 - ROR: Relational Operator Replacement: == to >=
+File: optax/tree_utils/_tree_math.py
+Line: 230
+Status: killed
+
+--- original
++++ mutated
+@@ -230,1 +230,1 @@
+-    if jnp.size(array) == 0:
++    if jnp.size(array) >= 0:
+
+Mutation #37 - AOR: Arithmetic Operator Replacement: + to *
+File: optax/tree_utils/_tree_math.py
+Line: 275
+Status: killed
+
+--- original
++++ mutated
+@@ -275,1 +275,1 @@
+-  return jnp.square(leaf.real) + jnp.square(leaf.imag)
++  return jnp.square(leaf.real) * jnp.square(leaf.imag)
+
+Mutation #38 - AOR: Arithmetic Operator Replacement: + to -
+File: optax/tree_utils/_tree_math.py
+Line: 275
+Status: killed
+
+--- original
++++ mutated
+@@ -275,1 +275,1 @@
+-  return jnp.square(leaf.real) + jnp.square(leaf.imag)
++  return jnp.square(leaf.real) - jnp.square(leaf.imag)
+
+Mutation #39 - CRP: Constant Replacement: 2 to -1
+File: optax/tree_utils/_tree_math.py
+Line: 291
+Status: survived
+
+--- original
++++ mutated
+@@ -291,1 +291,1 @@
+-  if ord is None or ord == 2:
++  if ord is None or ord == -1:
+
+Mutation #40 - CRP: Constant Replacement: 2 to -2 (negate)
+File: optax/tree_utils/_tree_math.py
+Line: 291
+Status: survived
+
+--- original
++++ mutated
+@@ -291,1 +291,1 @@
+-  if ord is None or ord == 2:
++  if ord is None or ord == -2:
+
+Mutation #41 - CRP: Constant Replacement: 2 to 0
+File: optax/tree_utils/_tree_math.py
+Line: 291
+Status: survived
+
+--- original
++++ mutated
+@@ -291,1 +291,1 @@
+-  if ord is None or ord == 2:
++  if ord is None or ord == 0:
+
+Mutation #42 - CRP: Constant Replacement: 2 to 1 (decrement)
+File: optax/tree_utils/_tree_math.py
+Line: 291
+Status: killed
+
+--- original
++++ mutated
+@@ -291,1 +291,1 @@
+-  if ord is None or ord == 2:
++  if ord is None or ord == 1:
+
+Mutation #43 - CRP: Constant Replacement: 2 to 3 (increment)
+File: optax/tree_utils/_tree_math.py
+Line: 291
+Status: survived
+
+--- original
++++ mutated
+@@ -291,1 +291,1 @@
+-  if ord is None or ord == 2:
++  if ord is None or ord == 3:
+
+Mutation #44 - LCR: Logical Connector Replacement: or to and
+File: optax/tree_utils/_tree_math.py
+Line: 291
+Status: killed
+
+--- original
++++ mutated
+@@ -291,1 +291,1 @@
+-  if ord is None or ord == 2:
++  if ord is None and ord == 2:
+
+Mutation #45 - ROR: Relational Operator Replacement: == to !=
+File: optax/tree_utils/_tree_math.py
+Line: 291
+Status: killed
+
+--- original
++++ mutated
+@@ -291,1 +291,1 @@
+-  if ord is None or ord == 2:
++  if ord is None or ord != 2:
+
+Mutation #46 - ROR: Relational Operator Replacement: == to <
+File: optax/tree_utils/_tree_math.py
+Line: 291
+Status: killed
+
+--- original
++++ mutated
+@@ -291,1 +291,1 @@
+-  if ord is None or ord == 2:
++  if ord is None or ord < 2:
+
+Mutation #47 - ROR: Relational Operator Replacement: == to <=
+File: optax/tree_utils/_tree_math.py
+Line: 291
+Status: killed
+
+--- original
++++ mutated
+@@ -291,1 +291,1 @@
+-  if ord is None or ord == 2:
++  if ord is None or ord <= 2:
+
+Mutation #48 - ROR: Relational Operator Replacement: == to >
+File: optax/tree_utils/_tree_math.py
+Line: 291
+Status: killed
+
+--- original
++++ mutated
+@@ -291,1 +291,1 @@
+-  if ord is None or ord == 2:
++  if ord is None or ord > 2:
+
+Mutation #49 - ROR: Relational Operator Replacement: == to >=
+File: optax/tree_utils/_tree_math.py
+Line: 291
+Status: killed
+
+--- original
++++ mutated
+@@ -291,1 +291,1 @@
+-  if ord is None or ord == 2:
++  if ord is None or ord >= 2:
+
+Mutation #50 - CRP: Constant Replacement: 1 to -1 (negate)
+File: optax/tree_utils/_tree_math.py
+Line: 295
+Status: killed
+
+--- original
++++ mutated
+@@ -295,1 +295,1 @@
+-  elif ord == 1:
++  elif ord == -1:
+
+Mutation #51 - CRP: Constant Replacement: 1 to 0 (decrement)
+File: optax/tree_utils/_tree_math.py
+Line: 295
+Status: killed
+
+--- original
++++ mutated
+@@ -295,1 +295,1 @@
+-  elif ord == 1:
++  elif ord == 0:
+
+Mutation #52 - CRP: Constant Replacement: 1 to 2 (increment)
+File: optax/tree_utils/_tree_math.py
+Line: 295
+Status: killed
+
+--- original
++++ mutated
+@@ -295,1 +295,1 @@
+-  elif ord == 1:
++  elif ord == 2:
+
+Mutation #53 - ROR: Relational Operator Replacement: == to !=
+File: optax/tree_utils/_tree_math.py
+Line: 295
+Status: killed
+
+--- original
++++ mutated
+@@ -295,1 +295,1 @@
+-  elif ord == 1:
++  elif ord != 1:
+
+Mutation #54 - ROR: Relational Operator Replacement: == to <
+File: optax/tree_utils/_tree_math.py
+Line: 295
+Status: killed
+
+--- original
++++ mutated
+@@ -295,1 +295,1 @@
+-  elif ord == 1:
++  elif ord < 1:
+
+Mutation #55 - ROR: Relational Operator Replacement: == to <=
+File: optax/tree_utils/_tree_math.py
+Line: 295
+Status: survived
+
+--- original
++++ mutated
+@@ -295,1 +295,1 @@
+-  elif ord == 1:
++  elif ord <= 1:
+
+Mutation #56 - ROR: Relational Operator Replacement: == to >
+File: optax/tree_utils/_tree_math.py
+Line: 295
+Status: killed
+
+--- original
++++ mutated
+@@ -295,1 +295,1 @@
+-  elif ord == 1:
++  elif ord > 1:
+
+Mutation #57 - ROR: Relational Operator Replacement: == to >=
+File: optax/tree_utils/_tree_math.py
+Line: 295
+Status: killed
+
+--- original
++++ mutated
+@@ -295,1 +295,1 @@
+-  elif ord == 1:
++  elif ord >= 1:
+
+Mutation #58 - LCR: Logical Connector Replacement: or to and
+File: optax/tree_utils/_tree_math.py
+Line: 297
+Status: killed
+
+--- original
++++ mutated
+@@ -297,1 +297,1 @@
+-  elif ord == jnp.inf or ord in ('inf', 'infinity'):
++  elif ord == jnp.inf and ord in ('inf', 'infinity'):
+
+Mutation #59 - ROR: Relational Operator Replacement: == to !=
+File: optax/tree_utils/_tree_math.py
+Line: 297
+Status: killed
+
+--- original
++++ mutated
+@@ -297,1 +297,1 @@
+-  elif ord == jnp.inf or ord in ('inf', 'infinity'):
++  elif ord != jnp.inf or ord in ('inf', 'infinity'):
+
+Mutation #60 - ROR: Relational Operator Replacement: == to <
+File: optax/tree_utils/_tree_math.py
+Line: 297
+Status: killed
+
+--- original
++++ mutated
+@@ -297,1 +297,1 @@
+-  elif ord == jnp.inf or ord in ('inf', 'infinity'):
++  elif ord < jnp.inf or ord in ('inf', 'infinity'):
+
+Mutation #61 - ROR: Relational Operator Replacement: == to <=
+File: optax/tree_utils/_tree_math.py
+Line: 297
+Status: survived
+
+--- original
++++ mutated
+@@ -297,1 +297,1 @@
+-  elif ord == jnp.inf or ord in ('inf', 'infinity'):
++  elif ord <= jnp.inf or ord in ('inf', 'infinity'):
+
+Mutation #62 - ROR: Relational Operator Replacement: == to >
+File: optax/tree_utils/_tree_math.py
+Line: 297
+Status: killed
+
+--- original
++++ mutated
+@@ -297,1 +297,1 @@
+-  elif ord == jnp.inf or ord in ('inf', 'infinity'):
++  elif ord > jnp.inf or ord in ('inf', 'infinity'):
+
+Mutation #63 - ROR: Relational Operator Replacement: == to >=
+File: optax/tree_utils/_tree_math.py
+Line: 297
+Status: survived
+
+--- original
++++ mutated
+@@ -297,1 +297,1 @@
+-  elif ord == jnp.inf or ord in ('inf', 'infinity'):
++  elif ord >= jnp.inf or ord in ('inf', 'infinity'):
+
+Mutation #64 - CRP: Constant Replacement: 1 to -1 (negate)
+File: optax/tree_utils/_tree_math.py
+Line: 398
+Status: survived
+
+--- original
++++ mutated
+@@ -398,1 +398,1 @@
+-          (1 - decay) * (g**order) + decay * t if g is not None else None
++          (-1 - decay) * (g**order) + decay * t if g is not None else None
+
+Mutation #65 - CRP: Constant Replacement: 1 to 0 (decrement)
+File: optax/tree_utils/_tree_math.py
+Line: 398
+Status: survived
+
+--- original
++++ mutated
+@@ -398,1 +398,1 @@
+-          (1 - decay) * (g**order) + decay * t if g is not None else None
++          (0 - decay) * (g**order) + decay * t if g is not None else None
+
+Mutation #66 - CRP: Constant Replacement: 1 to 2 (increment)
+File: optax/tree_utils/_tree_math.py
+Line: 398
+Status: survived
+
+--- original
++++ mutated
+@@ -398,1 +398,1 @@
+-          (1 - decay) * (g**order) + decay * t if g is not None else None
++          (2 - decay) * (g**order) + decay * t if g is not None else None
+
+Mutation #67 - AOR: Arithmetic Operator Replacement: * to +
+File: optax/tree_utils/_tree_math.py
+Line: 410
+Status: killed
+
+--- original
++++ mutated
+@@ -410,1 +410,1 @@
+-          jnp.maximum(jnp.abs(g) + eps, decay * t) if g is not None else g
++          jnp.maximum(jnp.abs(g) + eps, decay + t) if g is not None else g
+
+Mutation #68 - AOR: Arithmetic Operator Replacement: * to /
+File: optax/tree_utils/_tree_math.py
+Line: 410
+Status: killed
+
+--- original
++++ mutated
+@@ -410,1 +410,1 @@
+-          jnp.maximum(jnp.abs(g) + eps, decay * t) if g is not None else g
++          jnp.maximum(jnp.abs(g) + eps, decay / t) if g is not None else g
+
+Mutation #69 - AOR: Arithmetic Operator Replacement: + to *
+File: optax/tree_utils/_tree_math.py
+Line: 410
+Status: killed
+
+--- original
++++ mutated
+@@ -410,1 +410,1 @@
+-          jnp.maximum(jnp.abs(g) + eps, decay * t) if g is not None else g
++          jnp.maximum(jnp.abs(g) * eps, decay * t) if g is not None else g
+
+Mutation #70 - AOR: Arithmetic Operator Replacement: + to -
+File: optax/tree_utils/_tree_math.py
+Line: 410
+Status: killed
+
+--- original
++++ mutated
+@@ -410,1 +410,1 @@
+-          jnp.maximum(jnp.abs(g) + eps, decay * t) if g is not None else g
++          jnp.maximum(jnp.abs(g) - eps, decay * t) if g is not None else g
+
+Mutation #71 - AOR: Arithmetic Operator Replacement: ** to *
+File: optax/tree_utils/_tree_math.py
+Line: 423
+Status: survived
+
+--- original
++++ mutated
+@@ -423,1 +423,1 @@
+-      return g ** order
++      return g * order
+
+Mutation #72 - AOR: Arithmetic Operator Replacement: ** to +
+File: optax/tree_utils/_tree_math.py
+Line: 423
+Status: survived
+
+--- original
++++ mutated
+@@ -423,1 +423,1 @@
+-      return g ** order
++      return g + order
+
+Mutation #73 - AOR: Arithmetic Operator Replacement: / to *
+File: optax/tree_utils/_tree_math.py
+Line: 425
+Status: survived
+
+--- original
++++ mutated
+@@ -425,1 +425,1 @@
+-    half_order = order / 2
++    half_order = order * 2
+
+Mutation #74 - AOR: Arithmetic Operator Replacement: / to -
+File: optax/tree_utils/_tree_math.py
+Line: 425
+Status: survived
+
+--- original
++++ mutated
+@@ -425,1 +425,1 @@
+-    half_order = order / 2
++    half_order = order - 2
+
+Mutation #75 - CRP: Constant Replacement: 2 to -1
+File: optax/tree_utils/_tree_math.py
+Line: 425
+Status: survived
+
+--- original
++++ mutated
+@@ -425,1 +425,1 @@
+-    half_order = order / 2
++    half_order = order / -1
+
+Mutation #76 - CRP: Constant Replacement: 2 to -2 (negate)
+File: optax/tree_utils/_tree_math.py
+Line: 425
+Status: survived
+
+--- original
++++ mutated
+@@ -425,1 +425,1 @@
+-    half_order = order / 2
++    half_order = order / -2
+
+Mutation #77 - CRP: Constant Replacement: 2 to 0
+File: optax/tree_utils/_tree_math.py
+Line: 425
+Status: survived
+
+--- original
++++ mutated
+@@ -425,1 +425,1 @@
+-    half_order = order / 2
++    half_order = order / 0
+
+Mutation #78 - CRP: Constant Replacement: 2 to 1 (decrement)
+File: optax/tree_utils/_tree_math.py
+Line: 425
+Status: survived
+
+--- original
++++ mutated
+@@ -425,1 +425,1 @@
+-    half_order = order / 2
++    half_order = order / 1
+
+Mutation #79 - CRP: Constant Replacement: 2 to 3 (increment)
+File: optax/tree_utils/_tree_math.py
+Line: 425
+Status: survived
+
+--- original
++++ mutated
+@@ -425,1 +425,1 @@
+-    half_order = order / 2
++    half_order = order / 3
+
+Mutation #80 - AOR: Arithmetic Operator Replacement: ** to *
+File: optax/tree_utils/_tree_math.py
+Line: 429
+Status: survived
+
+--- original
++++ mutated
+@@ -429,1 +429,1 @@
+-    return numerics.abs_sq(g) ** half_order
++    return numerics.abs_sq(g) * half_order
+
+Mutation #81 - AOR: Arithmetic Operator Replacement: ** to +
+File: optax/tree_utils/_tree_math.py
+Line: 429
+Status: survived
+
+--- original
++++ mutated
+@@ -429,1 +429,1 @@
+-    return numerics.abs_sq(g) ** half_order
++    return numerics.abs_sq(g) + half_order
+
+Mutation #82 - AOR: Arithmetic Operator Replacement: * to +
+File: optax/tree_utils/_tree_math.py
+Line: 433
+Status: survived
+
+--- original
++++ mutated
+@@ -433,1 +433,1 @@
+-          (1 - decay) * orderth_norm(g) + decay * t if g is not None else None
++          (1 - decay) + orderth_norm(g) + decay * t if g is not None else None
+
+Mutation #83 - AOR: Arithmetic Operator Replacement: * to /
+File: optax/tree_utils/_tree_math.py
+Line: 433
+Status: survived
+
+--- original
++++ mutated
+@@ -433,1 +433,1 @@
+-          (1 - decay) * orderth_norm(g) + decay * t if g is not None else None
++          (1 - decay) / orderth_norm(g) + decay * t if g is not None else None
+
+Mutation #84 - AOR: Arithmetic Operator Replacement: + to *
+File: optax/tree_utils/_tree_math.py
+Line: 433
+Status: survived
+
+--- original
++++ mutated
+@@ -433,1 +433,1 @@
+-          (1 - decay) * orderth_norm(g) + decay * t if g is not None else None
++          (1 - decay) * orderth_norm(g) * decay * t if g is not None else None
+
+Mutation #85 - AOR: Arithmetic Operator Replacement: + to -
+File: optax/tree_utils/_tree_math.py
+Line: 433
+Status: survived
+
+--- original
++++ mutated
+@@ -433,1 +433,1 @@
+-          (1 - decay) * orderth_norm(g) + decay * t if g is not None else None
++          (1 - decay) * orderth_norm(g) - decay * t if g is not None else None
+
+Mutation #86 - AOR: Arithmetic Operator Replacement: - to *
+File: optax/tree_utils/_tree_math.py
+Line: 433
+Status: survived
+
+--- original
++++ mutated
+@@ -433,1 +433,1 @@
+-          (1 - decay) * orderth_norm(g) + decay * t if g is not None else None
++          (1 * decay) * orderth_norm(g) + decay * t if g is not None else None
+
+Mutation #87 - AOR: Arithmetic Operator Replacement: - to +
+File: optax/tree_utils/_tree_math.py
+Line: 433
+Status: survived
+
+--- original
++++ mutated
+@@ -433,1 +433,1 @@
+-          (1 - decay) * orderth_norm(g) + decay * t if g is not None else None
++          (1 + decay) * orderth_norm(g) + decay * t if g is not None else None
+
+Mutation #88 - CRP: Constant Replacement: 1 to -1 (negate)
+File: optax/tree_utils/_tree_math.py
+Line: 433
+Status: survived
+
+--- original
++++ mutated
+@@ -433,1 +433,1 @@
+-          (1 - decay) * orderth_norm(g) + decay * t if g is not None else None
++          (-1 - decay) * orderth_norm(g) + decay * t if g is not None else None
+
+Mutation #89 - CRP: Constant Replacement: 1 to 0 (decrement)
+File: optax/tree_utils/_tree_math.py
+Line: 433
+Status: survived
+
+--- original
++++ mutated
+@@ -433,1 +433,1 @@
+-          (1 - decay) * orderth_norm(g) + decay * t if g is not None else None
++          (0 - decay) * orderth_norm(g) + decay * t if g is not None else None
+
+Mutation #90 - CRP: Constant Replacement: 1 to 2 (increment)
+File: optax/tree_utils/_tree_math.py
+Line: 433
+Status: survived
+
+--- original
++++ mutated
+@@ -433,1 +433,1 @@
+-          (1 - decay) * orderth_norm(g) + decay * t if g is not None else None
++          (2 - decay) * orderth_norm(g) + decay * t if g is not None else None
+
+Mutation #91 - CRP: Constant Replacement: 1 to -1 (negate)
+File: optax/tree_utils/_tree_math.py
+Line: 449
+Status: survived
+
+--- original
++++ mutated
+@@ -449,1 +449,1 @@
+-  bias_correction_ = 1 - decay**count
++  bias_correction_ = -1 - decay**count
+
+Mutation #92 - CRP: Constant Replacement: 1 to 0 (decrement)
+File: optax/tree_utils/_tree_math.py
+Line: 449
+Status: killed
+
+--- original
++++ mutated
+@@ -449,1 +449,1 @@
+-  bias_correction_ = 1 - decay**count
++  bias_correction_ = 0 - decay**count
+
+Mutation #93 - CRP: Constant Replacement: 1 to 2 (increment)
+File: optax/tree_utils/_tree_math.py
+Line: 449
+Status: survived
+
+--- original
++++ mutated
+@@ -449,1 +449,1 @@
+-  bias_correction_ = 1 - decay**count
++  bias_correction_ = 2 - decay**count
+
+Mutation #94 - AOR: Arithmetic Operator Replacement: / to *
+File: optax/tree_utils/_tree_math.py
+Line: 452
+Status: survived
+
+--- original
++++ mutated
+@@ -452,1 +452,1 @@
+-  return jax.tree.map(lambda t: t / bias_correction_.astype(t.dtype), moment)
++  return jax.tree.map(lambda t: t * bias_correction_.astype(t.dtype), moment)
+
+Mutation #95 - AOR: Arithmetic Operator Replacement: / to -
+File: optax/tree_utils/_tree_math.py
+Line: 452
+Status: survived
+
+--- original
++++ mutated
+@@ -452,1 +452,1 @@
+-  return jax.tree.map(lambda t: t / bias_correction_.astype(t.dtype), moment)
++  return jax.tree.map(lambda t: t - bias_correction_.astype(t.dtype), moment)
+
+Mutation #96 - CRP: Constant Replacement: 05 to 0
+File: optax/tree_utils/_tree_math.py
+Line: 472
+Status: killed
+
+--- original
++++ mutated
+@@ -472,1 +472,1 @@
+-    rtol: jax.typing.ArrayLike = 1e-05,
++    rtol: jax.typing.ArrayLike = 1e-0,
+
+Mutation #97 - CRP: Constant Replacement: 05 to 1
+File: optax/tree_utils/_tree_math.py
+Line: 472
+Status: survived
+
+--- original
++++ mutated
+@@ -472,1 +472,1 @@
+-    rtol: jax.typing.ArrayLike = 1e-05,
++    rtol: jax.typing.ArrayLike = 1e-1,
+
+Mutation #98 - CRP: Constant Replacement: 05 to 2
+File: optax/tree_utils/_tree_math.py
+Line: 472
+Status: survived
+
+--- original
++++ mutated
+@@ -472,1 +472,1 @@
+-    rtol: jax.typing.ArrayLike = 1e-05,
++    rtol: jax.typing.ArrayLike = 1e-2,
+
+Mutation #99 - CRP: Constant Replacement: 05 to 4 (decrement)
+File: optax/tree_utils/_tree_math.py
+Line: 472
+Status: survived
+
+--- original
++++ mutated
+@@ -472,1 +472,1 @@
+-    rtol: jax.typing.ArrayLike = 1e-05,
++    rtol: jax.typing.ArrayLike = 1e-4,
+
