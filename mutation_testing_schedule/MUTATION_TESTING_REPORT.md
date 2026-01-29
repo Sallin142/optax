@@ -89,12 +89,12 @@ Replaces logical operators:
 
 ## 4. Mutation Distribution
 
-| Operator | Count | Percentage |
-|----------|-------|------------|
-| AOR | 56 | 43.1% |
-| ROR | 18 | 13.8% |
-| CRP | 55 | 42.3% |
-| LCR | 1 | 0.8% |
+| Operator  | Count   | Percentage |
+| --------- | ------- | ---------- |
+| AOR       | 56      | 43.1%      |
+| ROR       | 18      | 13.8%      |
+| CRP       | 55      | 42.3%      |
+| LCR       | 1       | 0.8%       |
 | **Total** | **130** | **100.0%** |
 
 ---
@@ -116,21 +116,21 @@ indicating good test coverage and fault detection capability.
 
 Mutation testing results broken down by individual schedule functions:
 
-| Routine | Total Mutants | Killed | Survived | Effectiveness |
-|---------|---------------|--------|----------|---------------|
-| `_cosine_interpolate` | 8 | 8 | 0 | 100.0% |
-| `_linear_interpolate` | 3 | 3 | 0 | 100.0% |
-| `cosine_decay_schedule` | 16 | 14 | 2 | 87.5% |
-| `cosine_onecycle_schedule` | 9 | 6 | 3 | 66.7% |
-| `exponential_decay` | 16 | 10 | 6 | 62.5% |
-| `linear_onecycle_schedule` | 12 | 8 | 4 | 66.7% |
-| `linear_schedule` | 2 | 2 | 0 | 100.0% |
-| `piecewise_constant_schedule` | 10 | 8 | 2 | 80.0% |
-| `piecewise_interpolate_schedule` | 27 | 24 | 3 | 88.9% |
-| `polynomial_schedule` | 15 | 11 | 4 | 73.3% |
-| `sgdr_schedule` | 4 | 4 | 0 | 100.0% |
-| `warmup_cosine_decay_schedule` | 7 | 4 | 3 | 57.1% |
-| `warmup_exponential_decay_schedule` | 1 | 0 | 1 | 0.0% |
+| Routine                             | Total Mutants | Killed | Survived | Effectiveness |
+| ----------------------------------- | ------------- | ------ | -------- | ------------- |
+| `_cosine_interpolate`               | 8             | 8      | 0        | 100.0%        |
+| `_linear_interpolate`               | 3             | 3      | 0        | 100.0%        |
+| `cosine_decay_schedule`             | 16            | 14     | 2        | 87.5%         |
+| `cosine_onecycle_schedule`          | 9             | 6      | 3        | 66.7%         |
+| `exponential_decay`                 | 16            | 10     | 6        | 62.5%         |
+| `linear_onecycle_schedule`          | 12            | 8      | 4        | 66.7%         |
+| `linear_schedule`                   | 2             | 2      | 0        | 100.0%        |
+| `piecewise_constant_schedule`       | 10            | 8      | 2        | 80.0%         |
+| `piecewise_interpolate_schedule`    | 27            | 24     | 3        | 88.9%         |
+| `polynomial_schedule`               | 15            | 11     | 4        | 73.3%         |
+| `sgdr_schedule`                     | 4             | 4      | 0        | 100.0%        |
+| `warmup_cosine_decay_schedule`      | 7             | 4      | 3        | 57.1%         |
+| `warmup_exponential_decay_schedule` | 1             | 0      | 1        | 0.0%          |
 
 ### Key Observations:
 - **Best Tested Routine:** `linear_schedule` (100.0% effectiveness)
@@ -142,8 +142,8 @@ Mutation testing results broken down by individual schedule functions:
 
 Of the 28 survived mutants, 20 were analyzed in detail:
 
-- **Potentially Equivalent Mutants:** 4
-- **Require Additional Tests:** 16
+- **Potentially Equivalent Mutants:** 2
+- **Require Additional Tests:** 18
 
 ### 7.1 Mutant #2 - CRP
 **Location:** Line 126
@@ -198,9 +198,9 @@ if transition_begin < 0:
 if transition_begin < 1:
 ```
 
-**Analysis:** ✓ Likely Equivalent Mutant
+**Analysis:** ✗ Non-Equivalent - Test Coverage Gap
 
-**Reason:** transition_begin must be positive (or 0). Changing boundary from <0 to <1 is equivalent as 0 is valid
+**Reason:** Mutation incorrectly treats transition_begin=0 as invalid when 0 is a valid value per documentation
 
 ### 7.4 Mutant #5 - CRP
 **Location:** Line 138
@@ -318,9 +318,9 @@ if transition_begin < 0:
 if transition_begin < 1:
 ```
 
-**Analysis:** ✓ Likely Equivalent Mutant
+**Analysis:** ✗ Non-Equivalent - Test Coverage Gap
 
-**Reason:** transition_begin must be positive (or 0). Changing boundary from <0 to <1 is equivalent as 0 is valid
+**Reason:** Mutation incorrectly treats transition_begin=0 as invalid when 0 is a valid value per documentation
 
 ### 7.10 Mutant #34 - CRP
 **Location:** Line 308
@@ -622,9 +622,9 @@ Mutation Score = (Killed Mutants / Total Mutants) × 100%
                 = 78.46%
 ```
 
-### 11.3 Adjusted Score (Excluding Estimated Equivalents)
-If we estimate that ~20% of survived mutants (5 mutants) are equivalent:
+### 11.3 Adjusted Score (Excluding Confirmed Equivalents)
+Excluding the 2 confirmed equivalent mutants (#3, #32):
 ```
-Adjusted Score = 102 / (130 - 5) × 100%
-               = 81.60%
+Adjusted Score = 102 / (130 - 2) × 100%
+               = 79.69%
 ```

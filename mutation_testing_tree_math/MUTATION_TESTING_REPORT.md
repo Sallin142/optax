@@ -87,12 +87,12 @@ Replaces logical operators:
 
 ## 4. Mutation Distribution
 
-| Operator | Count | Percentage |
-|----------|-------|------------|
-| AOR | 27 | 27.0% |
-| ROR | 30 | 30.0% |
-| CRP | 41 | 41.0% |
-| LCR | 2 | 2.0% |
+| Operator  | Count   | Percentage |
+| --------- | ------- | ---------- |
+| AOR       | 27      | 27.0%      |
+| ROR       | 30      | 30.0%      |
+| CRP       | 41      | 41.0%      |
+| LCR       | 2       | 2.0%       |
 | **Total** | **100** | **100.0%** |
 
 ---
@@ -114,22 +114,22 @@ indicating weak test coverage and fault detection capability.
 
 Mutation testing results broken down by individual tree math functions:
 
-| Routine | Total Mutants | Killed | Survived | Effectiveness |
-|---------|---------------|--------|----------|---------------|
-| `_square` | 2 | 2 | 0 | 100.0% |
-| `_vdot` | 5 | 3 | 2 | 60.0% |
-| `tree_add_scale` | 4 | 4 | 0 | 100.0% |
-| `tree_allclose` | 4 | 1 | 3 | 25.0% |
-| `tree_bias_correction` | 5 | 1 | 4 | 20.0% |
-| `tree_max` | 9 | 8 | 1 | 88.9% |
-| `tree_min` | 8 | 7 | 1 | 87.5% |
-| `tree_norm` | 25 | 18 | 7 | 72.0% |
-| `tree_scale` | 2 | 2 | 0 | 100.0% |
-| `tree_sum` | 6 | 3 | 3 | 50.0% |
-| `tree_update_infinity_moment` | 4 | 4 | 0 | 100.0% |
-| `tree_update_moment` | 3 | 0 | 3 | 0.0% |
-| `tree_update_moment_per_elem_norm` | 20 | 0 | 20 | 0.0% |
-| `tree_vdot` | 3 | 3 | 0 | 100.0% |
+| Routine                            | Total Mutants | Killed | Survived | Effectiveness |
+| ---------------------------------- | ------------- | ------ | -------- | ------------- |
+| `_square`                          | 2             | 2      | 0        | 100.0%        |
+| `_vdot`                            | 5             | 3      | 2        | 60.0%         |
+| `tree_add_scale`                   | 4             | 4      | 0        | 100.0%        |
+| `tree_allclose`                    | 4             | 1      | 3        | 25.0%         |
+| `tree_bias_correction`             | 5             | 1      | 4        | 20.0%         |
+| `tree_max`                         | 9             | 8      | 1        | 88.9%         |
+| `tree_min`                         | 8             | 7      | 1        | 87.5%         |
+| `tree_norm`                        | 25            | 18     | 7        | 72.0%         |
+| `tree_scale`                       | 2             | 2      | 0        | 100.0%        |
+| `tree_sum`                         | 6             | 3      | 3        | 50.0%         |
+| `tree_update_infinity_moment`      | 4             | 4      | 0        | 100.0%        |
+| `tree_update_moment`               | 3             | 0      | 3        | 0.0%          |
+| `tree_update_moment_per_elem_norm` | 20            | 0      | 20       | 0.0%          |
+| `tree_vdot`                        | 3             | 3      | 0        | 100.0%        |
 
 ### Key Observations:
 - **Best Tested Routine:** `tree_scale` (100.0% effectiveness)
@@ -141,8 +141,8 @@ Mutation testing results broken down by individual tree math functions:
 
 Of the 44 survived mutants, 20 were analyzed in detail:
 
-- **Potentially Equivalent Mutants:** 0
-- **Require Additional Tests:** 20
+- **Potentially Equivalent Mutants:** 2
+- **Require Additional Tests:** 18
 
 ### 7.1 Mutant #8 - ROR
 **Location:** Line 129
@@ -263,9 +263,9 @@ if jnp.size(array) == 0:
 if jnp.size(array) <= 0:
 ```
 
-**Analysis:** Non-Equivalent - Test Coverage Gap
+**Analysis:** Equivalent Mutant
 
-**Reason:** Mutation changes program behavior but no test detected the change
+**Reason:** Array sizes cannot be negative. jnp.size() returns non-negative integers, so `== 0` and `<= 0` both check for empty arrays only
 
 **Suggested Test:**
 Add test case covering line 212 with assertions validating the specific computation
@@ -284,9 +284,9 @@ if jnp.size(array) == 0:
 if jnp.size(array) <= 0:
 ```
 
-**Analysis:** Non-Equivalent - Test Coverage Gap
+**Analysis:** Equivalent Mutant
 
-**Reason:** Mutation changes program behavior but no test detected the change
+**Reason:** Array sizes cannot be negative. jnp.size() returns non-negative integers, so `== 0` and `<= 0` both check for empty arrays only
 
 **Suggested Test:**
 Add test case covering line 230 with assertions validating the specific computation
@@ -633,9 +633,9 @@ Mutation Score = (Killed Mutants / Total Mutants) x 100%
                 = 56.00%
 ```
 
-### 11.3 Adjusted Score (Excluding Estimated Equivalents)
-If we estimate that ~20% of survived mutants (8 mutants) are equivalent:
+### 11.3 Adjusted Score (Excluding Confirmed Equivalents)
+Excluding the 2 confirmed equivalent mutants (#25, #34):
 ```
-Adjusted Score = 56 / (100 - 8) x 100%
-               = 60.87%
+Adjusted Score = 56 / (100 - 2) × 100%
+               = 57.14%
 ```
