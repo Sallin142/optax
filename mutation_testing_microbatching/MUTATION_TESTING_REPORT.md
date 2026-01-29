@@ -111,16 +111,16 @@ Modifies assignment operators:
 
 ## 4. Mutation Distribution
 
-| Operator | Description | Count | Percentage |
-|----------|-------------|-------|------------|
-| CRP | Constant Replacement | 45 | 36.9% |
-| UOI | Unary Operator Insertion | 25 | 20.5% |
-| AOR | Arithmetic Operator Replacement | 23 | 18.9% |
-| ROR | Relational Operator Replacement | 11 | 9.0% |
-| ASR | Assignment Statement Replacement | 9 | 7.4% |
-| SDL | Statement Deletion | 8 | 6.6% |
-| LCR | Logical Connector Replacement | 1 | 0.8% |
-| **Total** | | **122** | **100.0%** |
+| Operator  | Description                      | Count   | Percentage |
+| --------- | -------------------------------- | ------- | ---------- |
+| CRP       | Constant Replacement             | 45      | 36.9%      |
+| UOI       | Unary Operator Insertion         | 25      | 20.5%      |
+| AOR       | Arithmetic Operator Replacement  | 23      | 18.9%      |
+| ROR       | Relational Operator Replacement  | 11      | 9.0%       |
+| ASR       | Assignment Statement Replacement | 9       | 7.4%       |
+| SDL       | Statement Deletion               | 8       | 6.6%       |
+| LCR       | Logical Connector Replacement    | 1       | 0.8%       |
+| **Total** |                                  | **122** | **100.0%** |
 
 ---
 
@@ -141,25 +141,25 @@ indicating moderate test coverage and fault detection capability.
 
 Mutation testing results broken down by individual microbatching functions:
 
-| Routine | Total Mutants | Killed | Survived | Effectiveness |
-|---------|---------------|--------|----------|---------------|
-| `_canonicalize` | 2 | 0 | 2 | 0.0% |
-| `_compose` | 6 | 6 | 0 | 100.0% |
-| `_concat` | 11 | 9 | 2 | 81.8% |
-| `_get_out_sharding` | 4 | 0 | 4 | 0.0% |
-| `_identity` | 1 | 1 | 0 | 100.0% |
-| `_lift` | 1 | 1 | 0 | 100.0% |
-| `_mean` | 6 | 3 | 3 | 50.0% |
-| `_normalize_fun_to_return_aux` | 2 | 1 | 1 | 50.0% |
-| `_reshape_all_args` | 11 | 9 | 2 | 81.8% |
-| `_running_mean` | 10 | 1 | 9 | 10.0% |
-| `_sum` | 2 | 2 | 0 | 100.0% |
-| `_with_extra_batch_axis` | 2 | 2 | 0 | 100.0% |
-| `_with_floating_check` | 2 | 2 | 0 | 100.0% |
-| `micro_grad` | 14 | 12 | 2 | 85.7% |
-| `micro_vmap` | 14 | 10 | 4 | 71.4% |
-| `microbatch` | 12 | 12 | 0 | 100.0% |
-| `reshape_batch_axis` | 22 | 7 | 15 | 31.8% |
+| Routine                        | Total Mutants | Killed | Survived | Effectiveness |
+| ------------------------------ | ------------- | ------ | -------- | ------------- |
+| `_canonicalize`                | 2             | 0      | 2        | 0.0%          |
+| `_compose`                     | 6             | 6      | 0        | 100.0%        |
+| `_concat`                      | 11            | 9      | 2        | 81.8%         |
+| `_get_out_sharding`            | 4             | 0      | 4        | 0.0%          |
+| `_identity`                    | 1             | 1      | 0        | 100.0%        |
+| `_lift`                        | 1             | 1      | 0        | 100.0%        |
+| `_mean`                        | 6             | 3      | 3        | 50.0%         |
+| `_normalize_fun_to_return_aux` | 2             | 1      | 1        | 50.0%         |
+| `_reshape_all_args`            | 11            | 9      | 2        | 81.8%         |
+| `_running_mean`                | 10            | 1      | 9        | 10.0%         |
+| `_sum`                         | 2             | 2      | 0        | 100.0%        |
+| `_with_extra_batch_axis`       | 2             | 2      | 0        | 100.0%        |
+| `_with_floating_check`         | 2             | 2      | 0        | 100.0%        |
+| `micro_grad`                   | 14            | 12     | 2        | 85.7%         |
+| `micro_vmap`                   | 14            | 10     | 4        | 71.4%         |
+| `microbatch`                   | 12            | 12     | 0        | 100.0%        |
+| `reshape_batch_axis`           | 22            | 7      | 15       | 31.8%         |
 
 ### Key Observations:
 - **Best Tested Routine:** `_with_floating_check` (100.0% effectiveness)
@@ -171,8 +171,8 @@ Mutation testing results broken down by individual microbatching functions:
 
 Of the 44 survived mutants, 5 representative mutants involving arithmetic and relational operators were analyzed in detail:
 
-- **Potentially Equivalent Mutants:** 1
-- **Non-Equivalent (Test Coverage Gap):** 4
+- **Potentially Equivalent Mutants:** 0
+- **Non-Equivalent (Test Coverage Gap):** 5
 
 ### 7.1 Mutant #40 - AOR (Arithmetic Operator Replacement)
 **Location:** Line 205 (`_running_mean` function)
@@ -243,9 +243,9 @@ new_state = carry * p + value * (1 - p)
 new_state = carry / p + value * (1 - p)
 ```
 
-**Analysis:** ⚠️ Potentially Equivalent (Edge Case)
+**Analysis:** ✗ Non-Equivalent - Test Coverage Gap
 
-**Reason:** When `index=0`, `p=0/(0+1)=0`. Original: `carry * 0 = 0`. Mutated: `carry / 0 = inf/nan`. However, if `carry` is initialized to 0 and tests only use cases where division by zero is masked or doesn't affect the final result, this mutation might appear equivalent. This is a **weak mutation** that requires careful test design to kill.
+**Reason:** Mutant causes division by zero when p=0, producing inf/nan. At index=1+, mutant divides instead of multiplies, fundamentally breaking the running mean calculation
 
 **Suggested Test:**
 ```python
@@ -380,9 +380,9 @@ Mutation Score = (Killed Mutants / Total Mutants) × 100%
                 = 63.93%
 ```
 
-### 11.3 Adjusted Score (Excluding Estimated Equivalents)
-If we estimate that ~20% of survived mutants (8 mutants) are equivalent:
+### 11.3 Adjusted Score (Excluding Confirmed Equivalents)
+No confirmed equivalent mutants were identified:
 ```
-Adjusted Score = 78 / (122 - 8) × 100%
-               = 68.42%
+Adjusted Score = 78 / 122 × 100%
+               = 63.93% (unchanged)
 ```
